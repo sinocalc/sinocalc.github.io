@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Sinoalice Vanguard Grid Comparison Calculator</title>
+</head>
+<body>
+    <div id="modal">
+        <div id="popup">
+            <span id="close">&times;</span>
+            <div id="instructionsText">
+                <div class="instructionsHeader">
+                    How-to
+                </div>
+                <div class="instructionsBody" id="howto">
+                    <ol>
+                        <li>Fill in the P.Atk and M.Atk values.</li>
+                        <li>Select the corresponding weapon type for each slot. If slot is empty, leave it on none.</li>
+                        <li>Select the corresponding skill tier for each weapon.</li>
+                        <li>Fill in the skill level of each weapon.</li>
+                        <li>If the weapon has Dauntless Courage, select the tier and fill in the skill level.</li>
+                        <li>Weapon names are optional and only help keep track of the weapon.</li>
+                        <li>You can copy the grid over to make adjustments or create the second grid from scratch.</li>
+                        <li>Click the compare button once both grids are filled out correctly.</li>
+                    </ol>
+                </div>
+                <div class="instructionsHeader">
+                    Features
+                </div>
+                <div class="instructionsBody" id="features">
+                    <ul>
+                        <li>Grids can be copied to one another, overwriting existing information.</li>
+                        <li>Click export to download grids as a json file.</li>
+                        <li>Click import and select an exported json file to import that grid.</li>
+                    </ul>
+                </div>
+                <div class="instructionsHeader">
+                    Results
+                </div>
+                <div class="instructionsBody" id="results">
+                    <ul>
+                        <li>Almost all modifiers are applied after the atk - def is calculated.</li>
+                        <li>If the grid atk values are different, the damage differential varies according to defense.</li>
+                        <li>Example: (11 atk - 0 def) / (10 atk - 0 def) is 110% but (11 atk - 5 def) / (10 atk - 5 def) is 120%</li>
+                        <li>After clicking compare, use the sliders to test different defense values.</li>
+                        <li>You can dynamically view the damage differential between the grids as the defense value changes.</li>
+                        <li>Use this as reference on how the grids compare at different defense values.</li>
+                        <li>Depending on the grids, there may be breakpoints where the grids reverse in strength.</li>
+                        <li>This is only a simple simulation, ultimately it's up to you to figure out how to best use this information.</li>
+                    </ul>
+                </div>
+                <div class="instructionsBody" id="credits">
+                    <ul>
+                        <li>Thanks for checking this tool out! I hope you find some use out of it.</li>
+                        <li>Get in touch with suggestions and feedback through Discord at waynerdog#7781</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div id="pageHeading">
+            <div id="headingText">
+                Sinoalice Vanguard Grid Comparator
+            </div>
+            <div id="helpLink">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/160px-Infobox_info_icon.svg.png" width="15" height="15">
+                <a href="">
+                    help
+                </a>
+            </div>
+        </div>
+        <div id="weaponGridFormDiv">
+            <form class="weaponGridForm">
+                <div id="weaponGrid1">
+                    <div class="tableHeading">Weapon Grid 1</div>
+                    <div class="atkValue">
+                        <div class="patkDiv">
+                            <label for="patkInput">P.Atk</label>
+                            <input type="text" name="patkInput" class="patkInput">
+                        </div>
+                        <div class="matkDiv">
+                            <label for="matkInput">M.Atk</label>
+                            <input type="text" name="matkInput" class="matkInput">
+                        </div>
+                    </div>
+                    <table class="weaponGridTable">
+                        <tr>
+                            <th style="width: 12%;">
+                                Type
+                            </th>
+                            <th style="width: 22%;">
+                                Skill Modifier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
+                            </th>
+                            <th style="width: 9%;">
+                                DC Tier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
+                            </th>
+                            <th style="width: 20%;">
+                                Weapon Name
+                            </th>
+                            <th style="width: 17%;">
+                                Job
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                            <td>
+                                <select name="job" class="job">
+                                    <option value="0">Breaker</option>
+                                    <option value="1">Crusher</option>
+                                    <option value="2">Gunner</option>
+                                    <option value="3">Paladin</option>
+                                    <option value="4">HMN Breaker</option>
+                                    <option value="5">HMN Crusher</option>
+                                    <option value="6">HMN Gunner</option>
+                                    <option value="7">HMN Paladin</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="btnDiv">
+                        <input type="button" value="Copy to Grid 2" class="btn" id="copytoBtn">
+                        <input type="button" value="Copy from Grid 2" class="btn" id="copyfromBtn">
+                    </div>
+                </div>
+                <div id="weaponGrid2">
+                    <div class="tableHeading">Weapon Grid 2</div>
+                    <div class="atkValue">
+                        <div class="patkDiv">
+                            <label for="patkInput">P.Atk</label>
+                            <input type="text" name="patkInput" class="patkInput">
+                        </div>
+                        <div class="matkDiv">
+                            <label for="matkInput">M.Atk</label>
+                            <input type="text" name="matkInput" class="matkInput">
+                        </div>
+                    </div>
+                    <table class="weaponGridTable">
+                        <tr>
+                            <th style="width: 12%;">
+                                Type
+                            </th>
+                            <th style="width: 22%;">
+                                Skill Modifier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
+                            </th>
+                            <th style="width: 9%;">
+                                DC Tier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
+                            </th>
+                            <th style="width: 20%;">
+                                Weapon Name
+                            </th>
+                            <th style="width: 17%;">
+                                Job
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                            <td>
+                                <select name="job" class="job">
+                                    <option value="0">Breaker</option>
+                                    <option value="1">Crusher</option>
+                                    <option value="2">Gunner</option>
+                                    <option value="3">Paladin</option>
+                                    <option value="4">HMN Breaker</option>
+                                    <option value="5">HMN Crusher</option>
+                                    <option value="6">HMN Gunner</option>
+                                    <option value="7">HMN Paladin</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Sword</option>
+                                    <option value="2">Hammer</option>
+                                    <option value="3">Bow</option>
+                                    <option value="4">Spear</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">DC I</option>
+                                    <option value="2">DC II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="btnDiv">
+                        <input type="submit" value="Compare" class="btn" id="submitBtn">
+                        <input type="submit" value="Export" class="btn" id="exportBtn">
+                        <input type="submit" value="Import" class="btn" id="importBtn">
+                        <input type="file" id="selectFiles" value="Import" class="btn">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="resultsDiv">
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

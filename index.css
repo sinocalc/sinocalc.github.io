@@ -1,0 +1,382 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, 
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+body {
+    line-height: 1;
+    background-color: rgb(240, 240, 240);
+}
+
+#container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#headingText {
+    font-size: 250%;
+    font-weight: bold;
+    padding: 30px 5px 20px 20px;
+    display: inline-block;
+}
+
+.atkValue {
+    margin-left: 20px;
+}
+
+.patkDiv {
+    margin: 10px 10px 10px 0px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.matkDiv {
+    margin: 10px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.tableHeading {
+    font-size: 150%;
+    font-weight: bold;
+    margin: 20px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+td {
+    text-align: center;
+}
+
+.weaponType, .weaponModifier, .weaponSupSkill, .job, .weaponSkillLevel, .supportSkillLevel, .weaponName {
+    width: 100%;
+    box-sizing: border-box;
+     -webkit-box-sizing:border-box;
+     -moz-box-sizing: border-box;
+}
+
+.weaponGridTable {
+    margin-left: 18px;
+}
+
+.btn {
+    margin: 20px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#copyfromBtn {
+    margin-left: 5px;
+}
+
+#copytoBtn {
+    margin-right: 5px;
+}
+
+#exportBtn {
+    margin-left: 5px;
+    margin-right: 5px;
+    vertical-align: top;
+}
+
+#importBtn {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#selectFiles {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#submitBtn {
+    margin-right: 5px;
+    vertical-align: top;
+}
+
+#resultsDiv {
+    margin: 20px;
+}
+
+#weaponGrid1, #weaponGrid2 {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#importBtnDiv {
+    display: inline-block;
+}
+
+.weaponGridForm {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#weaponGridFormDiv {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+input, select {
+    font-family: inherit;
+    background-color: rgb(232,232,232);
+    border: 0;
+    margin: 2px;
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 2px;
+}
+
+.btnDiv {
+    margin-bottom: 15px;
+}
+
+#file-upload-button {
+    font-size: 1000%;
+}
+
+.sliderDiv {
+    display: inline-block;
+    text-align: right;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+#resultsTextDiv {
+    display: inline-block;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 250px;
+    padding: 0;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px #000000;
+    background: #E0E0E0;
+    border-radius: 10px;
+    border: 1px solid #D3D3D3;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 1px solid #808080;
+    height: 15px;
+    width: 15px;
+    border-radius: 25px;
+    background: #D3D3D3;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -7.5px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #E0E0E0;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px #000000;
+    background: #E0E0E0;
+    border-radius: 10px;
+    border: 1px solid #D3D3D3;
+}
+
+input[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 1px solid #808080;
+    height: 15px;
+    width: 15px;
+    border-radius: 25px;
+    background: #D3D3D3;
+    cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #E0E0E0;
+    border: 1px solid #D3D3D3;
+    border-radius: 20px;
+    box-shadow: 0px 0px 0px #000000;
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #E0E0E0;
+    border: 1px solid #D3D3D3;
+    border-radius: 20px;
+    box-shadow: 0px 0px 0px #000000;
+}
+
+input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 0px 0px 0px #000000;
+    border: 1px solid #808080;
+    height: 15px;
+    width: 15px;
+    border-radius: 25px;
+    background: #D3D3D3;
+    cursor: pointer;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #E0E0E0;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #E0E0E0;
+}
+
+#popup {
+    position: fixed;
+    width: 800px;
+    height: 800px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(240, 240, 240);
+    border-radius: 25px;
+}
+
+#modal {
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+#close {
+    color: #aaaaaa;
+    top: 20px;
+    right: 25px;
+    font-size: 40px;
+    font-weight: bold;
+    position: fixed;
+}
+
+#close:hover,
+#close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#instructionsText {
+    padding-top: 25px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.instructionsHeader {
+    font-size: 170%;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.instructionsBody {
+    font-size: 18px;
+    width: 92%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+ul {
+    list-style-type: circle;
+}
+
+li {
+    margin: 6px 0px;
+}
+
+#credits {
+    margin-top: 30px;
+}
+
+#credits ul {
+    list-style-type: none;
+}
+
+#helpLink {
+    display: inline-block;
+}
+
+#helpLink:hover {
+    cursor: pointer;
+}
+
+a {
+    margin-left: 2px;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+a:active {
+    color: black;
+    text-decoration: none;
+}
