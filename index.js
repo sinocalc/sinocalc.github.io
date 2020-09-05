@@ -481,8 +481,6 @@ function calculateResults(results) {
     pdefSlider.max = (patkValues[0].value > patkValues[1].value) ? (3 / 2) * comboMod * patkValues[1].value : (3 / 2) * comboMod * patkValues[0].value;
     mdefSlider.max = (matkValues[0].value > matkValues[1].value) ? (3 / 2) * comboMod * matkValues[1].value : (3 / 2) * comboMod * matkValues[0].value;
 
-    console.log(comboMod);
-
     for (var i = 0; i < 2; i++) {
         var weaponMods = results[i];
         var damageTotal = 0;
