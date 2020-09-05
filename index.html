@@ -20,7 +20,7 @@
                         <li>Select the corresponding skill tier for each weapon.</li>
                         <li>Fill in the skill level of each weapon.</li>
                         <li>If the weapon has Dauntless Courage, select the tier and fill in the skill level.</li>
-                        <li>Weapon names are optional and only help keep track.</li>
+                        <li>Grid and weapon names are optional and only help keep track.</li>
                         <li>You can copy the grid over to make adjustments or create the second grid from scratch.</li>
                         <li>Click the compare button once both grids are filled out correctly.</li>
                     </ol>
@@ -31,7 +31,7 @@
                 <div class="instructionsBody" id="features">
                     <ul>
                         <li>Grids can be copied to one another, overwriting existing information.</li>
-                        <li>Click export to download grids as a json file.</li>
+                        <li>Click export to download the selected as a json file.</li>
                         <li>Click import and select an exported json file to import that grid.</li>
                     </ul>
                 </div>
@@ -73,7 +73,10 @@
         <div id="weaponGridFormDiv">
             <form class="weaponGridForm">
                 <div id="weaponGrid1">
-                    <div class="tableHeading">Weapon Grid 1</div>
+                    <div class="tableHeading">
+                        Weapon Grid 1: 
+                        <input type="text" class="gridName">
+                    </div>
                     <div class="atkValue">
                         <div class="patkDiv">
                             <label for="patkInput">P.Atk</label>
@@ -762,12 +765,30 @@
                         </tr>
                     </table>
                     <div class="btnDiv">
-                        <input type="button" value="Copy to Grid 2" class="btn" id="copytoBtn">
-                        <input type="button" value="Copy from Grid 2" class="btn" id="copyfromBtn">
+                        <select class="copySelect" id="copySelect1">
+                            <option value="0">1</option>
+                            <option value="1">2</option>
+                        </select>
+                        <p>to</p>
+                        <select class="copySelect" id="copySelect2">
+                            <option value="0">1</option>
+                            <option value="1" selected="selected">2</option>
+                        </select>
+                        <input type="button" value="Copy" class="btn" id="copyBtn">
+                        <select class="exportSelect" id="exportSelect">
+                            <option value="0">1</option>
+                            <option value="1">2</option>
+                        </select>
+                        <input type="submit" value="Export" class="btn" id="exportBtn">
+                        <input type="submit" value="Import" class="btn" id="importBtn">
+                        <input type="file" id="selectFiles" value="Import" class="btn">
                     </div>
                 </div>
                 <div id="weaponGrid2">
-                    <div class="tableHeading">Weapon Grid 2</div>
+                    <div class="tableHeading">
+                        Weapon Grid 2: 
+                        <input type="text" class="gridName">
+                    </div>
                     <div class="atkValue">
                         <div class="patkDiv">
                             <label for="patkInput">P.Atk</label>
@@ -1457,9 +1478,6 @@
                     </table>
                     <div class="btnDiv">
                         <input type="submit" value="Compare" class="btn" id="submitBtn">
-                        <input type="submit" value="Export" class="btn" id="exportBtn">
-                        <input type="submit" value="Import" class="btn" id="importBtn">
-                        <input type="file" id="selectFiles" value="Import" class="btn">
                     </div>
                 </div>
             </form>

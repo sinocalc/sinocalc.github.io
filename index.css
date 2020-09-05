@@ -85,22 +85,19 @@ td {
     cursor: pointer;
 }
 
-#copyfromBtn {
-    margin-left: 5px;
-}
-
-#copytoBtn {
-    margin-right: 5px;
+#copyBtn {
+    margin-left: 10px;
+    margin-right: 20px;
 }
 
 #exportBtn {
-    margin-left: 5px;
+    margin-left: 10px;
     margin-right: 5px;
     vertical-align: top;
 }
 
 #importBtn {
-    margin-left: 5px;
+    margin-left: 0px;
     margin-right: 5px;
 }
 
@@ -412,4 +409,26 @@ a:active {
 #resultsText {
     display: inline-block;
     margin-left: 40px;
+}
+
+.copySelect {
+    display: inline-block;
+}
+
+#copySelect1 {
+    margin-left: 20px;
+}
+
+p {
+    display: inline-block;
+}
+
+#exportSelect {
+    display: inline-block;
+    margin-left: 325px;
+}
+
+.gridName {
+    margin-left: 10px;
+    width: 175px;
 }

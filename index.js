@@ -22,24 +22,20 @@ document.getElementById("submitBtn").onclick = function() {
     return false;
 };
 
-document.getElementById("copytoBtn").onclick = function() {
-    var weaponGrid = createGrid(0);
+document.getElementById("copyBtn").onclick = function() {
+    var copyFrom = document.getElementById("copySelect1").value;
+    var copyTo = document.getElementById("copySelect2").value;
+    var weaponGrid = createGrid(copyFrom);
 
-    copyGrid(weaponGrid, 1);
-
-    return false;
-};
-
-document.getElementById("copyfromBtn").onclick = function() {
-    var weaponGrid = createGrid(1);
-
-    copyGrid(weaponGrid, 0);
+    copyGrid(weaponGrid, copyTo);
 
     return false;
 };
 
 document.getElementById("exportBtn").onclick = function() {
-    exportGrids();
+    var gridNum = document.getElementById("exportSelect").value;
+
+    exportGrid(gridNum);
 
     return false;
 };
@@ -62,7 +58,8 @@ document.getElementById('selectFiles').onchange = function() {
     fr.onload = function(e) { 
         console.log(e);
         var result = JSON.parse(e.target.result);
-        importJsonFile(result);
+        var gridNum = document.getElementById("exportSelect").value;
+        importJsonFile(result,gridNum);
     }
     
     fr.readAsText(files.item(0));
@@ -128,6 +125,7 @@ function createGrid(gridNumber) {
     }
 
     weaponGrid[22] = document.getElementsByClassName("job")[gridNumber].value;
+    weaponGrid[23] = document.getElementsByClassName("gridName")[gridNumber].value;
 
     return weaponGrid;
 }
@@ -550,6 +548,7 @@ function copyGrid(weaponGrid, copyNum) {
     }
 
     document.getElementsByClassName("job")[copyNum].value = weaponGrid[22];
+    document.getElementsByClassName("gridName")[copyNum].value = weaponGrid[23];
 }
 
 function weaponTypeSelect(weaponType, index) {
@@ -564,19 +563,24 @@ function weaponTypeSelect(weaponType, index) {
     }
 }
 
-function exportGrids() {
-    var weaponGrids = [];
-    weaponGrids[0] = createGrid(0);
-    weaponGrids[1] = createGrid(1);
+function exportGrid(gridNum) {
+    var weaponGrid = createGrid(gridNum);
+    var filename = document.getElementsByClassName("gridName")[gridNum].value;
 
-    exportToJsonFile(weaponGrids);
+    exportToJsonFile(weaponGrid, filename);
 }
 
-function exportToJsonFile(jsonData) {
+function exportToJsonFile(jsonData, filename) {
     let dataStr = JSON.stringify(jsonData);
     let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    let exportFileDefaultName;
 
-    let exportFileDefaultName = 'weapongrids.json';
+    if (filename == "") {
+        exportFileDefaultName = 'weapongrid.json';
+    } else {
+        exportFileDefaultName = filename;
+    }
+
 
     let linkElement = document.createElement('a');
     linkElement.setAttribute('href', dataUri);
@@ -584,10 +588,8 @@ function exportToJsonFile(jsonData) {
     linkElement.click();
 }
 
-function importJsonFile(jsonData) {
-    var weaponGrid1 = jsonData[0];
-    var weaponGrid2 = jsonData[1];
+function importJsonFile(jsonData, gridNum) {
+    var weaponGrid = jsonData;
 
-    copyGrid(weaponGrid1, 0);
-    copyGrid(weaponGrid2, 1);
+    copyGrid(weaponGrid, gridNum);
 }
