@@ -51,6 +51,7 @@ body {
     margin: 10px;
     font-weight: bold;
     display: inline-block;
+    margin-left: -60px;
 }
 
 .tableHeading {
@@ -149,6 +150,7 @@ input, select {
     font-size: 14px;
     border-radius: 2px;
     padding: 2px;
+    text-align: right;
 }
 
 .btnDiv {
@@ -169,16 +171,17 @@ input, select {
 
 #resultsTextDiv {
     display: inline-block;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
     font-size: 150%;
     font-weight: bold;
 }
 
 .slider {
     -webkit-appearance: none;
-    width: 250px;
+    width: 200px;
     padding: 0;
+    display: block;
 }
 
 input[type=range]:focus {
@@ -379,4 +382,34 @@ a:hover {
 a:active {
     color: black;
     text-decoration: none;
+}
+
+.sliderText {
+    width: 50px;
+    display: inline-block;
+}
+
+.defValueDiv {
+    display: inline-block;
+}
+
+.patkInput, .matkInput {
+    width: 50%;
+}
+
+#comboSlider {
+    width: 125px;
+}
+
+#comboText {
+    margin-left: -125px;
+}
+
+#resultsDamage {
+    display: inline-block;
+}
+
+#resultsText {
+    display: inline-block;
+    margin-left: 40px;
 }
