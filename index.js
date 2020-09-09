@@ -13,14 +13,24 @@ document.getElementById("helpLink").onclick = function() {
 }
 
 document.getElementById("submitBtn").onclick = function() {
-    if (checkInputs()) {
-        calculateGrids();
+    if (checkInputs(2)) {
+        compareGrids();
     } else {
         window.alert("Please check your inputs.");
     }
 
     return false;
 };
+
+document.getElementById("calcBtn").onclick = function() {
+    if (checkInputs(1)) {
+        calculateGrid();
+    } else {
+        window.alert("Please check your inputs.");
+    }
+
+    return false;
+}
 
 document.getElementById("copyBtn").onclick = function() {
     var copyFrom = document.getElementById("copySelect1").value;
@@ -53,6 +63,9 @@ document.getElementById("closeBtn").onclick = function() {
     document.getElementById("copyDiv").style.display = "none";
     document.getElementById("exportSelect").value = 0;
     document.getElementsByClassName("tableHeading")[0].innerHTML = 'Weapon Grid: <input type="text" class="gridName">';
+    document.getElementById("resultsDiv").innerHTML = "";
+
+    clearCalcResults();
 
     return false;
 };
@@ -63,6 +76,8 @@ document.getElementById("openCompareBtn").onclick = function() {
     document.getElementById("exportSelect").style.display = "inline-block";
     document.getElementById("copyDiv").style.display = "block";
     document.getElementsByClassName("tableHeading")[0].innerHTML = 'Weapon Grid 1: <input type="text" class="gridName">';
+    document.getElementById("resultsDiv").innerHTML = "";
+    clearGrid(2);
 
     return false;
 }
@@ -94,7 +109,7 @@ for (let i = 0; i < 40; i++) {
     };
 }
 
-function checkInputs() {
+function checkInputs(numGrids) {
     var patk = document.getElementsByClassName("patkInput");
     var matk = document.getElementsByClassName("matkInput");
     var weaponType = document.getElementsByClassName("weaponType");
@@ -102,7 +117,7 @@ function checkInputs() {
     var weaponSupSkill = document.getElementsByClassName("weaponSupSkill");
     var supportSkillLevel = document.getElementsByClassName("supportSkillLevel");
 
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < numGrids; i++) {
         if (!Number.isInteger(+patk[i].value) || !Number.isInteger(+matk[i].value) || patk[i].value < 1 || matk[i].value < 1) {
             return false;
         }
@@ -150,21 +165,31 @@ function createGrid(gridNumber) {
     return weaponGrid;
 }
 
-function calculateGrids() {
+function compareGrids() {
     var weaponGrids = [];
     var results = [];
 
     weaponGrids[0] = createGrid(0);
     weaponGrids[1] = createGrid(1);
 
-    results = calculateMods(weaponGrids);
+    results = calculateMods(weaponGrids, 2);
     displayResults(results);
 }
 
-function calculateMods(weaponGrids) {
+function calculateGrid() {
+    var weaponGrids = [];
     var results = [];
 
-    for (var i = 0; i < 2; i++) {
+    weaponGrids[0] = createGrid(0);
+
+    results = calculateMods(weaponGrids, 1);
+    processSingleGridResults(results);
+}
+
+function calculateMods(weaponGrids, numGrids) {
+    var results = [];
+
+    for (var i = 0; i < numGrids; i++) {
         var weaponGrid = weaponGrids[i];
         var dcMod = 1;
         var damageMods = [];
@@ -274,6 +299,8 @@ function calculateMods(weaponGrids) {
             damageMods[j - 2] = weaponMod;
         }
 
+        damageMods[20] = dcMod;
+
         results[i] = damageMods;
     }
 
@@ -283,14 +310,22 @@ function calculateMods(weaponGrids) {
 function displayResults(results) {
    var resultsTextString;
 
-    createResultsRegion();
+    createResultsRegion(2);
     resultsTextString = calculateResults(results);
 
     document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
     document.getElementById("resultsText").innerHTML = resultsTextString[1];
 }
 
-function createResultsRegion() {
+function processSingleGridResults(mods) {
+    var results = [];
+ 
+     createResultsRegion(1);
+     results = calculateSingleGridResults(mods);
+     displaySingleGridResults(results);
+ }
+
+function createResultsRegion(numGrids) {
     var pdefSlider = document.createElement("input");
     var mdefSlider = document.createElement("input");
     var comboSlider = document.createElement("input");
@@ -314,13 +349,25 @@ function createResultsRegion() {
     pdefSlider.classList.add("slider");
     pdefSlider.type = "range";
     pdefSlider.min = 0;
-    pdefSlider.max = (patk[0].value > patk[1].value) ? (3 / 2) * patk[1].value : (3 / 2) * patk[0].value;
+
+    if (numGrids == 1) {
+        pdefSlider.max = (3 / 2) * patk[0].value;
+    } else {
+        pdefSlider.max = (patk[0].value > patk[1].value) ? (3 / 2) * patk[1].value : (3 / 2) * patk[0].value;
+    }
+
     pdefSlider.value = (pdefSlider.min + pdefSlider.max) / 2;
     mdefSlider.id = "mdefSlider";
     mdefSlider.classList.add("slider");
     mdefSlider.type = "range";
     mdefSlider.min = 0;
-    mdefSlider.max = (matk[0].value > matk[1].value) ? (3 / 2) * matk[1].value : (3 / 2) * matk[0].value;
+
+    if (numGrids == 1) {
+        mdefSlider.max = (3 / 2) * matk[0].value;
+    } else {
+        mdefSlider.max = (matk[0].value > matk[1].value) ? (3 / 2) * matk[1].value : (3 / 2) * matk[0].value;
+    }
+
     mdefSlider.value = (mdefSlider.min + mdefSlider.max) / 2;
     comboSlider.id = "comboSlider";
     comboSlider.classList.add("slider");
@@ -380,101 +427,112 @@ function createResultsRegion() {
     resultsDiv.appendChild(sliderComboDiv);
     resultsDiv.appendChild(resultsTextDiv);
 
-    pdefSlider.oninput = function() {
-        var weaponGrids = [];
-        var results = [];
-        var resultsTextString;
+    if (numGrids == 1) {
+        pdefSlider.oninput = function() {
+            pdefText.value = pdefSlider.value;
+        }
 
-        weaponGrids[0] = createGrid(0);
-        weaponGrids[1] = createGrid(1);
+        pdefSlider.onchange = function() {
+            sliderInputCalculateChange();
+        }
 
-        results = calculateMods(weaponGrids);
-        resultsTextString = calculateResults(results);
+        mdefSlider.oninput = function() {
+            mdefText.value = mdefSlider.value;
+        }
 
-        document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
-        document.getElementById("resultsText").innerHTML = resultsTextString[1];
-        pdefText.value = pdefSlider.value;
+        mdefSlider.onchange = function() {
+            sliderInputCalculateChange();
+        }
+
+        comboSlider.oninput = function() {
+            comboText.value = comboSlider.value;
+        }
+
+        comboSlider.onchange = function() {
+            sliderInputCalculateChange();
+        }
+
+        pdefText.onchange = function() {
+            sliderInputCalculateChange();
+            pdefSlider.value = pdefText.value;
+        }
+
+        mdefText.onchange = function() {
+            sliderInputCalculateChange();
+            mdefSlider.value = mdefText.value;
+        }
+
+        comboText.onchange = function() {
+            sliderInputCalculateChange();
+            comboSlider.value = comboText.value;
+        }
+    } else {
+        pdefSlider.oninput = function() {
+            pdefText.value = pdefSlider.value;
+        }
+
+        pdefSlider.onchange = function() {
+            sliderInputCompareChange();
+        }
+
+        mdefSlider.oninput = function() {
+            mdefText.value = mdefSlider.value;
+        }
+
+        mdefSlider.onchange = function() {
+            sliderInputCompareChange();
+        }
+
+        comboSlider.oninput = function() {
+            comboText.value = comboSlider.value;
+        }
+
+        comboSlider.onchange = function() {
+            sliderInputCompareChange();
+        }
+
+        pdefText.onchange = function() {
+            sliderInputCompareChange();
+            pdefSlider.value = pdefText.value;
+        }
+
+        mdefText.onchange = function() {
+            sliderInputCompareChange();
+            mdefSlider.value = mdefText.value;
+        }
+
+        comboText.onchange = function() {
+            sliderInputCompareChange();
+            comboSlider.value = comboText.value;
+        }
     }
+}
 
-    mdefSlider.oninput = function() {
-        var weaponGrids = [];
-        var results = [];
-        var resultsTextString;
+function sliderInputCompareChange() {
+    var weaponGrids = [];
+    var results = [];
+    var resultsTextString;
 
-        weaponGrids[0] = createGrid(0);
-        weaponGrids[1] = createGrid(1);
+    weaponGrids[0] = createGrid(0);
+    weaponGrids[1] = createGrid(1);
 
-        results = calculateMods(weaponGrids);
-        resultsTextString = calculateResults(results);
+    results = calculateMods(weaponGrids, 2);
+    resultsTextString = calculateResults(results);
 
-        document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
-        document.getElementById("resultsText").innerHTML = resultsTextString[1];
-        mdefText.value = mdefSlider.value;
-    }
+    document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
+    document.getElementById("resultsText").innerHTML = resultsTextString[1];
+}
 
-    comboSlider.oninput = function() {
-        var weaponGrids = [];
-        var results = [];
-        var resultsTextString;
+function sliderInputCalculateChange() {
+    var weaponGrids = [];
+    var mods = [];
+    var results = [];
 
-        weaponGrids[0] = createGrid(0);
-        weaponGrids[1] = createGrid(1);
+    weaponGrids[0] = createGrid(0);
 
-        results = calculateMods(weaponGrids);
-        resultsTextString = calculateResults(results);
-
-        document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
-        document.getElementById("resultsText").innerHTML = resultsTextString[1];
-        comboText.value = comboSlider.value;
-    }
-
-    pdefText.onchange = function() {
-        var weaponGrids = [];
-        var results = [];
-        var resultsTextString;
-
-        weaponGrids[0] = createGrid(0);
-        weaponGrids[1] = createGrid(1);
-
-        results = calculateMods(weaponGrids);
-        resultsTextString = calculateResults(results);
-
-        document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
-        document.getElementById("resultsText").innerHTML = resultsTextString[1];
-        pdefSlider.value = pdefText.value;
-    }
-
-    mdefText.onchange = function() {
-        var weaponGrids = [];
-        var results = [];
-        var resultsTextString;
-
-        weaponGrids[0] = createGrid(0);
-        weaponGrids[1] = createGrid(1);
-
-        results = calculateMods(weaponGrids);
-        resultsTextString = calculateResults(results);
-
-        document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
-        document.getElementById("resultsText").innerHTML = resultsTextString[1];
-        mdefSlider.value = mdefText.value;
-    }
-
-    comboText.oninput = function() {
-        var weaponGrids = [];
-        var results = [];
-        var resultsTextString;
-
-        weaponGrids[0] = createGrid(0);
-        weaponGrids[1] = createGrid(1);
-
-        results = calculateMods(weaponGrids);
-        resultsTextString = calculateResults(results);
-
-        document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
-        document.getElementById("resultsText").innerHTML = resultsTextString[1];
-        comboSlider.value = comboText.value;
-    }
+    mods = calculateMods(weaponGrids, 1);
+    results = calculateSingleGridResults(mods);
+    displaySingleGridResults(results);
 }
 
 function calculateResults(results) {
@@ -509,16 +567,20 @@ function calculateResults(results) {
 
         for (var j = 0; j < 20; j++) {
             if (weaponMods[j][0] == 1 || weaponMods[j][0] == 2) {
-                damageTotal += ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j][1];
+                if (((patk * comboMod) - ((2 / 3) * pdef)) < (1 / 0.05 / 0.95)) {
+                    damageTotal += 1 / 0.05 / 0.95;
+                } else {
+                    damageTotal += ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j][1];
+                }
             } else if (weaponMods[j][0] == 3 || weaponMods[j][0] == 4) {
-                damageTotal += ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j][1];
+                if (((matk * comboMod) - ((2 / 3) * mdef)) < (1 / 0.05 / 0.95)) {
+                    damageTotal += 1 / 0.05 / 0.95;
+                } else {
+                    damageTotal += ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j][1];
+                }
             } else {
                 damageTotal += 0;
             }
-        }
-
-        if (damageTotal < 1) {
-            damageTotal = 1 / 0.05 / 0.95;
         }
 
         total[i] = damageTotal * 0.05 * 0.95;
@@ -550,6 +612,143 @@ function calculateResults(results) {
     return resultsText;
 }
 
+function calculateSingleGridResults(results) {
+    var patkValues = document.getElementsByClassName("patkInput");
+    var matkValues = document.getElementsByClassName("matkInput");
+    var pdefSlider = document.getElementById("pdefSlider");
+    var mdefSlider = document.getElementById("mdefSlider"); 
+    var pdef = pdefSlider.value;
+    var mdef = mdefSlider.value; 
+    var totalResults = [];
+    var combo = document.getElementById("comboSlider").value;
+    var comboMod = 1;
+
+    if (combo > 1 && combo < 201) {
+        comboMod = 1 + (combo * 0.0007);
+    } else if (combo > 1 && combo < 501) {
+        comboMod = 1 + ((200 * 0.0007) + ((combo - 200) * 0.0005));
+    } else if (combo > 1 && combo < 1001) {
+        comboMod = 1 + ((200 * 0.0007) + (300 * 0.0005) + ((combo - 500) * 0.00035));
+    }
+
+    pdefSlider.max = (3 / 2) * comboMod * patkValues[0].value;
+    mdefSlider.max = (3 / 2) * comboMod * matkValues[0].value;
+
+    var weaponMods = results[0];
+    var damageTotal = 0;
+    var patk = patkValues[0].value;
+    var matk = matkValues[0].value;
+
+    for (var j = 0; j < 20; j++) {
+        var weaponResults = [];
+
+        if (weaponMods[j][0] == 1) {
+            if (((patk * comboMod) - ((2 / 3) * pdef)) < (1 / 0.05 / 0.95)) {
+                weaponResults[0] = 1 / 0.05 / 0.95;
+                weaponResults[1] = weaponResults[0];
+            } else {
+                weaponResults[0] = ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j][1] / weaponMods[20];
+                weaponResults[1] = weaponResults[0] * weaponMods[20];
+            }
+            weaponResults[2] = weaponResults[0];
+            weaponResults[3] = weaponResults[1];
+            damageTotal += weaponResults[3];
+        } else if (weaponMods[j][0] == 2) {
+            if (((patk * comboMod) - ((2 / 3) * pdef)) < (1 / 0.05 / 0.95)) {
+                weaponResults[0] = 1 / 0.05 / 0.95;
+                weaponResults[1] = weaponResults[0];
+                weaponResults[2] = weaponResults[0];
+                weaponResults[3] = weaponResults[0];
+            } else {
+                weaponResults[0] = ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j][1] / weaponMods[20] / 1.5;
+                weaponResults[1] = weaponResults[0] * weaponMods[20];
+                weaponResults[2] = weaponResults[0] * 1.5;
+                weaponResults[3] = weaponResults[1] * 1.5;
+            }
+            damageTotal += weaponResults[3];
+        } else if (weaponMods[j][0] == 3) {
+            if (((matk * comboMod) - ((2 / 3) * mdef)) < (1 / 0.05 / 0.95)) {
+                weaponResults[0] = 1 / 0.05 / 0.95;
+                weaponResults[1] = weaponResults[0];
+            } else {
+                weaponResults[0] = ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j][1] / weaponMods[20] / 1.5;
+                weaponResults[1] = weaponResults[0] * weaponMods[20];
+            }
+            weaponResults[2] = weaponResults[0];
+            weaponResults[3] = weaponResults[1];
+            damageTotal += weaponResults[3];
+        } else if (weaponMods[j][0] == 4) {
+            if (((matk * comboMod) - ((2 / 3) * mdef)) < (1 / 0.05 / 0.95)) {
+                weaponResults[0] = 1 / 0.05 / 0.95;
+                weaponResults[1] = weaponResults[0];
+                weaponResults[2] = weaponResults[0];
+                weaponResults[3] = weaponResults[0];
+            } else {
+                weaponResults[0] = ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j][1] / weaponMods[20] / 1.5;
+                weaponResults[1] = weaponResults[0] * weaponMods[20];
+                weaponResults[2] = weaponResults[0] * 1.5;
+                weaponResults[3] = weaponResults[1] * 1.5;
+            }
+            damageTotal += weaponResults[3];
+        } else {
+            weaponResults[0] = 0;
+            weaponResults[1] = 0;
+            weaponResults[2] = 0;
+            weaponResults[3] = 0;
+            damageTotal += 0;
+        }
+
+        weaponResults[5] = weaponMods[j][0];
+        totalResults[j] = weaponResults;
+    }
+
+    for (var i = 0; i < 20; i++) {
+        if (damageTotal != 0) {
+            totalResults[i][4] = totalResults[i][3] / damageTotal;
+        } else {
+            totalResults[i][4] = 0;
+        }
+
+        for (var k = 0; k < 5; k++) {
+            if (k != 4) {
+                totalResults[i][k] *= (0.05 * 0.95);
+            }
+        }
+    }
+
+    totalResults[20] = damageTotal * 0.05 * 0.95;
+
+    return totalResults;
+}
+
+function displaySingleGridResults(results) {
+    var gridWeaponName = document.getElementsByClassName("weaponName");
+    var weaponName = document.getElementsByClassName("resultWeaponName");
+    var damage = document.getElementsByClassName("resultDamage");
+    var damageDC = document.getElementsByClassName("resultDamageDC");
+    var damageAoE = document.getElementsByClassName("resultDamageAoE");
+    var damageTotal = document.getElementsByClassName("resultDamageTotal");
+    var percentTotal = document.getElementsByClassName("resultPercentTotal");
+
+    for (var i = 0; i < 20; i++) {
+        if (results[i][5] == 0) {
+            weaponName[i].innerHTML = "None";
+        } else if (gridWeaponName[i].value == "") {
+            weaponName[i].innerHTML = "Weapon " + (i + 1);
+        } else {
+            weaponName[i].innerHTML = gridWeaponName[i].value;
+        }
+
+        damage[i].innerHTML = Number((results[i][0]).toFixed(0));
+        damageDC[i].innerHTML = Number((results[i][1]).toFixed(0));
+        damageAoE[i].innerHTML = Number((results[i][2]).toFixed(0));
+        damageTotal[i].innerHTML = Number((results[i][3]).toFixed(0));
+        percentTotal[i].innerHTML = Number(((results[i][4] * 100)).toFixed(2));
+    }
+
+    document.getElementById("resultsDamage").innerHTML =  "Grid Damage: " + Number((results[20]).toFixed(0));
+}
+
 function copyGrid(weaponGrid, copyNum) {
     
     document.getElementsByClassName("patkInput")[copyNum].value = weaponGrid[0];
@@ -567,6 +766,44 @@ function copyGrid(weaponGrid, copyNum) {
 
     document.getElementsByClassName("job")[copyNum].value = weaponGrid[22];
     document.getElementsByClassName("gridName")[copyNum].value = weaponGrid[23];
+}
+
+function clearGrid(num) {
+    var gridNum = num - 1;
+    
+    document.getElementsByClassName("patkInput")[gridNum].value = '';
+    document.getElementsByClassName("matkInput")[gridNum].value = '';
+
+    for (var i = 0; i < 20; i++) {
+        document.getElementsByClassName("weaponType")[(gridNum * 20) + i].value = 0;
+        weaponTypeSelect(0, ((gridNum * 20) + i));
+        document.getElementsByClassName("weaponModifier")[(gridNum * 20) + i].value = 0;
+        document.getElementsByClassName("weaponSkillLevel")[(gridNum * 20) + i].value = 0;
+        document.getElementsByClassName("weaponSupSkill")[(gridNum * 20) + i].value = 0;
+        document.getElementsByClassName("supportSkillLevel")[(gridNum * 20) + i].value = 0;
+        document.getElementsByClassName("weaponName")[(gridNum * 20) + i].value =  0;
+    }
+
+    document.getElementsByClassName("job")[gridNum].value = 0;
+    document.getElementsByClassName("gridName")[gridNum].value = '';
+}
+
+function clearCalcResults() {
+    var weaponName = document.getElementsByClassName("resultWeaponName");
+    var damage = document.getElementsByClassName("resultDamage");
+    var damageDC = document.getElementsByClassName("resultDamageDC");
+    var damageAoE = document.getElementsByClassName("resultDamageAoE");
+    var damageTotal = document.getElementsByClassName("resultDamageTotal");
+    var percentTotal = document.getElementsByClassName("resultPercentTotal");
+
+    for (var i = 0; i < 20; i++) {
+        weaponName[i].innerHTML = '';
+        damage[i].innerHTML = '';
+        damageDC[i].innerHTML = '';
+        damageAoE[i].innerHTML = '';
+        damageTotal[i].innerHTML = '';
+        percentTotal[i].innerHTML = '';
+    }
 }
 
 function weaponTypeSelect(weaponType, index) {

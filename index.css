@@ -119,7 +119,7 @@ td {
 }
 
 #resultsDiv {
-    margin: 20px;
+    margin: 40px 20px 20px 20px;
 }
 
 #weaponGrid1, #weaponGrid2, #weaponGrid1Results {
@@ -457,6 +457,7 @@ p {
 .resultWeaponName, .resultDamage, .resultDamageDC,
 .resultDamageAoE, .resultDamageTotal, .resultPercentTotal {
     height: 25px;
+    vertical-align: middle;
 }
 
 #weaponGridResultsTable tr:nth-child(even) {
