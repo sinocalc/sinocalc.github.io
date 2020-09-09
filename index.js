@@ -40,13 +40,34 @@ document.getElementById("exportBtn").onclick = function() {
     return false;
 };
 
-document.getElementById('importBtn').onclick = function() {
+document.getElementById("importBtn").onclick = function() {
 	document.getElementById('selectFiles').click();
 
     return false;
 };
 
-document.getElementById('selectFiles').onchange = function() {
+document.getElementById("closeBtn").onclick = function() {
+    document.getElementById("weaponGrid2").style.display = "none";
+    document.getElementById("weaponGrid1Results").style.display = "inline-block";
+    document.getElementById("exportSelect").style.display = "none";
+    document.getElementById("copyDiv").style.display = "none";
+    document.getElementById("exportSelect").value = 0;
+    document.getElementsByClassName("tableHeading")[0].innerHTML = 'Weapon Grid: <input type="text" class="gridName">';
+
+    return false;
+};
+
+document.getElementById("openCompareBtn").onclick = function() {
+    document.getElementById("weaponGrid2").style.display = "inline-block";
+    document.getElementById("weaponGrid1Results").style.display = "none";
+    document.getElementById("exportSelect").style.display = "inline-block";
+    document.getElementById("copyDiv").style.display = "block";
+    document.getElementsByClassName("tableHeading")[0].innerHTML = 'Weapon Grid 1: <input type="text" class="gridName">';
+
+    return false;
+}
+
+document.getElementById("selectFiles").onchange = function() {
     var files = document.getElementById('selectFiles').files;
     console.log(files);
     if (files.length <= 0) {
@@ -65,7 +86,7 @@ document.getElementById('selectFiles').onchange = function() {
     fr.readAsText(files.item(0));
 
     return false;
-}
+};
 
 for (let i = 0; i < 40; i++) {
     document.getElementsByClassName("weaponType")[i].onchange = function() {
@@ -77,7 +98,6 @@ function checkInputs() {
     var patk = document.getElementsByClassName("patkInput");
     var matk = document.getElementsByClassName("matkInput");
     var weaponType = document.getElementsByClassName("weaponType");
-    var weaponModifier = document.getElementsByClassName("weaponModifier");
     var weaponSkillLevel = document.getElementsByClassName("weaponSkillLevel");
     var weaponSupSkill = document.getElementsByClassName("weaponSupSkill");
     var supportSkillLevel = document.getElementsByClassName("supportSkillLevel");

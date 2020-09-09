@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="index.css">
-    <title>Sinoalice Vanguard Grid Comparison Calculator</title>
+    <title>Sinoalice - Vanguard Grid Analysis Tool</title>
 </head>
 <body>
     <div id="modal">
@@ -61,7 +61,7 @@
     <div id="container">
         <div id="pageHeading">
             <div id="headingText">
-                Sinoalice Vanguard Grid Comparator
+                Vanguard Grid Analysis Tool
             </div>
             <div id="helpLink">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/160px-Infobox_info_icon.svg.png" width="15" height="15">
@@ -74,7 +74,7 @@
             <form class="weaponGridForm">
                 <div id="weaponGrid1">
                     <div class="tableHeading">
-                        Weapon Grid 1: 
+                        Weapon Grid: 
                         <input type="text" class="gridName">
                     </div>
                     <div class="atkValue">
@@ -763,26 +763,476 @@
                                 <input type="text" name="weaponName" class="weaponName">
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="2" class="btntdleft">
+                                <div class="btnDiv" id="copyDiv">
+                                    <select class="copySelect" id="copySelect1">
+                                        <option value="0">1</option>
+                                        <option value="1">2</option>
+                                    </select>
+                                    <p>to</p>
+                                    <select class="copySelect" id="copySelect2">
+                                        <option value="0">1</option>
+                                        <option value="1" selected="selected">2</option>
+                                    </select>
+                                    <input type="button" value="Copy" class="btn" id="copyBtn">
+                                </div>
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                            <td colspan="2" class="btntdright">
+                                <div class="btnDiv">
+                                    <select class="exportSelect" id="exportSelect">
+                                        <option value="0">1</option>
+                                        <option value="1">2</option>
+                                    </select>
+                                    <input type="submit" value="Export" class="btn" id="exportBtn">
+                                    <input type="submit" value="Import" class="btn" id="importBtn">
+                                    <input type="file" id="selectFiles" value="Import" class="btn">
+                                </div>
+                            </td>
+                        </tr>
                     </table>
-                    <div class="btnDiv">
-                        <select class="copySelect" id="copySelect1">
-                            <option value="0">1</option>
-                            <option value="1">2</option>
-                        </select>
-                        <p>to</p>
-                        <select class="copySelect" id="copySelect2">
-                            <option value="0">1</option>
-                            <option value="1" selected="selected">2</option>
-                        </select>
-                        <input type="button" value="Copy" class="btn" id="copyBtn">
-                        <select class="exportSelect" id="exportSelect">
-                            <option value="0">1</option>
-                            <option value="1">2</option>
-                        </select>
-                        <input type="submit" value="Export" class="btn" id="exportBtn">
-                        <input type="submit" value="Import" class="btn" id="importBtn">
-                        <input type="file" id="selectFiles" value="Import" class="btn">
+                </div>
+                <div id="weaponGrid1Results">
+                    <div id="resultsPadding">
+
                     </div>
+                    <table class="weaponGridTable" id="weaponGridResultsTable">
+                        <tr>
+                            <th width="20%">
+                                Weapon
+                            </th>
+                            <th width="15%">
+                                Damage
+                            </th>
+                            <th width="15%">
+                                Damage w/ DC
+                            </th>
+                            <th width="15%">
+                                Damage w/ AoE
+                            </th>
+                            <th width="15%"> 
+                                Total Damage
+                            </th>
+                            <th width="20%">
+                                % of Grid Total
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="btntdleft">
+                                <div class="btnDiv">
+                                    <input type="submit" value="Calculate" class="btn" id="calcBtn">
+                                    <input type="button" value="Compare Grid" class="btn" id="openCompareBtn">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                            </td>
+                            <td colspan="2" class="btntdright">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div id="weaponGrid2">
                     <div class="tableHeading">
@@ -1475,10 +1925,19 @@
                                 <input type="text" name="weaponName" class="weaponName">
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="2" class="btntdleft">
+                                <div class="btnDiv">
+                                    <input type="submit" value="Compare" class="btn" id="submitBtn">
+                                    <input type="button" value="Close Compare Grid" class="btn" id="closeBtn">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                            </td>
+                            <td colspan="2" class="btntdright">
+                            </td>
+                        </tr>
                     </table>
-                    <div class="btnDiv">
-                        <input type="submit" value="Compare" class="btn" id="submitBtn">
-                    </div>
                 </div>
             </form>
         </div>

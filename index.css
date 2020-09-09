@@ -35,23 +35,24 @@ body {
     font-weight: bold;
     padding: 20px 5px 15px 20px;
     display: inline-block;
+    height: 28px;
 }
 
 .atkValue {
     margin-left: 20px;
+    height: 44px;
 }
 
 .patkDiv {
-    margin: 10px 10px 10px 0px;
+    margin: 10px -60px 0px 0px;
     font-weight: bold;
     display: inline-block;
 }
 
 .matkDiv {
-    margin: 10px;
+    margin: 0px 10px 10px 0px;
     font-weight: bold;
     display: inline-block;
-    margin-left: -60px;
 }
 
 .tableHeading {
@@ -64,6 +65,7 @@ body {
 
 td {
     text-align: center;
+    height: 24px;
 }
 
 .weaponType, .weaponModifier, .weaponSupSkill, .job, .weaponSkillLevel, .supportSkillLevel, .weaponName {
@@ -75,12 +77,13 @@ td {
 
 .weaponGridTable {
     margin-left: 18px;
+    width: 100%;
 }
 
 .btn {
     margin: 20px;
     padding: 5px;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 10px;
     cursor: pointer;
 }
@@ -98,7 +101,7 @@ td {
 
 #importBtn {
     margin-left: 0px;
-    margin-right: 5px;
+    margin-right: -5px;
 }
 
 #selectFiles {
@@ -111,6 +114,7 @@ td {
 
 #submitBtn {
     margin-right: 5px;
+    margin-left: 0px;
     vertical-align: top;
 }
 
@@ -118,7 +122,7 @@ td {
     margin: 20px;
 }
 
-#weaponGrid1, #weaponGrid2 {
+#weaponGrid1, #weaponGrid2, #weaponGrid1Results {
     width: 49%;
     display: inline-block;
     vertical-align: top;
@@ -151,7 +155,7 @@ input, select {
 }
 
 .btnDiv {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
 }
 
 #file-upload-button {
@@ -418,7 +422,7 @@ a:active {
 }
 
 #copySelect1 {
-    margin-left: 20px;
+    margin-left: 0px;
 }
 
 p {
@@ -426,11 +430,56 @@ p {
 }
 
 #exportSelect {
-    display: inline-block;
-    margin-left: 325px;
+    display: none;
 }
 
 .gridName {
     margin-left: 10px;
     width: 175px;
+}
+
+.btntdleft {
+    text-align: left;
+}
+
+.btntdright {
+    text-align: right;
+}
+
+#closeBtn {
+    margin-left: 0px;
+}
+
+#resultsPadding {
+    height: 97px;
+}
+
+.resultWeaponName, .resultDamage, .resultDamageDC,
+.resultDamageAoE, .resultDamageTotal, .resultPercentTotal {
+    height: 25px;
+}
+
+#weaponGridResultsTable tr:nth-child(even) {
+    background-color: rgb(232,232,232);
+}
+
+#weaponGridResultsTable tr:nth-child(22) {
+    background-color: inherit;
+}
+
+#calcBtn {
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+#openCompareBtn {
+    margin-left: 0px;
+}
+
+#copyDiv {
+    display: none;
+}
+
+#weaponGrid2 {
+    display: none;
 }
