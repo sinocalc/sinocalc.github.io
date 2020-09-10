@@ -1,3 +1,23 @@
+window.onload = function() {
+    var height = 0;
+
+    height += document.getElementsByClassName("tableHeading")[0].clientHeight;
+    height += document.getElementsByClassName("atkValue")[0].clientHeight;
+    height += 40;
+
+    document.getElementById("resultsPadding").style.height = "" + height + "px";
+}
+
+window.onresize = function() {
+    var height = 0;
+
+    height += document.getElementsByClassName("tableHeading")[0].clientHeight;
+    height += document.getElementsByClassName("atkValue")[0].clientHeight;
+    height += 40;
+
+    document.getElementById("resultsPadding").style.height = "" + height + "px";
+}
+
 document.getElementById("close").onclick = function() {
     document.getElementById("modal").style.display = "none";
 }
@@ -51,6 +71,7 @@ document.getElementById("exportBtn").onclick = function() {
 };
 
 document.getElementById("importBtn").onclick = function() {
+    document.getElementById('selectFiles').value = '';
 	document.getElementById('selectFiles').click();
 
     return false;
@@ -62,7 +83,7 @@ document.getElementById("closeBtn").onclick = function() {
     document.getElementById("exportSelect").style.display = "none";
     document.getElementById("copyDiv").style.display = "none";
     document.getElementById("exportSelect").value = 0;
-    document.getElementsByClassName("tableHeading")[0].innerHTML = 'Weapon Grid: <input type="text" class="gridName">';
+    document.getElementsByClassName("tableHeadingText")[0].innerHTML = 'Weapon Grid: ';
     document.getElementById("resultsDiv").innerHTML = "";
 
     clearCalcResults();
@@ -75,7 +96,7 @@ document.getElementById("openCompareBtn").onclick = function() {
     document.getElementById("weaponGrid1Results").style.display = "none";
     document.getElementById("exportSelect").style.display = "inline-block";
     document.getElementById("copyDiv").style.display = "block";
-    document.getElementsByClassName("tableHeading")[0].innerHTML = 'Weapon Grid 1: <input type="text" class="gridName">';
+    document.getElementsByClassName("tableHeadingText")[0].innerHTML = 'Weapon Grid 1: ';
     document.getElementById("resultsDiv").innerHTML = "";
     clearGrid(2);
 

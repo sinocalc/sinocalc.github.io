@@ -38,18 +38,18 @@ body {
 }
 
 .atkValue {
-    margin-left: 20px;
-    height: 44px;
+    margin: 5px 0px 10px 20px;
+    display: inline-block;
 }
 
 .patkDiv {
-    margin: 10px -60px 0px 0px;
+    margin: 0px -60px 0px 0px;
     font-weight: bold;
     display: inline-block;
 }
 
 .matkDiv {
-    margin: 0px 10px 10px 0px;
+    margin: 0px 0px 0px 0px;
     font-weight: bold;
     display: inline-block;
 }
@@ -60,7 +60,8 @@ body {
     margin: 20px;
     margin-bottom: 10px;
     margin-top: 15px;
-    height: 28px;
+    display: inline-block;
+    width: 100%;
 }
 
 td {
@@ -89,12 +90,12 @@ td {
 }
 
 #copyBtn {
-    margin-left: 10px;
+    margin-left: 8px;
     margin-right: 20px;
 }
 
 #exportBtn {
-    margin-left: 10px;
+    margin-left: 8px;
     margin-right: 5px;
     vertical-align: top;
 }
@@ -431,11 +432,13 @@ p {
 
 #exportSelect {
     display: none;
+    margin-left: 0px;
 }
 
 .gridName {
-    margin-left: 10px;
+    display: inline-block;
     width: 175px;
+    margin-left: 0px;
 }
 
 .btntdleft {
@@ -448,16 +451,17 @@ p {
 
 #closeBtn {
     margin-left: 0px;
-}
-
-#resultsPadding {
-    height: 97px;
+    margin-right: 0px;
 }
 
 .resultWeaponName, .resultDamage, .resultDamageDC,
 .resultDamageAoE, .resultDamageTotal, .resultPercentTotal {
     height: 25px;
     vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0px;
 }
 
 #weaponGridResultsTable tr:nth-child(even) {
@@ -475,6 +479,7 @@ p {
 
 #openCompareBtn {
     margin-left: 0px;
+    margin-right: 0px;
 }
 
 #copyDiv {
@@ -483,4 +488,21 @@ p {
 
 #weaponGrid2 {
     display: none;
+}
+
+th {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0px;
+}
+
+.tableHeadingText {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.label {
+    vertical-align: middle;
 }
