@@ -468,7 +468,6 @@ p {
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 0px;
-    font-size: 10px;
 }
 
 #weaponGridResultsTable tr:nth-child(even) {
@@ -512,4 +511,8 @@ th {
 
 .label {
     vertical-align: middle;
+}
+
+tr {
+    height: 27px;
 }

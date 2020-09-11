@@ -8,11 +8,13 @@ window.onload = function() {
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
 
+    /*
     trHeight += document.getElementsByTagName("tr")[1].clientHeight;
 
     for (var i = 23; i < 43; i++) {
         document.getElementsByTagName("tr")[i].style.height = "" + trHeight + "px";
     }
+    */
 }
 
 window.onresize = function() {
@@ -25,11 +27,13 @@ window.onresize = function() {
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
 
+    /*
     trHeight += document.getElementsByTagName("tr")[1].clientHeight;
 
     for (var i = 23; i < 43; i++) {
         document.getElementsByTagName("tr")[i].style.height = "" + trHeight + "px";
     }
+    */
 }
 
 document.getElementById("close").onclick = function() {
