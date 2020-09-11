@@ -43,7 +43,7 @@ body {
 }
 
 .patkDiv {
-    margin: 0px -50px 0px 0px;
+    margin: 0px 0px 0px 0px;
     font-weight: bold;
     display: inline-block;
 }
@@ -66,7 +66,6 @@ body {
 
 td {
     text-align: center;
-    height: 24px;
 }
 
 .weaponType, .weaponModifier, .weaponSupSkill, .job, .weaponSkillLevel, .supportSkillLevel, .weaponName {
@@ -90,12 +89,12 @@ td {
 }
 
 #copyBtn {
-    margin-left: 8px;
-    margin-right: 20px;
+    margin-left: 5px;
+    margin-right: 0px;
 }
 
 #exportBtn {
-    margin-left: 8px;
+    margin-left: 5px;
     margin-right: 5px;
     vertical-align: top;
 }
@@ -120,7 +119,7 @@ td {
 }
 
 #resultsDiv {
-    margin: 40px 20px 20px 20px;
+    margin: 30px 20px 20px 20px;
 }
 
 #weaponGrid1, #weaponGrid2, #weaponGrid1Results {
@@ -168,6 +167,7 @@ input, select {
     text-align: right;
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 15px;
     font-weight: bold;
 }
 
@@ -281,15 +281,15 @@ input[type=range]:focus::-ms-fill-upper {
 #popup {
     position: fixed;
     width: 800px;
-    height: 800px;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 5%;
+    transform: translate(-50%, 0%);
     background-color: rgb(240, 240, 240);
     border-radius: 25px;
 }
 
 #modal {
+    display: none;
     position: fixed; 
     z-index: 1; 
     left: 0;
@@ -348,7 +348,8 @@ li {
 }
 
 #credits {
-    margin-top: 30px;
+    margin-top: 50px;
+    margin-bottom: 40px;
 }
 
 #credits ul {
@@ -397,7 +398,7 @@ a:active {
 }
 
 .patkInput, .matkInput {
-    width: 50%;
+    width: 117px;
 }
 
 #comboSlider {
@@ -443,10 +444,16 @@ p {
 
 .btntdleft {
     text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0px;
 }
 
 .btntdright {
     text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0px;
 }
 
 #closeBtn {
@@ -456,7 +463,6 @@ p {
 
 .resultWeaponName, .resultDamage, .resultDamageDC,
 .resultDamageAoE, .resultDamageTotal, .resultPercentTotal {
-    height: 25px;
     vertical-align: middle;
     overflow: hidden;
     text-overflow: ellipsis;
