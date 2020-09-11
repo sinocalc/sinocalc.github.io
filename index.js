@@ -777,7 +777,7 @@ function displaySingleGridResults(results) {
         percentTotal[i].innerHTML = Number(((results[i][4] * 100)).toFixed(2));
     }
 
-    document.getElementById("resultsDamage").innerHTML =  "Grid Damage: " + Number((results[20]).toFixed(0));
+    document.getElementById("resultsDamage").innerHTML =  "<br>Grid Damage: " + Number((results[20]).toFixed(0));
 }
 
 function copyGrid(weaponGrid, copyNum) {
