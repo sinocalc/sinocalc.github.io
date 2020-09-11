@@ -1,6 +1,7 @@
 window.onload = function() {
     var height = 0;
     var trHeight = 0;
+    var resultsHeight = 0;
 
     height += document.getElementsByClassName("tableHeading")[0].clientHeight;
     height += document.getElementsByClassName("atkValue")[0].clientHeight;
@@ -8,18 +9,21 @@ window.onload = function() {
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
 
-    /*
     trHeight += document.getElementsByTagName("tr")[1].clientHeight;
 
     for (var i = 23; i < 43; i++) {
         document.getElementsByTagName("tr")[i].style.height = "" + trHeight + "px";
     }
-    */
+
+    resultsHeight += document.getElementsByClassName("weaponGridTable")[0].clientHeight;
+
+    document.getElementById("weaponGridResultsTable").style.height = "" + resultsHeight + "px";
 }
 
 window.onresize = function() {
     var height = 0;
     var trHeight = 0;
+    var resultsHeight = 0;
 
     height += document.getElementsByClassName("tableHeading")[0].clientHeight;
     height += document.getElementsByClassName("atkValue")[0].clientHeight;
@@ -27,13 +31,15 @@ window.onresize = function() {
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
 
-    /*
     trHeight += document.getElementsByTagName("tr")[1].clientHeight;
 
     for (var i = 23; i < 43; i++) {
         document.getElementsByTagName("tr")[i].style.height = "" + trHeight + "px";
     }
-    */
+
+    resultsHeight += document.getElementsByClassName("weaponGridTable")[0].clientHeight;
+
+    document.getElementById("weaponGridResultsTable").style.height = "" + resultsHeight + "px";
 }
 
 document.getElementById("close").onclick = function() {
