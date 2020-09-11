@@ -512,3 +512,11 @@ th {
 .label {
     vertical-align: middle;
 }
+
+tr {
+    height: 27px;
+}
+
+tr:nth-child(1) {
+    height: 18px;
+}
