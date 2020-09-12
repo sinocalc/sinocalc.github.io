@@ -166,9 +166,7 @@ input, select {
 .sliderDiv {
     display: inline-block;
     text-align: right;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 15px;
+    margin: 22px 20px 15px 20px;
     font-weight: bold;
 }
 

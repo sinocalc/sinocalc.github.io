@@ -11,48 +11,46 @@
             <span id="close">&times;</span>
             <div id="instructionsText">
                 <div class="instructionsHeader">
-                    How-to
+                    Damage Calculator
                 </div>
                 <div class="instructionsBody" id="howto">
                     <ol>
                         <li>Fill in the P.Atk and M.Atk values.</li>
-                        <li>Select the corresponding weapon type for each slot. If slot is empty, leave it on none.</li>
-                        <li>Select the corresponding skill tier for each weapon and fill in the skill level.</li>
+                        <li>Select the weapon type for each slot. If slot is empty, leave it on none.</li>
+                        <li>Select the skill tier for each weapon and fill in the skill level.</li>
                         <li>If the weapon has Dauntless Courage, select the tier and fill in the skill level.</li>
                         <li>Grid and weapon names are optional, use them at your convinience.</li>
-                        <li>Copy the grid over to make adjustments or create the second grid from scratch.</li>
-                        <li>Click the compare button once both grids are filled out correctly.</li>
+                        <li>Click the calculate button once completed.</li>
                     </ol>
                 </div>
                 <div class="instructionsHeader">
-                    Features
+                    Grid Comparator 
                 </div>
                 <div class="instructionsBody" id="features">
                     <ul>
-                        <li>Grids can be copied to one another, overwriting existing information.</li>
-                        <li>Click export to download the selected as a json file.</li>
-                        <li>Click import and select an exported json file to import that grid.</li>
+                        <li>Click compare grids to open second grid input.</li>
+                        <li>Fill out, copy, or import a second grid.</li>
+                        <li>Click the compare button once both grids are completed.</li>
                     </ul>
                 </div>
                 <div class="instructionsHeader">
-                    Results
+                    Analysis
                 </div>
                 <div class="instructionsBody" id="results">
                     <ul>
-                        <li>The grid damage is an estimate of the damage of a full rotation.</li>
-                        <li>Almost all modifiers are applied after the atk - def is calculated, except combo.</li>
-                        <li>If atk values differ, the damage differential varies based on defense and combo.</li>
-                        <li>Ex: If combo = 0 and mods were 1, comparing 11 and 10 atk vs 0 and 5 def. <br> (11 atk - 0 def) / (10 atk - 0 def) = 110% <br> (11 atk - 5 def) / (10 atk - 5 def) = 120%</li>
-                        <li>When comparing, use the sliders to test different defense and combo values.</li>
-                        <li>Use this as reference on how the grids compare at different values.</li>
-                        <li>Depending on the grids, there may be breakpoints where the grids reverse in strength.</li>
-                        <li>This is only a simple simulation, ultimately it's up to you to figure out how to best use this information.</li>
+                        <li>The calculator determines average weapon damage and total damage of one rotation.</li>
+                        <li>DC average is calculated with proc rate and skill level.</li>
+                        <li>AoE average is calculated with range of targets.</li>
+                        <li>The comparator will find the grid with greater total damage from one rotation. </li>
+                        <li>The damage differential may vary depending on enemy defense and combo.</li>
+                        <li>Try different defense and combo values to check damage output and comparison.</li>
+                        <li>Use the information to refine your grid and determine the best setup.</li>
                     </ul>
                 </div>
                 <div class="instructionsBody" id="credits">
                     <ul>
                         <li>Thanks for checking this tool out! I hope you find some use out of it.</li>
-                        <li>Get in touch with suggestions and feedback through Discord at waynerdog#7781</li>
+                        <li>Get in touch with questions or feedback through Discord at waynerdog#7781</li>
                     </ul>
                 </div>
             </div>
