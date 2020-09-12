@@ -23,6 +23,84 @@ body {
     background-color: rgb(240, 240, 240);
 }
 
+#popup {
+    position: fixed;
+    width: 800px;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%, 0%);
+    background-color: rgb(240, 240, 240);
+    border-radius: 25px;
+}
+
+#modal {
+    display: none;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+#close {
+    color: #aaaaaa;
+    top: 20px;
+    right: 25px;
+    font-size: 40px;
+    font-weight: bold;
+    position: fixed;
+}
+
+#close:hover,
+#close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul {
+    list-style-type: circle;
+}
+
+li {
+    margin: 4px 0px;
+    line-height: 1.2;
+}
+
+#instructionsText {
+    padding-top: 25px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.instructionsHeader {
+    font-size: 170%;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.instructionsBody {
+    font-size: 18px;
+    width: 92%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#credits {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+#credits ul {
+    list-style-type: none;
+}
+
 #container {
     width: 90%;
     margin-left: auto;
@@ -34,6 +112,75 @@ body {
     font-weight: bold;
     padding: 20px 5px 15px 20px;
     display: inline-block;
+}
+
+#helpLink {
+    display: inline-block;
+}
+
+#helpLink:hover {
+    cursor: pointer;
+}
+
+a {
+    margin-left: 2px;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+a:active {
+    color: black;
+    text-decoration: none;
+}
+
+#weaponGridFormDiv {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+.weaponGridForm {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#weaponGrid1, #weaponGrid2, #weaponGrid1Results {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.tableHeading {
+    font-size: 150%;
+    font-weight: bold;
+    margin: 15px 20px 10px 20px;
+    display: inline-block;
+    width: 100%;
+}
+
+.tableHeadingText {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.gridName {
+    display: inline-block;
+    width: 175px;
+    margin-left: 0px;
 }
 
 .atkValue {
@@ -53,14 +200,40 @@ body {
     display: inline-block;
 }
 
-.tableHeading {
-    font-size: 150%;
-    font-weight: bold;
-    margin: 20px;
-    margin-bottom: 10px;
-    margin-top: 15px;
-    display: inline-block;
+.label {
+    vertical-align: middle;
+}
+
+.patkInput, .matkInput {
+    width: 117px;
+}
+
+.weaponGridTable {
+    margin-left: 18px;
     width: 100%;
+}
+
+tr {
+    height: 29px;
+}
+
+tr:nth-child(1) {
+    height: 18px;
+}
+
+#weaponGridResultsTable tr:nth-child(even) {
+    background-color: rgb(232,232,232);
+}
+
+#weaponGridResultsTable tr:nth-child(22) {
+    background-color: inherit;
+}
+
+th {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0px;
 }
 
 td {
@@ -74,22 +247,78 @@ td {
      -moz-box-sizing: border-box;
 }
 
-.weaponGridTable {
-    margin-left: 18px;
-    width: 100%;
+input, select {
+    font-family: inherit;
+    background-color: rgb(232,232,232);
+    border: 0;
+    margin: 2px;
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 2px;
+    text-align: right;
+}
+
+.resultWeaponName, .resultDamage, .resultDamageDC,
+.resultDamageAoE, .resultDamageTotal, .resultPercentTotal {
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0px;
+}
+
+#weaponGrid2 {
+    display: none;
+}
+
+.btntdleft {
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0px;
+}
+
+.btntdright {
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0px;
+}
+
+.btnDiv {
+    margin-bottom: 0px;
 }
 
 .btn {
-    margin: 20px;
+    margin: 5px 20px 10px 20px;
     padding: 5px;
-    margin-top: 5px;
-    margin-bottom: 10px;
     cursor: pointer;
+}
+
+#copyDiv {
+    display: none;
+}
+
+.copySelect {
+    display: inline-block;
+}
+
+#copySelect1 {
+    margin-left: 0px;
+}
+
+p {
+    display: inline-block;
 }
 
 #copyBtn {
     margin-left: 5px;
     margin-right: 0px;
+}
+
+#exportSelect {
+    display: none;
+    margin-left: 0px;
 }
 
 #exportBtn {
@@ -117,50 +346,25 @@ td {
     vertical-align: top;
 }
 
+#closeBtn {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#calcBtn {
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+#openCompareBtn {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 #resultsDiv {
     margin: 10px 20px 0px 20px;
     height: 70px;
     display: inline-block;
-}
-
-#weaponGrid1, #weaponGrid2, #weaponGrid1Results {
-    width: 49%;
-    display: inline-block;
-    vertical-align: top;
-}
-
-#importBtnDiv {
-    display: inline-block;
-}
-
-.weaponGridForm {
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#weaponGridFormDiv {
-    background-color: rgba(255,255,255,0.3);
-    border-radius: 10px;
-}
-
-input, select {
-    font-family: inherit;
-    background-color: rgb(232,232,232);
-    border: 0;
-    margin: 2px;
-    font-size: 14px;
-    border-radius: 2px;
-    padding: 2px;
-    text-align: right;
-}
-
-.btnDiv {
-    margin-bottom: 0px;
-}
-
-#file-upload-button {
-    font-size: 1000%;
 }
 
 .sliderDiv {
@@ -170,19 +374,20 @@ input, select {
     font-weight: bold;
 }
 
-#resultsTextDiv {
-    display: inline-block;
-    margin-left: 20px;
-    margin-right: 20px;
-    font-size: 150%;
-    font-weight: bold;
-}
-
 .slider {
     -webkit-appearance: none;
     width: 200px;
     padding: 0;
     display: block;
+}
+
+.sliderText {
+    width: 50px;
+    display: inline-block;
+}
+
+.defValueDiv {
+    display: inline-block;
 }
 
 input[type=range]:focus {
@@ -277,135 +482,20 @@ input[type=range]:focus::-ms-fill-upper {
     background: #E0E0E0;
 }
 
-#popup {
-    position: fixed;
-    width: 800px;
-    left: 50%;
-    top: 5%;
-    transform: translate(-50%, 0%);
-    background-color: rgb(240, 240, 240);
-    border-radius: 25px;
-}
-
-#modal {
-    display: none;
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-}
-
-#close {
-    color: #aaaaaa;
-    top: 20px;
-    right: 25px;
-    font-size: 40px;
-    font-weight: bold;
-    position: fixed;
-}
-
-#close:hover,
-#close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#instructionsText {
-    padding-top: 25px;
-    width: 85%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.instructionsHeader {
-    font-size: 170%;
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 15px;
-}
-
-.instructionsBody {
-    font-size: 18px;
-    width: 92%;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-ul {
-    list-style-type: circle;
-}
-
-li {
-    margin: 4px 0px;
-    line-height: 1.2;
-}
-
-#credits {
-    margin-top: 50px;
-    margin-bottom: 40px;
-}
-
-#credits ul {
-    list-style-type: none;
-}
-
-#helpLink {
-    display: inline-block;
-}
-
-#helpLink:hover {
-    cursor: pointer;
-}
-
-a {
-    margin-left: 2px;
-}
-
-a:link {
-    color: black;
-    text-decoration: none;
-}
-
-a:visited {
-    color: black;
-    text-decoration: none;
-}
-
-a:hover {
-    color: black;
-    text-decoration: none;
-}
-
-a:active {
-    color: black;
-    text-decoration: none;
-}
-
-.sliderText {
-    width: 50px;
-    display: inline-block;
-}
-
-.defValueDiv {
-    display: inline-block;
-}
-
-.patkInput, .matkInput {
-    width: 117px;
-}
-
 #comboSlider {
     width: 125px;
 }
 
 #comboText {
     margin-left: -125px;
+}
+
+#resultsTextDiv {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 150%;
+    font-weight: bold;
 }
 
 #resultsDamage {
@@ -416,106 +506,4 @@ a:active {
 #resultsText {
     display: inline-block;
     margin-left: 40px;
-}
-
-.copySelect {
-    display: inline-block;
-}
-
-#copySelect1 {
-    margin-left: 0px;
-}
-
-p {
-    display: inline-block;
-}
-
-#exportSelect {
-    display: none;
-    margin-left: 0px;
-}
-
-.gridName {
-    display: inline-block;
-    width: 175px;
-    margin-left: 0px;
-}
-
-.btntdleft {
-    text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 0px;
-}
-
-.btntdright {
-    text-align: right;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 0px;
-}
-
-#closeBtn {
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-.resultWeaponName, .resultDamage, .resultDamageDC,
-.resultDamageAoE, .resultDamageTotal, .resultPercentTotal {
-    vertical-align: middle;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 0px;
-}
-
-#weaponGridResultsTable tr:nth-child(even) {
-    background-color: rgb(232,232,232);
-}
-
-#weaponGridResultsTable tr:nth-child(22) {
-    background-color: inherit;
-}
-
-#calcBtn {
-    margin-left: 0px;
-    margin-right: 5px;
-}
-
-#openCompareBtn {
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-#copyDiv {
-    display: none;
-}
-
-#weaponGrid2 {
-    display: none;
-}
-
-th {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 0px;
-}
-
-.tableHeadingText {
-    display: inline-block;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
-.label {
-    vertical-align: middle;
-}
-
-tr {
-    height: 29px;
-}
-
-tr:nth-child(1) {
-    height: 18px;
 }
