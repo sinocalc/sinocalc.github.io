@@ -6,7 +6,7 @@ window.onload = function() {
     height += 40;
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
-}
+};
 
 window.onresize = function() {
     var height = 0;
@@ -16,23 +16,23 @@ window.onresize = function() {
     height += 40;
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
-}
+};
 
 document.getElementById("close").onclick = function() {
     document.getElementById("modal").style.display = "none";
-}
+};
 
 window.onclick = function(event) {
     if (event.target == document.getElementById("modal")) {
         document.getElementById("modal").style.display = "none";
     }
-}
+};
 
 document.getElementById("helpLink").onclick = function() {
     document.getElementById("modal").style.display = "block";
 
     return false;
-}
+};
 
 document.getElementById("submitBtn").onclick = function() {
     if (checkInputs(2)) {
@@ -108,10 +108,10 @@ document.getElementById("openCompareBtn").onclick = function() {
     document.getElementById("copyDiv").style.display = "block";
     document.getElementsByClassName("tableHeadingText")[0].innerHTML = 'Weapon Grid 1: ';
     document.getElementById("resultsDiv").innerHTML = "";
-    clearGrid(2);
+    clearGrid(1);
 
     return false;
-}
+};
 
 document.getElementById("selectFiles").onchange = function() {
     var files = document.getElementById('selectFiles').files;
@@ -171,139 +171,111 @@ function checkInputs(numGrids) {
     return true;
 }
 
-function createGrid(gridNumber) {
-    var weaponGrid = [];
-    
-    weaponGrid[0] = document.getElementsByClassName("patkInput")[gridNumber].value;
-    weaponGrid[1] = document.getElementsByClassName("matkInput")[gridNumber].value;
-
-    for (var i = 0; i < 20; i++) {
-        var weapon = [];
-
-        weapon[0] = document.getElementsByClassName("weaponType")[(gridNumber * 20) + i].value;
-        weapon[1] = document.getElementsByClassName("weaponModifier")[(gridNumber * 20) + i].value;
-        weapon[2] = document.getElementsByClassName("weaponSkillLevel")[(gridNumber * 20) + i].value;
-        weapon[3] = document.getElementsByClassName("weaponSupSkill")[(gridNumber * 20) + i].value;
-        weapon[4] = document.getElementsByClassName("supportSkillLevel")[(gridNumber * 20) + i].value;
-        weapon[5] = document.getElementsByClassName("weaponName")[(gridNumber * 20) + i].value;
-
-        weaponGrid[i + 2] = weapon;
-    }
-
-    weaponGrid[22] = document.getElementsByClassName("job")[gridNumber].value;
-    weaponGrid[23] = document.getElementsByClassName("gridName")[gridNumber].value;
-
-    return weaponGrid;
-}
-
 function compareGrids() {
     var weaponGrids = [];
-    var results = [];
+    var mods;
 
     weaponGrids[0] = createGrid(0);
     weaponGrids[1] = createGrid(1);
 
-    results = calculateMods(weaponGrids, 2);
-    displayResults(results);
+    mods = calculateMods(weaponGrids, 2);
+    processCompare(mods);
 }
 
 function calculateGrid() {
     var weaponGrids = [];
-    var results = [];
+    var mods;
 
     weaponGrids[0] = createGrid(0);
 
-    results = calculateMods(weaponGrids, 1);
-    processSingleGridResults(results);
+    mods = calculateMods(weaponGrids, 1);
+    processCalculate(mods);
+}
+
+function createGrid(gridNum) {
+    var weaponGrid = {};
+
+    weaponGrid["gridName"] = document.getElementsByClassName("gridName")[gridNum].value;
+    weaponGrid["patk"] = document.getElementsByClassName("patkInput")[gridNum].value;
+    weaponGrid["matk"] = document.getElementsByClassName("matkInput")[gridNum].value;
+
+    for (var i = 0; i < 20; i++) {
+        var weapon = {};
+
+        weapon["weaponType"] = document.getElementsByClassName("weaponType")[(gridNum * 20) + i].value;
+        weapon["weaponSkillModifier"] = document.getElementsByClassName("weaponModifier")[(gridNum * 20) + i].value;
+        weapon["weaponSkillLevel"] = document.getElementsByClassName("weaponSkillLevel")[(gridNum * 20) + i].value;
+        weapon["weaponSupSkill"] = document.getElementsByClassName("weaponSupSkill")[(gridNum * 20) + i].value;
+        weapon["supportSkillLevel"] = document.getElementsByClassName("supportSkillLevel")[(gridNum * 20) + i].value;
+        weapon["weaponName"] = document.getElementsByClassName("weaponName")[(gridNum * 20) + i].value;
+
+        weaponGrid[i] = weapon;
+    }
+
+    weaponGrid["job"] = document.getElementsByClassName("job")[gridNum].value;
+
+    return weaponGrid;
 }
 
 function calculateMods(weaponGrids, numGrids) {
-    var results = [];
+    var mods = [];
 
     for (var i = 0; i < numGrids; i++) {
         var weaponGrid = weaponGrids[i];
-        var dcMod = 1;
-        var damageMods = [];
+        var dcMod;
+        var damageMods = {};
 
-        for (var k = 2; k < 22; k++) {
-            var skillLevelMod;
-            var procRate;
-            var instancedcMod;
+        dcMod = calculateDC(weaponGrid, numGrids);
 
-            if (weaponGrid[k][3] > 0) {
-                if (weaponGrid[k][4] == 20) {
-                    skillLevelMod = 1 + (20 * 0.025);
-                } else {
-                    skillLevelMod = 1 + ((weaponGrid[k][4] - 1) * 0.025);
-                }
-
-                procRate = 0.04 + ((weaponGrid[k][4] - 1) * 0.005);
-
-                if (weaponGrid[k][4] > 14) {
-                    procRate += 0.005;
-                }
-
-                if (weaponGrid[k][4] == 20) {
-                    procRate += 0.005;
-                }
-
-                instancedcMod = ((((weaponGrid[k][3] * 5) + 5) / 100) * skillLevelMod * procRate)
-            } else {
-                instancedcMod = 0;
-            }
-
-            dcMod += instancedcMod;
-        }
-
-        for (var j = 2; j < 22; j++) {
+        for (var j = 0; j < 20; j++) {
             var weapon = weaponGrid[j];
-            var weaponType = weapon[0];
-            var skillMod = weapon[1];
-            var skillLevel = weapon[2];
+            var weaponType = weapon["weaponType"];
+            var skillMod = weapon["weaponSkillModifier"];
+            var skillLevel = weapon["weaponSkillLevel"];
             var skillLevelMod;
             var jobMod;
             var totalMods;
-            var weaponMod = [];
+            var weaponMod = {};
 
-            weaponMod[0] = weaponType;
+            weaponMod["weaponType"] = weaponType;
 
             if (weaponType > 0) {
                 if (weaponType == 1) {
-                    if (weaponGrid[22] == 0) {
+                    if (weaponGrid["job"] == 0) {
                         jobMod = 1.1;
-                    } else if (weaponGrid[22] == 4) {
+                    } else if (weaponGrid["job"] == 4) {
                         jobMod = 1.35;
-                    } else if (weaponGrid[22] == 5 || weaponGrid[22] == 6) {
+                    } else if (weaponGrid["job"] == 5 || weaponGrid["job"] == 6) {
                         jobMod = 0.25;
                     } else {
                         jobMod = 1;
                     }
                 } else if (weaponType == 2) {
-                    if (weaponGrid[22] == 1) {
+                    if (weaponGrid["job"] == 1) {
                         jobMod = 1.1;
-                    } else if (weaponGrid[22] == 5) {
+                    } else if (weaponGrid["job"] == 5) {
                         jobMod = 1.35;
-                    } else if (weaponGrid[22] == 4 || weaponGrid[22] == 7) {
+                    } else if (weaponGrid["job"] == 4 || weaponGrid["job"] == 7) {
                         jobMod = 0.25;
                     } else {
                         jobMod = 1;
                     }
                 } else if (weaponType == 3) {
-                    if (weaponGrid[22] == 2) {
+                    if (weaponGrid["job"] == 2) {
                         jobMod = 1.1;
-                    } else if (weaponGrid[22] == 6) {
+                    } else if (weaponGrid["job"] == 6) {
                         jobMod = 1.35;
-                    } else if (weaponGrid[22] == 4 || weaponGrid[22] == 7) {
+                    } else if (weaponGrid["job"] == 4 || weaponGrid["job"] == 7) {
                         jobMod = 0.25;
                     } else {
                         jobMod = 1;
                     }
                 } else {
-                    if (weaponGrid[22] == 3) {
+                    if (weaponGrid["job"] == 3) {
                         jobMod = 1.1;
-                    } else if (weaponGrid[22] == 7) {
+                    } else if (weaponGrid["job"] == 7) {
                         jobMod = 1.35;
-                    } else if (weaponGrid[22] == 5 || weaponGrid[22] == 6) {
+                    } else if (weaponGrid["job"] == 5 || weaponGrid["job"] == 6) {
                         jobMod = 0.25;
                     } else {
                         jobMod = 1;
@@ -322,39 +294,73 @@ function calculateMods(weaponGrids, numGrids) {
 
                 totalMods = skillMod * skillLevelMod * dcMod * jobMod;
                 
-                weaponMod[1] = totalMods;
+                weaponMod["modValue"] = totalMods;
             } else {
-                weaponMod[1] = 0;
+                weaponMod["modValue"] = 0;
             }
 
-            damageMods[j - 2] = weaponMod;
+            damageMods[j] = weaponMod;
         }
 
-        damageMods[20] = dcMod;
+        damageMods["dcMod"] = dcMod;
 
-        results[i] = damageMods;
+        mods[i] = damageMods;
     }
 
-    return results;
+    return mods;
 }
 
-function displayResults(results) {
-   var resultsTextString;
+function calculateDC(weaponGrid, numGrids) {
+    var dcMod = 1;
+
+    for (var i = 0; i < 20; i++) {
+        var skillLevelMod;
+        var procRate;
+        var instancedcMod;
+
+        if (weaponGrid[i]["weaponSupSkill"] > 0) {
+            if (weaponGrid[i]["supportSkillLevel"] == 20) {
+                skillLevelMod = 1 + (20 * 0.025);
+            } else {
+                skillLevelMod = 1 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.025);
+            }
+
+            procRate = 0.04 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.005);
+
+            if (weaponGrid[i]["supportSkillLevel"] > 14) {
+                procRate += 0.005;
+            }
+
+            if (weaponGrid[i]["supportSkillLevel"] == 20) {
+                procRate += 0.005;
+            }
+
+            instancedcMod = ((((weaponGrid[i]["weaponSupSkill"] * 5) + 5) / 100) * skillLevelMod * procRate)
+        } else {
+            instancedcMod = 0;
+        }
+
+        dcMod += instancedcMod;
+    }
+
+    return dcMod;
+}
+
+function processCompare(mods) {
+    var results;
 
     createResultsRegion(2);
-    resultsTextString = calculateResults(results);
-
-    document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
-    document.getElementById("resultsText").innerHTML = resultsTextString[1];
+    results = compareResults(mods);
+    compareRender(results);
 }
 
-function processSingleGridResults(mods) {
-    var results = [];
- 
-     createResultsRegion(1);
-     results = calculateSingleGridResults(mods);
-     displaySingleGridResults(results);
- }
+function processCalculate(mods) {
+    var results;
+
+    createResultsRegion(1);
+    results = calculateResults(mods);
+    calculateRender(results);
+}
 
 function createResultsRegion(numGrids) {
     var pdefSlider = document.createElement("input");
@@ -464,7 +470,7 @@ function createResultsRegion(numGrids) {
         }
 
         pdefSlider.onchange = function() {
-            sliderInputCalculateChange();
+            sliderCalculateUpdate();
         }
 
         mdefSlider.oninput = function() {
@@ -472,7 +478,7 @@ function createResultsRegion(numGrids) {
         }
 
         mdefSlider.onchange = function() {
-            sliderInputCalculateChange();
+            sliderCalculateUpdate();
         }
 
         comboSlider.oninput = function() {
@@ -480,21 +486,21 @@ function createResultsRegion(numGrids) {
         }
 
         comboSlider.onchange = function() {
-            sliderInputCalculateChange();
+            sliderCalculateUpdate();
         }
 
         pdefText.onchange = function() {
-            sliderInputCalculateChange();
+            sliderCalculateUpdate();
             pdefSlider.value = pdefText.value;
         }
 
         mdefText.onchange = function() {
-            sliderInputCalculateChange();
+            sliderCalculateUpdate();
             mdefSlider.value = mdefText.value;
         }
 
         comboText.onchange = function() {
-            sliderInputCalculateChange();
+            sliderCalculateUpdate();
             comboSlider.value = comboText.value;
         }
     } else {
@@ -503,7 +509,7 @@ function createResultsRegion(numGrids) {
         }
 
         pdefSlider.onchange = function() {
-            sliderInputCompareChange();
+            sliderCompareUpdate();
         }
 
         mdefSlider.oninput = function() {
@@ -511,7 +517,7 @@ function createResultsRegion(numGrids) {
         }
 
         mdefSlider.onchange = function() {
-            sliderInputCompareChange();
+            sliderCompareUpdate();
         }
 
         comboSlider.oninput = function() {
@@ -519,54 +525,52 @@ function createResultsRegion(numGrids) {
         }
 
         comboSlider.onchange = function() {
-            sliderInputCompareChange();
+            sliderCompareUpdate();
         }
 
         pdefText.onchange = function() {
-            sliderInputCompareChange();
+            sliderCompareUpdate();
             pdefSlider.value = pdefText.value;
         }
 
         mdefText.onchange = function() {
-            sliderInputCompareChange();
+            sliderCompareUpdate();
             mdefSlider.value = mdefText.value;
         }
 
         comboText.onchange = function() {
-            sliderInputCompareChange();
+            sliderCompareUpdate();
             comboSlider.value = comboText.value;
         }
     }
 }
 
-function sliderInputCompareChange() {
+function sliderCompareUpdate() {
     var weaponGrids = [];
-    var results = [];
-    var resultsTextString;
+    var mods;
+    var results;
 
     weaponGrids[0] = createGrid(0);
     weaponGrids[1] = createGrid(1);
 
-    results = calculateMods(weaponGrids, 2);
-    resultsTextString = calculateResults(results);
-
-    document.getElementById("resultsDamage").innerHTML = resultsTextString[0]
-    document.getElementById("resultsText").innerHTML = resultsTextString[1];
+    mods = calculateMods(weaponGrids, 2);
+    results = compareResults(mods);
+    compareRender(results);
 }
 
-function sliderInputCalculateChange() {
+function sliderCalculateUpdate() {
     var weaponGrids = [];
-    var mods = [];
-    var results = [];
+    var mods;
+    var results;
 
     weaponGrids[0] = createGrid(0);
 
     mods = calculateMods(weaponGrids, 1);
-    results = calculateSingleGridResults(mods);
-    displaySingleGridResults(results);
+    results = calculateResults(mods);
+    calculateRender(results);
 }
 
-function calculateResults(results) {
+function compareResults(mods) {
     var patkValues = document.getElementsByClassName("patkInput");
     var matkValues = document.getElementsByClassName("matkInput");
     var pdefSlider = document.getElementById("pdefSlider");
@@ -575,7 +579,7 @@ function calculateResults(results) {
     var mdef = mdefSlider.value; 
     var total = [];
     var strengthRatio;
-    var resultsText = [];
+    var results = [];
     var combo = document.getElementById("comboSlider").value;
     var comboMod = 1;
 
@@ -591,23 +595,23 @@ function calculateResults(results) {
     mdefSlider.max = (matkValues[0].value > matkValues[1].value) ? (3 / 2) * comboMod * matkValues[1].value : (3 / 2) * comboMod * matkValues[0].value;
 
     for (var i = 0; i < 2; i++) {
-        var weaponMods = results[i];
+        var weaponMods = mods[i];
         var damageTotal = 0;
         var patk = patkValues[i].value;
         var matk = matkValues[i].value;
 
         for (var j = 0; j < 20; j++) {
-            if (weaponMods[j][0] == 1 || weaponMods[j][0] == 2) {
+            if (weaponMods[j]["weaponType"] == 1 || weaponMods[j]["weaponType"] == 2) {
                 if (((patk * comboMod) - ((2 / 3) * pdef)) < (1 / 0.05 / 0.95)) {
                     damageTotal += 1 / 0.05 / 0.95;
                 } else {
-                    damageTotal += ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j][1];
+                    damageTotal += ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j]["modValue"];
                 }
-            } else if (weaponMods[j][0] == 3 || weaponMods[j][0] == 4) {
+            } else if (weaponMods[j]["weaponType"] == 3 || weaponMods[j]["weaponType"] == 4) {
                 if (((matk * comboMod) - ((2 / 3) * mdef)) < (1 / 0.05 / 0.95)) {
                     damageTotal += 1 / 0.05 / 0.95;
                 } else {
-                    damageTotal += ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j][1];
+                    damageTotal += ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j]["modValue"];
                 }
             } else {
                 damageTotal += 0;
@@ -620,37 +624,37 @@ function calculateResults(results) {
     if (total[0] > total[1]) {
         if (total[1] > 0) {
             strengthRatio = ((total[0] / total[1]) * 100);
-            resultsText[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)) + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0));
-            resultsText[1] = "Grid 1 damage is " + Number((strengthRatio).toFixed(2)) + "% of Grid 2";
+            results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
+            results[1] = "Grid 1 damage is " + Number((strengthRatio).toFixed(2)) + "% of Grid 2";
         } else {
-            resultsText[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)) + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0));
-            resultsText[1] = "Grid 2 will only do 1 damage past this point";
+            results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
+            results[1] = "Grid 2 will only do 20 damage past this point";
         }
     } else if (total[1] > total[0]) {
         if (total[0] > 0) {
             strengthRatio = ((total[1] / total[0]) * 100);
-            resultsText[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)) + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0));
-            resultsText[1] = "Grid 2 damage is " + Number((strengthRatio).toFixed(2)) + "% of Grid 1";
+            results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
+            results[1] = "Grid 2 damage is " + Number((strengthRatio).toFixed(2)) + "% of Grid 1";
         } else {
-            resultsText[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)) + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0));
-            resultsText[1] = "Grid 1 will only do 1 damage past this point";
+            results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
+            results[1] = "Grid 1 will only do 20 damage past this point";
         }
     } else {
-        resultsText[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)) + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0));
-        resultsText[1] = "The grids are equal in strength";
+        results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
+        results[1] = "The grids are equal in strength";
     }
 
-    return resultsText;
+    return results;
 }
 
-function calculateSingleGridResults(results) {
+function calculateResults(mods) {
     var patkValues = document.getElementsByClassName("patkInput");
     var matkValues = document.getElementsByClassName("matkInput");
     var pdefSlider = document.getElementById("pdefSlider");
     var mdefSlider = document.getElementById("mdefSlider"); 
     var pdef = pdefSlider.value;
     var mdef = mdefSlider.value; 
-    var totalResults = [];
+    var totalResults = {};
     var combo = document.getElementById("comboSlider").value;
     var comboMod = 1;
 
@@ -665,94 +669,98 @@ function calculateSingleGridResults(results) {
     pdefSlider.max = (3 / 2) * comboMod * patkValues[0].value;
     mdefSlider.max = (3 / 2) * comboMod * matkValues[0].value;
 
-    var weaponMods = results[0];
+    var weaponMods = mods[0];
     var damageTotal = 0;
     var patk = patkValues[0].value;
     var matk = matkValues[0].value;
 
     for (var j = 0; j < 20; j++) {
-        var weaponResults = [];
+        var weaponResults = {};
 
-        if (weaponMods[j][0] == 1) {
+        if (weaponMods[j]["weaponType"] == 1) {
             if (((patk * comboMod) - ((2 / 3) * pdef)) < (1 / 0.05 / 0.95)) {
-                weaponResults[0] = 1 / 0.05 / 0.95;
-                weaponResults[1] = weaponResults[0];
+                weaponResults["baseDmg"] = 1 / 0.05 / 0.95;
+                weaponResults["dcDmg"] = weaponResults["baseDmg"];
             } else {
-                weaponResults[0] = ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j][1] / weaponMods[20];
-                weaponResults[1] = weaponResults[0] * weaponMods[20];
+                weaponResults["baseDmg"] = ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j]["modValue"] / weaponMods["dcMod"];
+                weaponResults["dcDmg"] = weaponResults["baseDmg"] * weaponMods["dcMod"];
             }
-            weaponResults[2] = weaponResults[0];
-            weaponResults[3] = weaponResults[1];
-            damageTotal += weaponResults[3];
-        } else if (weaponMods[j][0] == 2) {
+            weaponResults["aoeDmg"] = weaponResults["baseDmg"];
+            weaponResults["totalDmg"] = weaponResults["dcDmg"];
+            damageTotal += weaponResults["totalDmg"];
+        } else if (weaponMods[j]["weaponType"] == 2) {
             if (((patk * comboMod) - ((2 / 3) * pdef)) < (1 / 0.05 / 0.95)) {
-                weaponResults[0] = 1 / 0.05 / 0.95;
-                weaponResults[1] = weaponResults[0];
-                weaponResults[2] = weaponResults[0];
-                weaponResults[3] = weaponResults[0];
+                weaponResults["baseDmg"] = 1 / 0.05 / 0.95;
+                weaponResults["dcDmg"] = weaponResults["baseDmg"];
+                weaponResults["aoeDmg"] = weaponResults["baseDmg"];
+                weaponResults["totalDmg"] = weaponResults["baseDmg"];
             } else {
-                weaponResults[0] = ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j][1] / weaponMods[20] / 1.5;
-                weaponResults[1] = weaponResults[0] * weaponMods[20];
-                weaponResults[2] = weaponResults[0] * 1.5;
-                weaponResults[3] = weaponResults[1] * 1.5;
+                weaponResults["baseDmg"] = ((patk * comboMod) - ((2 / 3) * pdef)) * weaponMods[j]["modValue"] / weaponMods["dcMod"] / 1.5;
+                weaponResults["dcDmg"] = weaponResults["baseDmg"] * weaponMods["dcMod"];
+                weaponResults["aoeDmg"] = weaponResults["baseDmg"] * 1.5;
+                weaponResults["totalDmg"] = weaponResults["dcDmg"] * 1.5;
             }
-            damageTotal += weaponResults[3];
-        } else if (weaponMods[j][0] == 3) {
+            damageTotal += weaponResults["totalDmg"];
+        } else if (weaponMods[j]["weaponType"] == 3) {
             if (((matk * comboMod) - ((2 / 3) * mdef)) < (1 / 0.05 / 0.95)) {
-                weaponResults[0] = 1 / 0.05 / 0.95;
-                weaponResults[1] = weaponResults[0];
+                weaponResults["baseDmg"] = 1 / 0.05 / 0.95;
+                weaponResults["dcDmg"] = weaponResults["baseDmg"];
             } else {
-                weaponResults[0] = ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j][1] / weaponMods[20] / 1.5;
-                weaponResults[1] = weaponResults[0] * weaponMods[20];
+                weaponResults["baseDmg"] = ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j]["modValue"] / weaponMods["dcMod"] / 1.5;
+                weaponResults["dcDmg"] = weaponResults["baseDmg"] * weaponMods["dcMod"];
             }
-            weaponResults[2] = weaponResults[0];
-            weaponResults[3] = weaponResults[1];
-            damageTotal += weaponResults[3];
-        } else if (weaponMods[j][0] == 4) {
+            weaponResults["aoeDmg"] = weaponResults["baseDmg"];
+            weaponResults["totalDmg"] = weaponResults["dcDmg"];
+            damageTotal += weaponResults["totalDmg"];
+        } else if (weaponMods[j]["weaponType"] == 4) {
             if (((matk * comboMod) - ((2 / 3) * mdef)) < (1 / 0.05 / 0.95)) {
-                weaponResults[0] = 1 / 0.05 / 0.95;
-                weaponResults[1] = weaponResults[0];
-                weaponResults[2] = weaponResults[0];
-                weaponResults[3] = weaponResults[0];
+                weaponResults["baseDmg"] = 1 / 0.05 / 0.95;
+                weaponResults["dcDmg"] = weaponResults["baseDmg"];
+                weaponResults["aoeDmg"] = weaponResults["baseDmg"];
+                weaponResults["totalDmg"] = weaponResults["baseDmg"];
             } else {
-                weaponResults[0] = ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j][1] / weaponMods[20] / 1.5;
-                weaponResults[1] = weaponResults[0] * weaponMods[20];
-                weaponResults[2] = weaponResults[0] * 1.5;
-                weaponResults[3] = weaponResults[1] * 1.5;
+                weaponResults["baseDmg"] = ((matk * comboMod) - ((2 / 3) * mdef)) * weaponMods[j]["modValue"] / weaponMods["dcMod"] / 1.5;
+                weaponResults["dcDmg"] = weaponResults["baseDmg"] * weaponMods["dcMod"];
+                weaponResults["aoeDmg"] = weaponResults["baseDmg"] * 1.5;
+                weaponResults["totalDmg"] = weaponResults["dcDmg"] * 1.5;
             }
-            damageTotal += weaponResults[3];
+            damageTotal += weaponResults["totalDmg"];
         } else {
-            weaponResults[0] = 0;
-            weaponResults[1] = 0;
-            weaponResults[2] = 0;
-            weaponResults[3] = 0;
+            weaponResults["baseDmg"] = 0;
+            weaponResults["dcDmg"] = 0;
+            weaponResults["aoeDmg"] = 0;
+            weaponResults["totalDmg"] = 0;
             damageTotal += 0;
         }
 
-        weaponResults[5] = weaponMods[j][0];
+        weaponResults["weaponType"] = weaponMods[j]["weaponType"];
         totalResults[j] = weaponResults;
     }
 
     for (var i = 0; i < 20; i++) {
         if (damageTotal != 0) {
-            totalResults[i][4] = totalResults[i][3] / damageTotal;
+            totalResults[i]["dmgPercent"] = totalResults[i]["totalDmg"] / damageTotal;
         } else {
-            totalResults[i][4] = 0;
+            totalResults[i]["dmgPercent"] = 0;
         }
 
-        for (var k = 0; k < 5; k++) {
-            if (k != 4) {
-                totalResults[i][k] *= (0.05 * 0.95);
-            }
-        }
+        totalResults[i]["baseDmg"] *= (0.05 * 0.95);
+        totalResults[i]["dcDmg"] *= (0.05 * 0.95);
+        totalResults[i]["aoeDmg"] *= (0.05 * 0.95);
+        totalResults[i]["totalDmg"] *= (0.05 * 0.95);
     }
 
-    totalResults[20] = damageTotal * 0.05 * 0.95;
+    totalResults["totalGridDmg"] = damageTotal * 0.05 * 0.95;
 
     return totalResults;
 }
 
-function displaySingleGridResults(results) {
+function compareRender(results) {
+    document.getElementById("resultsDamage").innerHTML = results[0]
+    document.getElementById("resultsText").innerHTML = results[1];
+}
+
+function calculateRender(results) {
     var gridWeaponName = document.getElementsByClassName("weaponName");
     var weaponName = document.getElementsByClassName("resultWeaponName");
     var damage = document.getElementsByClassName("resultDamage");
@@ -762,7 +770,7 @@ function displaySingleGridResults(results) {
     var percentTotal = document.getElementsByClassName("resultPercentTotal");
 
     for (var i = 0; i < 20; i++) {
-        if (results[i][5] == 0) {
+        if (results[i]["weaponType"] == 0) {
             weaponName[i].innerHTML = "None";
         } else if (gridWeaponName[i].value == "") {
             weaponName[i].innerHTML = "Weapon " + (i + 1);
@@ -770,38 +778,36 @@ function displaySingleGridResults(results) {
             weaponName[i].innerHTML = gridWeaponName[i].value;
         }
 
-        damage[i].innerHTML = Number((results[i][0]).toFixed(0));
-        damageDC[i].innerHTML = Number((results[i][1]).toFixed(0));
-        damageAoE[i].innerHTML = Number((results[i][2]).toFixed(0));
-        damageTotal[i].innerHTML = Number((results[i][3]).toFixed(0));
-        percentTotal[i].innerHTML = Number(((results[i][4] * 100)).toFixed(2));
+        damage[i].innerHTML = Number((results[i]["baseDmg"]).toFixed(0)).toLocaleString();
+        damageDC[i].innerHTML = Number((results[i]["dcDmg"]).toFixed(0)).toLocaleString();
+        damageAoE[i].innerHTML = Number((results[i]["aoeDmg"]).toFixed(0)).toLocaleString();
+        damageTotal[i].innerHTML = Number((results[i]["totalDmg"]).toFixed(0)).toLocaleString();
+        percentTotal[i].innerHTML = Number(((results[i]["dmgPercent"] * 100)).toFixed(2));
     }
 
-    document.getElementById("resultsDamage").innerHTML =  "Grid Damage: " + Number((results[20]).toFixed(0));
+    document.getElementById("resultsDamage").innerHTML =  "Grid Damage: " + Number((results["totalGridDmg"]).toFixed(0)).toLocaleString();
 }
 
 function copyGrid(weaponGrid, copyNum) {
-    
-    document.getElementsByClassName("patkInput")[copyNum].value = weaponGrid[0];
-    document.getElementsByClassName("matkInput")[copyNum].value = weaponGrid[1];
+    document.getElementsByClassName("gridName")[copyNum].value = weaponGrid["gridName"];
+    document.getElementsByClassName("patkInput")[copyNum].value = weaponGrid["patk"];
+    document.getElementsByClassName("matkInput")[copyNum].value = weaponGrid["matk"];
 
     for (var i = 0; i < 20; i++) {
-        document.getElementsByClassName("weaponType")[(copyNum * 20) + i].value = weaponGrid[i + 2][0];
+        document.getElementsByClassName("weaponType")[(copyNum * 20) + i].value = weaponGrid[i]["weaponType"];
         weaponTypeSelect(document.getElementsByClassName("weaponType")[(copyNum * 20) + i].value, ((copyNum * 20) + i));
-        document.getElementsByClassName("weaponModifier")[(copyNum * 20) + i].value = weaponGrid[i + 2][1];
-        document.getElementsByClassName("weaponSkillLevel")[(copyNum * 20) + i].value = weaponGrid[i + 2][2];
-        document.getElementsByClassName("weaponSupSkill")[(copyNum * 20) + i].value = weaponGrid[i + 2][3];
-        document.getElementsByClassName("supportSkillLevel")[(copyNum * 20) + i].value = weaponGrid[i + 2][4];
-        document.getElementsByClassName("weaponName")[(copyNum * 20) + i].value = weaponGrid[i + 2][5];
+        document.getElementsByClassName("weaponModifier")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSkillModifier"];
+        document.getElementsByClassName("weaponSkillLevel")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSkillLevel"];
+        document.getElementsByClassName("weaponSupSkill")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSupSkill"];
+        document.getElementsByClassName("supportSkillLevel")[(copyNum * 20) + i].value = weaponGrid[i]["supportSkillLevel"];
+        document.getElementsByClassName("weaponName")[(copyNum * 20) + i].value = weaponGrid[i]["weaponName"];
     }
 
-    document.getElementsByClassName("job")[copyNum].value = weaponGrid[22];
-    document.getElementsByClassName("gridName")[copyNum].value = weaponGrid[23];
+    document.getElementsByClassName("job")[copyNum].value = weaponGrid["job"];
 }
 
-function clearGrid(num) {
-    var gridNum = num - 1;
-    
+function clearGrid(gridNum) {
+    document.getElementsByClassName("gridName")[gridNum].value = '';
     document.getElementsByClassName("patkInput")[gridNum].value = '';
     document.getElementsByClassName("matkInput")[gridNum].value = '';
 
@@ -809,14 +815,13 @@ function clearGrid(num) {
         document.getElementsByClassName("weaponType")[(gridNum * 20) + i].value = 0;
         weaponTypeSelect(0, ((gridNum * 20) + i));
         document.getElementsByClassName("weaponModifier")[(gridNum * 20) + i].value = 0;
-        document.getElementsByClassName("weaponSkillLevel")[(gridNum * 20) + i].value = 0;
+        document.getElementsByClassName("weaponSkillLevel")[(gridNum * 20) + i].value = '';
         document.getElementsByClassName("weaponSupSkill")[(gridNum * 20) + i].value = 0;
-        document.getElementsByClassName("supportSkillLevel")[(gridNum * 20) + i].value = 0;
-        document.getElementsByClassName("weaponName")[(gridNum * 20) + i].value =  0;
+        document.getElementsByClassName("supportSkillLevel")[(gridNum * 20) + i].value = '';
+        document.getElementsByClassName("weaponName")[(gridNum * 20) + i].value =  '';
     }
 
     document.getElementsByClassName("job")[gridNum].value = 0;
-    document.getElementsByClassName("gridName")[gridNum].value = '';
 }
 
 function clearCalcResults() {
@@ -853,6 +858,8 @@ function exportGrid(gridNum) {
     var weaponGrid = createGrid(gridNum);
     var filename = document.getElementsByClassName("gridName")[gridNum].value;
 
+    weaponGrid["role"] = "vanguard";
+
     exportToJsonFile(weaponGrid, filename);
 }
 
@@ -876,6 +883,11 @@ function exportToJsonFile(jsonData, filename) {
 
 function importJsonFile(jsonData, gridNum) {
     var weaponGrid = jsonData;
+
+    if (weaponGrid["role"] != "vanguard") {
+        window.alert("Incompatible import file");
+        return false;
+    }
 
     copyGrid(weaponGrid, gridNum);
 }
