@@ -183,6 +183,20 @@ a:active {
     margin-left: 0px;
 }
 
+.clearGrid {
+    color: #aaaaaa;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.clearGrid:hover,
+.clearGrid:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .atkValue {
     margin: 5px 0px 10px 20px;
     display: inline-block;
@@ -265,6 +279,10 @@ input, select {
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 0px;
+}
+
+.dcCheck:checked { 
+    filter: grayscale(100%) brightness(1.9);
 }
 
 #weaponGrid2 {
@@ -359,6 +377,31 @@ p {
 #openCompareBtn {
     margin-left: 0px;
     margin-right: 0px;
+}
+
+#shinmaSelectDiv {
+    display: none;
+}
+
+#shinmaSelectText {
+    display: inline-block;
+}
+
+#shinmaSelect {
+    display: inline-block;
+}
+
+#dcSelectDiv {
+    display: none;
+    margin-left: 10px;
+}
+
+#dcSelectText {
+    display: inline-block;
+}
+
+#dcSelect {
+    display: inline-block;
 }
 
 #resultsDiv {

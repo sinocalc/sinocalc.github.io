@@ -34,6 +34,24 @@ document.getElementById("helpLink").onclick = function() {
     return false;
 };
 
+document.getElementById("clearGrid1").onclick = function() {
+    clearGrid(0);
+    clearCalcResults();
+    dcSelect(0);
+    document.getElementById("shinmaSelectDiv").style.display = "none";
+    document.getElementById("dcSelectDiv").style.display = "none";
+    document.getElementById("resultsDiv").innerHTML = "";
+
+    return false;
+};
+
+document.getElementById("clearGrid2").onclick = function() {
+    clearGrid(1);
+    document.getElementById("resultsDiv").innerHTML = "";
+
+    return false;
+};
+
 document.getElementById("submitBtn").onclick = function() {
     if (checkInputs(2)) {
         compareGrids();
@@ -88,7 +106,7 @@ document.getElementById("closeBtn").onclick = function() {
     document.getElementsByClassName("tableHeadingText")[0].innerHTML = 'Weapon Grid: ';
     document.getElementById("resultsDiv").innerHTML = "";
 
-    clearCalcResults();
+    clearGrid(1);
 
     var height = 0;
 
@@ -106,9 +124,15 @@ document.getElementById("openCompareBtn").onclick = function() {
     document.getElementById("weaponGrid1Results").style.display = "none";
     document.getElementById("exportSelect").style.display = "inline-block";
     document.getElementById("copyDiv").style.display = "block";
+    document.getElementById("dcSelect").value = 0;
+    document.getElementById("shinmaSelect").value = 0;
+    document.getElementById("shinmaSelectDiv").style.display = "none";
+    document.getElementById("dcSelectDiv").style.display = "none";
     document.getElementsByClassName("tableHeadingText")[0].innerHTML = 'Weapon Grid 1: ';
     document.getElementById("resultsDiv").innerHTML = "";
-    clearGrid(1);
+
+    dcSelect(0);
+    clearCalcResults();
 
     return false;
 };
@@ -127,6 +151,9 @@ document.getElementById("selectFiles").onchange = function() {
         var result = JSON.parse(e.target.result);
         var gridNum = document.getElementById("exportSelect").value;
         importJsonFile(result,gridNum);
+
+        var dcSelectValue = document.getElementById("dcSelect").value;
+        dcSelect(dcSelectValue);
     }
     
     fr.readAsText(files.item(0));
@@ -134,10 +161,34 @@ document.getElementById("selectFiles").onchange = function() {
     return false;
 };
 
+document.getElementById("shinmaSelect").onchange = function() {
+    calculateUpdate();
+
+    return false;
+}
+
+document.getElementById("dcSelect").onchange = function() {
+    var dcSelectValue = document.getElementById("dcSelect").value;
+
+    dcSelect(dcSelectValue);
+
+    return false;
+};
+
 for (let i = 0; i < 40; i++) {
     document.getElementsByClassName("weaponType")[i].onchange = function() {
         weaponTypeSelect(document.getElementsByClassName("weaponType")[i].value, i);
+
+        return false;
     };
+
+    if (i < 20) {
+        document.getElementsByClassName("dcCheck")[i].onchange = function() {
+            calculateUpdate();
+
+            return false;
+        }
+    }
 }
 
 function checkInputs(numGrids) {
@@ -186,10 +237,18 @@ function calculateGrid() {
     var weaponGrids = [];
     var mods;
 
+    document.getElementById("dcSelect").value = 0;
+    document.getElementById("shinmaSelect").value = 0;
+
+    dcSelect(0);
+
     weaponGrids[0] = createGrid(0);
 
     mods = calculateMods(weaponGrids, 1);
     processCalculate(mods);
+
+    document.getElementById("shinmaSelectDiv").style.display = "inline-block";
+    document.getElementById("dcSelectDiv").style.display = "inline-block";
 }
 
 function createGrid(gridNum) {
@@ -312,35 +371,56 @@ function calculateMods(weaponGrids, numGrids) {
 
 function calculateDC(weaponGrid, numGrids) {
     var dcMod = 1;
+    var dcSelectValue = document.getElementById("dcSelect").value;
+    var dcCheckBoxes = document.getElementsByClassName("dcCheck");
 
-    for (var i = 0; i < 20; i++) {
-        var skillLevelMod;
-        var procRate;
-        var instancedcMod;
+    if (numGrids == 1 && dcSelectValue == 1) {
+        for (var i = 0; i < 20; i++) {
+            if (dcCheckBoxes[i].checked == true) {
+                var skillLevelMod;
+                var instancedcMod;
 
-        if (weaponGrid[i]["weaponSupSkill"] > 0) {
-            if (weaponGrid[i]["supportSkillLevel"] == 20) {
-                skillLevelMod = 1 + (20 * 0.025);
-            } else {
-                skillLevelMod = 1 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.025);
+                if (weaponGrid[i]["supportSkillLevel"] == 20) {
+                    skillLevelMod = 1 + (20 * 0.025);
+                } else {
+                    skillLevelMod = 1 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.025);
+                }
+
+                instancedcMod = ((((weaponGrid[i]["weaponSupSkill"] * 5) + 5) / 100) * skillLevelMod)
+
+                dcMod += instancedcMod;
             }
-
-            procRate = 0.04 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.005);
-
-            if (weaponGrid[i]["supportSkillLevel"] > 14) {
-                procRate += 0.005;
-            }
-
-            if (weaponGrid[i]["supportSkillLevel"] == 20) {
-                procRate += 0.005;
-            }
-
-            instancedcMod = ((((weaponGrid[i]["weaponSupSkill"] * 5) + 5) / 100) * skillLevelMod * procRate)
-        } else {
-            instancedcMod = 0;
         }
+    } else {
+        for (var i = 0; i < 20; i++) {
+            var skillLevelMod;
+            var procRate;
+            var instancedcMod;
 
-        dcMod += instancedcMod;
+            if (weaponGrid[i]["weaponSupSkill"] > 0) {
+                if (weaponGrid[i]["supportSkillLevel"] == 20) {
+                    skillLevelMod = 1 + (20 * 0.025);
+                } else {
+                    skillLevelMod = 1 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.025);
+                }
+
+                procRate = 0.04 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.005);
+
+                if (weaponGrid[i]["supportSkillLevel"] > 14) {
+                    procRate += 0.005;
+                }
+
+                if (weaponGrid[i]["supportSkillLevel"] == 20) {
+                    procRate += 0.005;
+                }
+
+                instancedcMod = ((((weaponGrid[i]["weaponSupSkill"] * 5) + 5) / 100) * skillLevelMod * procRate)
+            } else {
+                instancedcMod = 0;
+            }
+
+            dcMod += instancedcMod;
+        }
     }
 
     return dcMod;
@@ -470,7 +550,7 @@ function createResultsRegion(numGrids) {
         }
 
         pdefSlider.onchange = function() {
-            sliderCalculateUpdate();
+            calculateUpdate();
         }
 
         mdefSlider.oninput = function() {
@@ -478,7 +558,7 @@ function createResultsRegion(numGrids) {
         }
 
         mdefSlider.onchange = function() {
-            sliderCalculateUpdate();
+            calculateUpdate();
         }
 
         comboSlider.oninput = function() {
@@ -486,21 +566,21 @@ function createResultsRegion(numGrids) {
         }
 
         comboSlider.onchange = function() {
-            sliderCalculateUpdate();
+            calculateUpdate();
         }
 
         pdefText.onchange = function() {
-            sliderCalculateUpdate();
+            calculateUpdate();
             pdefSlider.value = pdefText.value;
         }
 
         mdefText.onchange = function() {
-            sliderCalculateUpdate();
+            calculateUpdate();
             mdefSlider.value = mdefText.value;
         }
 
         comboText.onchange = function() {
-            sliderCalculateUpdate();
+            calculateUpdate();
             comboSlider.value = comboText.value;
         }
     } else {
@@ -509,7 +589,7 @@ function createResultsRegion(numGrids) {
         }
 
         pdefSlider.onchange = function() {
-            sliderCompareUpdate();
+            compareUpdate();
         }
 
         mdefSlider.oninput = function() {
@@ -517,7 +597,7 @@ function createResultsRegion(numGrids) {
         }
 
         mdefSlider.onchange = function() {
-            sliderCompareUpdate();
+            compareUpdate();
         }
 
         comboSlider.oninput = function() {
@@ -525,27 +605,27 @@ function createResultsRegion(numGrids) {
         }
 
         comboSlider.onchange = function() {
-            sliderCompareUpdate();
+            compareUpdate();
         }
 
         pdefText.onchange = function() {
-            sliderCompareUpdate();
+            compareUpdate();
             pdefSlider.value = pdefText.value;
         }
 
         mdefText.onchange = function() {
-            sliderCompareUpdate();
+            compareUpdate();
             mdefSlider.value = mdefText.value;
         }
 
         comboText.onchange = function() {
-            sliderCompareUpdate();
+            compareUpdate();
             comboSlider.value = comboText.value;
         }
     }
 }
 
-function sliderCompareUpdate() {
+function compareUpdate() {
     var weaponGrids = [];
     var mods;
     var results;
@@ -558,7 +638,7 @@ function sliderCompareUpdate() {
     compareRender(results);
 }
 
-function sliderCalculateUpdate() {
+function calculateUpdate() {
     var weaponGrids = [];
     var mods;
     var results;
@@ -654,6 +734,8 @@ function calculateResults(mods) {
     var mdefSlider = document.getElementById("mdefSlider"); 
     var pdef = pdefSlider.value;
     var mdef = mdefSlider.value; 
+    var shinmaSelectValue = document.getElementById("shinmaSelect").value;
+    var shinmaCalcResults;
     var totalResults = {};
     var combo = document.getElementById("comboSlider").value;
     var comboMod = 1;
@@ -737,6 +819,12 @@ function calculateResults(mods) {
         totalResults[j] = weaponResults;
     }
 
+    if (shinmaSelectValue > 0) {
+        shinmaCalcResults = shinmaCalc(totalResults);
+        totalResults = shinmaCalcResults[0];
+        damageTotal = shinmaCalcResults[1];
+    }
+
     for (var i = 0; i < 20; i++) {
         if (damageTotal != 0) {
             totalResults[i]["dmgPercent"] = totalResults[i]["totalDmg"] / damageTotal;
@@ -753,6 +841,55 @@ function calculateResults(mods) {
     totalResults["totalGridDmg"] = damageTotal * 0.05 * 0.95;
 
     return totalResults;
+}
+
+function shinmaCalc(totalResults) {
+    var weaponSkillModifiers = document.getElementsByClassName("weaponModifier");
+    var shinmaSelectValue = document.getElementById("shinmaSelect").value;
+    var shinmaMod;
+    var shinmaResults = [];
+    var totalDamage = 0;
+    var shinmaCalcResults = [];
+
+    for (var i = 0; i < 20; i++) {
+        var weaponResults = totalResults[i];
+
+        if (shinmaSelectValue == 1 && (weaponResults["weaponType"] == 1 || weaponResults["weaponType"] == 4)) {
+            if (weaponSkillModifiers[i].value == 3.45 || weaponSkillModifiers[i].value == 3.15 || weaponSkillModifiers[i].value == 2.7 || weaponSkillModifiers[i].value == 2.5 || weaponSkillModifiers[i].value == 2) {
+                shinmaMod = 2.9;
+            } else if (weaponSkillModifiers[i].value == 2.55 || weaponSkillModifiers[i].value == 2.4 || weaponSkillModifiers[i].value == 1.8 || weaponSkillModifiers[i].value == 1.6) {
+                shinmaMod = 1.6;
+            } else if (weaponSkillModifiers[i].value == 2.25 || weaponSkillModifiers[i].value == 2.1 || weaponSkillModifiers[i].value == 1) {
+                shinmaMod = 1.3;
+            }
+
+            weaponResults["baseDmg"] *= shinmaMod;
+            weaponResults["dcDmg"] *= shinmaMod;
+            weaponResults["aoeDmg"] *= shinmaMod;
+            weaponResults["totalDmg"] *= shinmaMod;
+        } else if (shinmaSelectValue == 2 && (weaponResults["weaponType"] == 2 || weaponResults["weaponType"] == 3)) {
+            if (weaponSkillModifiers[i].value == 3.45 || weaponSkillModifiers[i].value == 3.15 || weaponSkillModifiers[i].value == 2.7 || weaponSkillModifiers[i].value == 2.5 || weaponSkillModifiers[i].value == 2) {
+                shinmaMod = 2.9;
+            } else if (weaponSkillModifiers[i].value == 2.55 || weaponSkillModifiers[i].value == 2.4 || weaponSkillModifiers[i].value == 1.8 || weaponSkillModifiers[i].value == 1.6) {
+                shinmaMod = 1.6;
+            } else if (weaponSkillModifiers[i].value == 2.25 || weaponSkillModifiers[i].value == 2.1 || weaponSkillModifiers[i].value == 1) {
+                shinmaMod = 1.3;
+            }
+
+            weaponResults["baseDmg"] *= shinmaMod;
+            weaponResults["dcDmg"] *= shinmaMod;
+            weaponResults["aoeDmg"] *= shinmaMod;
+            weaponResults["totalDmg"] *= shinmaMod;
+        }
+
+        shinmaResults[i] = weaponResults;
+        totalDamage += weaponResults["totalDmg"];
+    }
+
+    shinmaCalcResults[0] = shinmaResults;
+    shinmaCalcResults[1] = totalDamage;
+
+    return shinmaCalcResults;
 }
 
 function compareRender(results) {
@@ -890,4 +1027,22 @@ function importJsonFile(jsonData, gridNum) {
     }
 
     copyGrid(weaponGrid, gridNum);
+}
+
+function dcSelect(dcSelectValue) {
+    var checkboxes = document.getElementsByClassName("dcCheck");
+    var dcSkills = document.getElementsByClassName("weaponSupSkill");
+
+    if (dcSelectValue == 0) {
+        for (var i = 0; i < 20; i++) {
+            checkboxes[i].checked = false;
+            checkboxes[i].disabled = true;
+        }
+    } else if (dcSelectValue == 1) {
+        for (var i = 0; i < 20; i++) {
+            if (dcSkills[i].value > 0) {
+                checkboxes[i].disabled = false;
+            }
+        }
+    }
 }

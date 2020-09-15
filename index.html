@@ -38,9 +38,10 @@
                 </div>
                 <div class="instructionsBody" id="results">
                     <ul>
-                        <li>The calculator determines average weapon damage and total damage of one rotation.</li>
+                        <li>By default average weapon damage and damage from one grid rotation is calculated.</li>
                         <li>DC average is calculated with proc rate and skill level.</li>
                         <li>AoE average is calculated with range of targets.</li>
+                        <li>Alternatively, specific DC procs can be selected, instead of average.</li>
                         <li>The comparator will find the grid with greater total damage from one rotation. </li>
                         <li>The damage differential may vary depending on enemy defense and combo.</li>
                         <li>Try different defense and combo values to check damage output and comparison.</li>
@@ -76,6 +77,7 @@
                             Weapon Grid: 
                         </div>
                         <input type="text" class="gridName">
+                        <span class="clearGrid" title="Clear Grid" id="clearGrid1">&times;</span>
                     </div>
                     <div class="atkValue">
                         <div class="patkDiv">
@@ -801,20 +803,23 @@
                             <th width="20%">
                                 Weapon
                             </th>
-                            <th width="15%">
+                            <th width="14%">
                                 Damage
                             </th>
-                            <th width="15%">
-                                Damage w/ DC
+                            <th width="14%">
+                                w/ DC
                             </th>
-                            <th width="15%">
-                                Damage w/ AoE
+                            <th width="14%">
+                                w/ AoE
                             </th>
-                            <th width="15%"> 
-                                Total Damage
+                            <th width="14%"> 
+                                Total 
                             </th>
-                            <th width="20%">
-                                % of Grid Total
+                            <th width="14%">
+                                % 
+                            </th>
+                            <th width="10%">
+                                DC Proc
                             </th>
                         </tr>
                         <tr>
@@ -836,25 +841,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -876,25 +864,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -916,25 +887,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -956,25 +910,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -996,25 +933,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -1036,25 +956,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -1076,25 +979,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -1116,25 +1002,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -1156,25 +1025,8 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="resultWeaponName">
-
-                            </td>
-                            <td class="resultDamage">
-                                
-                            </td>
-                            <td class="resultDamageDC">
-                                
-                            </td>
-                            <td class="resultDamageAoE">
-                                
-                            </td>
-                            <td class="resultDamageTotal">
-                                
-                            </td>
-                            <td class="resultPercentTotal">
-                                
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
                             </td>
                         </tr>
                         <tr>
@@ -1196,6 +1048,9 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
@@ -1216,15 +1071,240 @@
                             <td class="resultPercentTotal">
                                 
                             </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="btntdleft">
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultDamage">
+                                
+                            </td>
+                            <td class="resultDamageDC">
+                                
+                            </td>
+                            <td class="resultDamageAoE">
+                                
+                            </td>
+                            <td class="resultDamageTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultDCProc">
+                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="btntdleft">
                                 <div class="btnDiv">
                                     <input type="submit" value="Calculate" class="btn" id="calcBtn">
                                     <input type="button" value="Compare Grid" class="btn" id="openCompareBtn">
                                 </div>
                             </td>
-                            <td colspan="1" class="btntdright">
+                            <td colspan="4" class="btntdright">
+                                <div id="shinmaSelectDiv">
+                                    <div id="shinmaSelectText">Shinma: </div>
+                                    <select name="shinmaSelect" id="shinmaSelect">
+                                        <option value="0">None</option>
+                                        <option value="1">Sword/Spear</option>
+                                        <option value="2">Hammer/Bow</option>
+                                    </select>
+                                </div>
+                                <div id="dcSelectDiv">
+                                    <div id="dcSelectText">DC: </div>
+                                    <select name="dcSelect" id="dcSelect">
+                                        <option value="0">Average</option>
+                                        <option value="1">Select</option>
+                                    </select>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -1235,6 +1315,7 @@
                             Weapon Grid 2: 
                         </div>
                         <input type="text" class="gridName">
+                        <span class="clearGrid" title="Clear Grid" id="clearGrid2">&times;</span>
                     </div>
                     <div class="atkValue">
                         <div class="patkDiv">
@@ -1936,8 +2017,7 @@
                 </div>
             </form>
         </div>
-        <div id="resultsDiv">
-        </div>
+        <div id="resultsDiv"></div>
     </div>
     <script src="index.js"></script>
 </body>
