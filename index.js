@@ -171,6 +171,7 @@ document.getElementById("dcSelect").onchange = function() {
     var dcSelectValue = document.getElementById("dcSelect").value;
 
     dcSelect(dcSelectValue);
+    calculateUpdate();
 
     return false;
 };
