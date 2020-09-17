@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="cleric.css">
+    <title>Sinoalice - Cleric Grid Analysis Tool</title>
+</head>
+<body>
+    <div id="modal">
+        <div id="popup">
+            <span id="close">&times;</span>
+            <div id="instructionsText">
+                <div class="instructionsHeader">
+                    Heal Calculator
+                </div>
+                <div class="instructionsBody" id="howto">
+                    <ol>
+                        <li>Fill in the P.Def and M.Def values.</li>
+                        <li>Select the weapon type for each slot. If slot is empty, leave it on none.</li>
+                        <li>Select the skill tier for each weapon and fill in the skill level.</li>
+                        <li>Select the number of weapon targets.</li>
+                        <li>If the weapon has Recovery Support, select the tier and fill in the skill level.</li>
+                        <li>Grid and weapon names are optional, use them at your convinience.</li>
+                        <li>Click the calculate button once completed.</li>
+                    </ol>
+                </div>
+                <div class="instructionsHeader">
+                    Grid Comparator 
+                </div>
+                <div class="instructionsBody" id="features">
+                    <ul>
+                        <li>Click compare grids to open second grid input.</li>
+                        <li>Fill out, copy, or import a second grid.</li>
+                        <li>Click the compare button once both grids are completed.</li>
+                    </ul>
+                </div>
+                <div class="instructionsHeader">
+                    Analysis
+                </div>
+                <div class="instructionsBody" id="results">
+                    <ul>
+                        <li>By default average weapon heals and heals from one grid rotation is calculated.</li>
+                        <li>RS average is calculated with proc rate and skill level.</li>
+                        <li>AoE average is calculated with range of targets.</li>
+                        <li>Alternatively, specific RS procs can be selected, instead of average.</li>
+                        <li>The comparator will find the grid with greater total heals from one rotation. </li>
+                        <li>Use the information to refine your grid and determine the best setup.</li>
+                    </ul>
+                </div>
+                <div class="instructionsBody" id="credits">
+                    <ul>
+                        <li>Thanks for checking this tool out! I hope you find some use out of it.</li>
+                        <li>Get in touch with questions or feedback through Discord at waynerdog#7781</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div id="pageHeading">
+            <div id="headingText">
+                Cleric Grid Analysis Tool
+            </div>
+            <div id="helpLink">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/160px-Infobox_info_icon.svg.png" width="15" height="15">
+                <a href="">
+                    help
+                </a>
+            </div>
+        </div>
+        <div id="weaponGridFormDiv">
+            <form class="weaponGridForm">
+                <div id="weaponGrid1">
+                    <div class="tableHeading">
+                        <div class="tableHeadingText">
+                            Weapon Grid: 
+                        </div>
+                        <input type="text" class="gridName">
+                        <span class="clearGrid" title="Clear Grid" id="clearGrid1">&times;</span>
+                    </div>
+                    <div class="atkValue">
+                        <div class="pdefDiv">
+                            <label for="pdefInput">P.Def</label>
+                            <input type="text" name="pdefInput" class="pdefInput">
+                        </div>
+                        <div class="mdefDiv">
+                            <label for="mdefInput">M.Def</label>
+                            <input type="text" name="mdefInput" class="mdefInput">
+                        </div>
+                    </div>
+                    <table class="weaponGridTable">
+                        <tr>
+                            <th style="width: 12%;">
+                                Type
+                            </th>
+                            <th style="width: 13%;">
+                                Skill Modifier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
+                            </th>
+                            <th style="width: 9%;">
+                                Targets
+                            </th>
+                            <th style="width: 9%;">
+                                RS Tier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
+                            </th>
+                            <th style="width: 20%;">
+                                Weapon Name
+                            </th>
+                            <th style="width: 17%;">
+                                Job
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                            <td>
+                                <select name="job" class="job">
+                                    <option value="0">Cleric</option>
+                                    <option value="1">HNM Cleric</option>
+                                    <option value="2">Other</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="btntdleft">
+                                <div class="btnDiv" id="copyDiv">
+                                    <select class="copySelect" id="copySelect1">
+                                        <option value="0">1</option>
+                                        <option value="1">2</option>
+                                    </select>
+                                    <p>to</p>
+                                    <select class="copySelect" id="copySelect2">
+                                        <option value="0">1</option>
+                                        <option value="1" selected="selected">2</option>
+                                    </select>
+                                    <input type="button" value="Copy" class="btn" id="copyBtn">
+                                </div>
+                            </td>
+                            <td colspan="4" class="btntdright">
+                                <div class="btnDiv">
+                                    <select class="exportSelect" id="exportSelect">
+                                        <option value="0">1</option>
+                                        <option value="1">2</option>
+                                    </select>
+                                    <input type="submit" value="Export" class="btn" id="exportBtn">
+                                    <input type="submit" value="Import" class="btn" id="importBtn">
+                                    <input type="file" id="selectFiles" value="Import" class="btn">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="weaponGrid1Results">
+                    <div id="resultsPadding">
+
+                    </div>
+                    <table class="weaponGridTable" id="weaponGridResultsTable">
+                        <tr>
+                            <th width="20%">
+                                Weapon
+                            </th>
+                            <th width="14%">
+                                Heals
+                            </th>
+                            <th width="14%">
+                                w/ RS
+                            </th>
+                            <th width="14%">
+                                w/ AoE
+                            </th>
+                            <th width="14%"> 
+                                Total 
+                            </th>
+                            <th width="14%">
+                                % 
+                            </th>
+                            <th width="10%">
+                                RS Proc
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="resultWeaponName">
+
+                            </td>
+                            <td class="resultHeal">
+                                
+                            </td>
+                            <td class="resultHealRS">
+                                
+                            </td>
+                            <td class="resultHealAoE">
+                                
+                            </td>
+                            <td class="resultHealTotal">
+                                
+                            </td>
+                            <td class="resultPercentTotal">
+                                
+                            </td>
+                            <td class="resultRSProc">
+                                <input type="checkbox" disabled="disabled" class="rsCheck">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="btntdleft">
+                                <div class="btnDiv">
+                                    <input type="submit" value="Calculate" class="btn" id="calcBtn">
+                                    <input type="button" value="Compare Grid" class="btn" id="openCompareBtn">
+                                </div>
+                            </td>
+                            <td colspan="4" class="btntdright">
+                                <div id="shinmaSelectDiv">
+                                    <div id="shinmaSelectText">Shinma: </div>
+                                    <select name="shinmaSelect" id="shinmaSelect">
+                                        <option value="0">None</option>
+                                        <option value="1">Staff</option>
+                                    </select>
+                                </div>
+                                <div id="rsSelectDiv">
+                                    <div id="rsSelectText">RS: </div>
+                                    <select name="rsSelect" id="rsSelect">
+                                        <option value="0">Average</option>
+                                        <option value="1">Select</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="weaponGrid2">
+                    <div class="tableHeading">
+                        <div class="tableHeadingText">
+                            Weapon Grid 2: 
+                        </div>
+                        <input type="text" class="gridName">
+                        <span class="clearGrid" title="Clear Grid" id="clearGrid2">&times;</span>
+                    </div>
+                    <div class="atkValue">
+                        <div class="pdefDiv">
+                            <label for="pdefInput">P.Def</label>
+                            <input type="text" name="pdefInput" class="pdefInput">
+                        </div>
+                        <div class="mdefDiv">
+                            <label for="mdefInput">M.Def</label>
+                            <input type="text" name="mdefInput" class="mdefInput">
+                        </div>
+                    </div>
+                    <table class="weaponGridTable">
+                        <tr>
+                            <th style="width: 12%;">
+                                Type
+                            </th>
+                            <th style="width: 13%;">
+                                Skill Modifier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
+                            </th>
+                            <th style="width: 9%;">
+                                Targets
+                            </th>
+                            <th style="width: 9%;">
+                                RS Tier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
+                            </th>
+                            <th style="width: 20%;">
+                                Weapon Name
+                            </th>
+                            <th style="width: 17%;">
+                                Job
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                            <td>
+                                <select name="job" class="job">
+                                    <option value="0">Cleric</option>
+                                    <option value="1">HNM Cleric</option>
+                                    <option value="2">Other</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="weaponType" class="weaponType">
+                                    <option value="0">None</option>
+                                    <option value="1">Staff</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponModifier" class="weaponModifier">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponSupSkill" class="weaponSupSkill">
+                                    <option value="0">None</option>
+                                    <option value="1">RS I</option>
+                                    <option value="2">RS II</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="supportSkillLevel" class="supportSkillLevel">
+                            </td>
+                            <td>
+                                <input type="text" name="weaponName" class="weaponName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="btntdleft">
+                                <div class="btnDiv">
+                                    <input type="submit" value="Compare" class="btn" id="submitBtn">
+                                    <input type="button" value="Close Comparison" class="btn" id="closeBtn">
+                                </div>
+                            </td>
+                            <td colspan="1" class="btntdright">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+        <div id="resultsDiv"></div>
+    </div>
+    <script src="cleric.js"></script>
+</body>
+</html>
