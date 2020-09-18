@@ -44,9 +44,17 @@ body {
     margin-right: auto;
 }
 
+.bodyList {
+    padding: 30px;
+}
+
+li {
+    list-style: none;
+}
+
 a {
-    font-size: 125%;
-    display: block;
+    font-size: 150%;
+    display: inline-block;
 }
 
 a:link {
