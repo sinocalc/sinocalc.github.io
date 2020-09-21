@@ -17,8 +17,8 @@
                     <ol>
                         <li>Fill in the P.Def and M.Def values.</li>
                         <li>Select the weapon type for each slot. If slot is empty, leave it on none.</li>
-                        <li>Select the skill tier for each weapon and fill in the skill level.</li>
                         <li>Select the number of weapon targets.</li>
+                        <li>Select the skill tier for each weapon and fill in the skill level.</li>
                         <li>If the weapon has Recovery Support, select the tier and fill in the skill level.</li>
                         <li>Grid and weapon names are optional, use them at your convinience.</li>
                         <li>Click the calculate button once completed.</li>
@@ -78,7 +78,7 @@
                         <input type="text" class="gridName">
                         <span class="clearGrid" title="Clear Grid" id="clearGrid1">&times;</span>
                     </div>
-                    <div class="atkValue">
+                    <div class="defValue">
                         <div class="pdefDiv">
                             <label for="pdefInput">P.Def</label>
                             <input type="text" name="pdefInput" class="pdefInput">
@@ -93,14 +93,14 @@
                             <th style="width: 12%;">
                                 Type
                             </th>
+                            <th style="width: 9%;">
+                                Targets
+                            </th>
                             <th style="width: 13%;">
                                 Skill Modifier
                             </th>
                             <th style="width: 10%;">
                                 Skill Level
-                            </th>
-                            <th style="width: 9%;">
-                                Targets
                             </th>
                             <th style="width: 9%;">
                                 RS Tier
@@ -123,17 +123,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -164,17 +164,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -198,17 +198,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -232,17 +232,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -266,17 +266,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -300,17 +300,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -334,17 +334,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -368,17 +368,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -402,17 +402,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -436,17 +436,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -470,17 +470,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -504,17 +504,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -538,17 +538,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -572,17 +572,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -606,17 +606,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -640,17 +640,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -674,17 +674,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -708,17 +708,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -742,17 +742,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -776,17 +776,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1353,7 +1353,7 @@
                         <input type="text" class="gridName">
                         <span class="clearGrid" title="Clear Grid" id="clearGrid2">&times;</span>
                     </div>
-                    <div class="atkValue">
+                    <div class="defValue">
                         <div class="pdefDiv">
                             <label for="pdefInput">P.Def</label>
                             <input type="text" name="pdefInput" class="pdefInput">
@@ -1368,14 +1368,14 @@
                             <th style="width: 12%;">
                                 Type
                             </th>
+                            <th style="width: 9%;">
+                                Targets
+                            </th>
                             <th style="width: 13%;">
                                 Skill Modifier
                             </th>
                             <th style="width: 10%;">
                                 Skill Level
-                            </th>
-                            <th style="width: 9%;">
-                                Targets
                             </th>
                             <th style="width: 9%;">
                                 RS Tier
@@ -1398,17 +1398,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1439,17 +1439,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1473,17 +1473,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1507,17 +1507,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1541,17 +1541,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1575,17 +1575,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1609,17 +1609,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1643,17 +1643,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1677,17 +1677,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1711,17 +1711,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1745,17 +1745,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1779,17 +1779,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1813,17 +1813,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1847,17 +1847,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1881,17 +1881,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1915,17 +1915,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1949,17 +1949,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -1983,17 +1983,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -2017,17 +2017,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
@@ -2051,17 +2051,17 @@
                                 </select>
                             </td>
                             <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select name="weaponModifier" class="weaponModifier">
                                     <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
                                 <input type="text" name="weaponSkillLevel" class="weaponSkillLevel">
-                            </td>
-                            <td>
-                                <select name="weaponTargets" class="weaponTargets">
-                                    <option value="0">None</option>
-                                </select>
                             </td>
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">

@@ -2,7 +2,7 @@ window.onload = function() {
     var height = 0;
 
     height += document.getElementsByClassName("tableHeading")[0].clientHeight;
-    height += document.getElementsByClassName("defValue")[0].clientHeight;
+    height += document.getElementsByClassName("statValue")[0].clientHeight;
     height += 40;
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
@@ -12,7 +12,7 @@ window.onresize = function() {
     var height = 0;
 
     height += document.getElementsByClassName("tableHeading")[0].clientHeight;
-    height += document.getElementsByClassName("defValue")[0].clientHeight;
+    height += document.getElementsByClassName("statValue")[0].clientHeight;
     height += 40;
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
@@ -37,9 +37,10 @@ document.getElementById("helpLink").onclick = function() {
 document.getElementById("clearGrid1").onclick = function() {
     clearGrid(0);
     clearCalcResults();
-    rsSelect(0);
+    sbSelect(0);
+    document.getElementById("attenuationSelectDiv").style.display = "none";
     document.getElementById("shinmaSelectDiv").style.display = "none";
-    document.getElementById("rsSelectDiv").style.display = "none";
+    document.getElementById("sbSelectDiv").style.display = "none";
     document.getElementById("resultsDiv").innerHTML = "";
 
     return false;
@@ -111,7 +112,7 @@ document.getElementById("closeBtn").onclick = function() {
     var height = 0;
 
     height += document.getElementsByClassName("tableHeading")[0].clientHeight;
-    height += document.getElementsByClassName("defValue")[0].clientHeight;
+    height += document.getElementsByClassName("statValue")[0].clientHeight;
     height += 40;
 
     document.getElementById("resultsPadding").style.height = "" + height + "px";
@@ -124,14 +125,16 @@ document.getElementById("openCompareBtn").onclick = function() {
     document.getElementById("weaponGrid1Results").style.display = "none";
     document.getElementById("exportSelect").style.display = "inline-block";
     document.getElementById("copyDiv").style.display = "block";
-    document.getElementById("rsSelect").value = 0;
+    document.getElementById("sbSelect").value = 0;
     document.getElementById("shinmaSelect").value = 0;
+    document.getElementById("attenuationSelect").value = 1;
     document.getElementById("shinmaSelectDiv").style.display = "none";
-    document.getElementById("rsSelectDiv").style.display = "none";
+    document.getElementById("attenuationDiv").style.display = "none";
+    document.getElementById("sbSelectDiv").style.display = "none";
     document.getElementsByClassName("tableHeadingText")[0].innerHTML = 'Weapon Grid 1: ';
     document.getElementById("resultsDiv").innerHTML = "";
 
-    rsSelect(0);
+    sbSelect(0);
     clearCalcResults();
 
     return false;
@@ -152,11 +155,17 @@ document.getElementById("selectFiles").onchange = function() {
         var gridNum = document.getElementById("exportSelect").value;
         importJsonFile(result,gridNum);
 
-        var rsSelectValue = document.getElementById("rsSelect").value;
-        rsSelect(rsSelectValue);
+        var sbSelectValue = document.getElementById("sbSelect").value;
+        sbSelect(sbSelectValue);
     }
     
     fr.readAsText(files.item(0));
+
+    return false;
+};
+
+document.getElementById("attenuationSelect").onchange = function() {
+    calculateUpdate();
 
     return false;
 };
@@ -167,10 +176,10 @@ document.getElementById("shinmaSelect").onchange = function() {
     return false;
 };
 
-document.getElementById("rsSelect").onchange = function() {
-    var rsSelectValue = document.getElementById("rsSelect").value;
+document.getElementById("sbSelect").onchange = function() {
+    var sbSelectValue = document.getElementById("sbSelect").value;
 
-    rsSelect(rsSelectValue);
+    sbSelect(sbSelectValue);
     calculateUpdate();
 
     return false;
@@ -189,8 +198,14 @@ for (let i = 0; i < 40; i++) {
         return false;
     }
 
+    document.getElementsByClassName("weaponBuffs")[i].onchange = function() {
+        weaponBuffSelect(document.getElementsByClassName("weaponBuffs")[i].value, i);
+
+        return false;
+    }
+
     if (i < 20) {
-        document.getElementsByClassName("rsCheck")[i].onchange = function() {
+        document.getElementsByClassName("sbCheck")[i].onchange = function() {
             calculateUpdate();
 
             return false;
@@ -199,6 +214,8 @@ for (let i = 0; i < 40; i++) {
 }
 
 function checkInputs(numGrids) {
+    var patk = document.getElementsByClassName("patkInput");
+    var matk = document.getElementsByClassName("matkInput");
     var pdef = document.getElementsByClassName("pdefInput");
     var mdef = document.getElementsByClassName("mdefInput");
     var weaponType = document.getElementsByClassName("weaponType");
@@ -207,7 +224,7 @@ function checkInputs(numGrids) {
     var supportSkillLevel = document.getElementsByClassName("supportSkillLevel");
 
     for (var i = 0; i < numGrids; i++) {
-        if (!Number.isInteger(+pdef[i].value) || !Number.isInteger(+mdef[i].value) || pdef[i].value < 1 || mdef[i].value < 1) {
+        if (!Number.isInteger(+pdef[i].value) || !Number.isInteger(+mdef[i].value) || pdef[i].value < 1 || mdef[i].value < 1 || !Number.isInteger(+patk[i].value) || !Number.isInteger(+matk[i].value) || patk[i].value < 1 || matk[i].value < 1) {
             return false;
         }
 
@@ -244,10 +261,11 @@ function calculateGrid() {
     var weaponGrids = [];
     var mods;
 
-    document.getElementById("rsSelect").value = 0;
+    document.getElementById("sbSelect").value = 0;
     document.getElementById("shinmaSelect").value = 0;
+    document.getElementById("attenuationSelect").value = 1;
 
-    rsSelect(0);
+    sbSelect(0);
 
     weaponGrids[0] = createGrid(0);
 
@@ -255,13 +273,16 @@ function calculateGrid() {
     processCalculate(mods);
 
     document.getElementById("shinmaSelectDiv").style.display = "inline-block";
-    document.getElementById("rsSelectDiv").style.display = "inline-block";
+    document.getElementById("attenuationSelectDiv").style.display = "inline-block";
+    document.getElementById("sbSelectDiv").style.display = "inline-block";
 }
 
 function createGrid(gridNum) {
     var weaponGrid = {};
 
     weaponGrid["gridName"] = document.getElementsByClassName("gridName")[gridNum].value;
+    weaponGrid["patk"] = document.getElementsByClassName("patkInput")[gridNum].value;
+    weaponGrid["matk"] = document.getElementsByClassName("matkInput")[gridNum].value;
     weaponGrid["pdef"] = document.getElementsByClassName("pdefInput")[gridNum].value;
     weaponGrid["mdef"] = document.getElementsByClassName("mdefInput")[gridNum].value;
 
@@ -272,6 +293,7 @@ function createGrid(gridNum) {
         weapon["weaponSkillModifier"] = document.getElementsByClassName("weaponModifier")[(gridNum * 20) + i].value;
         weapon["weaponSkillLevel"] = document.getElementsByClassName("weaponSkillLevel")[(gridNum * 20) + i].value;
         weapon["weaponTargets"] = document.getElementsByClassName("weaponTargets")[(gridNum * 20) + i].value;
+        weapon["weaponBuffs"] = document.getElementsByClassName("weaponBuffs")[(gridNum * 20) + i].value;
         weapon["weaponSupSkill"] = document.getElementsByClassName("weaponSupSkill")[(gridNum * 20) + i].value;
         weapon["supportSkillLevel"] = document.getElementsByClassName("supportSkillLevel")[(gridNum * 20) + i].value;
         weapon["weaponName"] = document.getElementsByClassName("weaponName")[(gridNum * 20) + i].value;
@@ -289,10 +311,10 @@ function calculateMods(weaponGrids, numGrids) {
 
     for (var i = 0; i < numGrids; i++) {
         var weaponGrid = weaponGrids[i];
-        var rsMod;
-        var healMods = {};
+        var sbMod;
+        var buffMods = {};
 
-        rsMod = calculateRS(weaponGrid, numGrids);
+        sbMod = calculateSB(weaponGrid, numGrids);
 
         for (var j = 0; j < 20; j++) {
             var weapon = weaponGrid[j];
@@ -327,34 +349,34 @@ function calculateMods(weaponGrids, numGrids) {
                     skillLevelMod += 0.05;
                 }
 
-                totalMods = skillMod * skillLevelMod * rsMod * jobMod;
+                totalMods = skillMod * skillLevelMod * sbMod * jobMod;
                 
                 weaponMod["modValue"] = totalMods;
             } else {
                 weaponMod["modValue"] = 0;
             }
 
-            healMods[j] = weaponMod;
+            buffMods[j] = weaponMod;
         }
 
-        healMods["rsMod"] = rsMod;
+        buffMods["sbMod"] = sbMod;
 
-        mods[i] = healMods;
+        mods[i] = buffMods;
     }
 
     return mods;
 }
 
-function calculateRS(weaponGrid, numGrids) {
-    var rsMod = 1;
-    var rsSelectValue = document.getElementById("rsSelect").value;
-    var rsCheckBoxes = document.getElementsByClassName("rsCheck");
+function calculateSB(weaponGrid, numGrids) {
+    var sbMod = 1;
+    var sbSelectValue = document.getElementById("sbSelect").value;
+    var sbCheckBoxes = document.getElementsByClassName("sbCheck");
 
-    if (numGrids == 1 && rsSelectValue == 1) {
+    if (numGrids == 1 && sbSelectValue == 1) {
         for (var i = 0; i < 20; i++) {
-            if (rsCheckBoxes[i].checked == true) {
+            if (sbCheckBoxes[i].checked == true) {
                 var skillLevelMod;
-                var instancersMod;
+                var instancesbMod;
 
                 skillLevelMod = 1 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.03);
 
@@ -366,16 +388,16 @@ function calculateRS(weaponGrid, numGrids) {
                     skillLevelMod += 0.05;
                 }
 
-                instancersMod = (((weaponGrid[i]["weaponSupSkill"] * 5) / 100) * skillLevelMod)
+                instancesbMod = (((weaponGrid[i]["weaponSupSkill"] * 5) / 100) * skillLevelMod)
 
-                rsMod += instancersMod;
+                sbMod += instancesbMod;
             }
         }
     } else {
         for (var i = 0; i < 20; i++) {
             var skillLevelMod;
             var procRate;
-            var instancersMod;
+            var instancesbMod;
 
             if (weaponGrid[i]["weaponSupSkill"] > 0) {
                 skillLevelMod = 1 + ((weaponGrid[i]["supportSkillLevel"] - 1) * 0.03);
@@ -398,16 +420,16 @@ function calculateRS(weaponGrid, numGrids) {
                     procRate += 0.005;
                 }
 
-                instancersMod = (((weaponGrid[i]["weaponSupSkill"] * 5) / 100) * skillLevelMod * procRate)
+                instancesbMod = (((weaponGrid[i]["weaponSupSkill"] * 5) / 100) * skillLevelMod * procRate)
             } else {
-                instancersMod = 0;
+                instancesbMod = 0;
             }
 
-            rsMod += instancersMod;
+            sbMod += instancesbMod;
         }
     }
 
-    return rsMod;
+    return sbMod;
 }
 
 function processCompare(mods) {
@@ -429,16 +451,16 @@ function processCalculate(mods) {
 function createResultsRegion() {
     var resultsDiv = document.getElementById("resultsDiv");
     var resultsTextDiv = document.createElement("div");
-    var resultsHeal = document.createElement("p");
+    var resultsBuff = document.createElement("p");
     var resultsText = document.createElement("p");
     
     resultsTextDiv.id = "resultsTextDiv";
-    resultsHeal.id = "resultsHeal";
+    resultsBuff.id = "resultsBuff";
     resultsText.id = "resultsText";
 
     resultsDiv.innerHTML = "";
 
-    resultsTextDiv.appendChild(resultsHeal);
+    resultsTextDiv.appendChild(resultsBuff);
     resultsTextDiv.appendChild(resultsText);
     resultsDiv.appendChild(resultsTextDiv);
 }
@@ -477,7 +499,7 @@ function compareResults(mods) {
 
     for (var i = 0; i < 2; i++) {
         var weaponMods = mods[i];
-        var healTotal = 0;
+        var buffTotal = 0;
         var pdef = pdefValues[i].value;
         var mdef = mdefValues[i].value;
 
@@ -485,13 +507,13 @@ function compareResults(mods) {
             var weaponTargets = document.getElementsByClassName("weaponTargets")[(i * 20) + j].value;
 
             if (weaponMods[j]["weaponType"] == 1) {
-                healTotal += (Number(pdef) + Number(mdef)) * weaponMods[j]["modValue"] * weaponTargets;
+                buffTotal += (Number(pdef) + Number(mdef)) * weaponMods[j]["modValue"] * weaponTargets;
             } else {
-                healTotal += 0;
+                buffTotal += 0;
             }
         }
 
-        total[i] = healTotal * 0.05;
+        total[i] = buffTotal * 0.05;
     }
 
     if (total[0] > total[1]) {
@@ -517,7 +539,7 @@ function calculateResults(mods) {
     var shinmaCalcResults;
     var totalResults = {};
     var weaponMods = mods[0];
-    var healTotal = 0;
+    var buffTotal = 0;
     var pdef = pdefValues[0].value;
     var mdef = mdefValues[0].value;
 
@@ -526,17 +548,17 @@ function calculateResults(mods) {
         var weaponTargets = document.getElementsByClassName("weaponTargets")[j].value;
 
         if (weaponMods[j]["weaponType"] == 1) {
-            weaponResults["baseHeal"] = (Number(pdef) + Number(mdef)) * weaponMods[j]["modValue"] / weaponMods["rsMod"];
-            weaponResults["rsHeal"] = weaponResults["baseHeal"] * weaponMods["rsMod"];
-            weaponResults["aoeHeal"] = weaponResults["baseHeal"] * weaponTargets;
-            weaponResults["totalHeal"] = weaponResults["rsHeal"] * weaponTargets;
-            healTotal += weaponResults["totalHeal"];
+            weaponResults["baseBuff"] = (Number(pdef) + Number(mdef)) * weaponMods[j]["modValue"] / weaponMods["sbMod"];
+            weaponResults["sbBuff"] = weaponResults["baseBuff"] * weaponMods["sbMod"];
+            weaponResults["aoeBuff"] = weaponResults["baseBuff"] * weaponTargets;
+            weaponResults["totalBuff"] = weaponResults["sbBuff"] * weaponTargets;
+            buffTotal += weaponResults["totalBuff"];
         } else {
-            weaponResults["baseHeal"] = 0;
-            weaponResults["rsHeal"] = 0;
-            weaponResults["aoeHeal"] = 0;
-            weaponResults["totalHeal"] = 0;
-            healTotal += 0;
+            weaponResults["baseBuff"] = 0;
+            weaponResults["sbBuff"] = 0;
+            weaponResults["aoeBuff"] = 0;
+            weaponResults["totalBuff"] = 0;
+            buffTotal += 0;
         }
 
         totalResults[j] = weaponResults;
@@ -545,23 +567,23 @@ function calculateResults(mods) {
     if (shinmaSelectValue > 0) {
         shinmaCalcResults = shinmaCalc(totalResults);
         totalResults = shinmaCalcResults[0];
-        healTotal = shinmaCalcResults[1];
+        buffTotal = shinmaCalcResults[1];
     }
 
     for (var i = 0; i < 20; i++) {
-        if (healTotal != 0) {
-            totalResults[i]["healPercent"] = totalResults[i]["totalHeal"] / healTotal;
+        if (buffTotal != 0) {
+            totalResults[i]["buffPercent"] = totalResults[i]["totalBuff"] / buffTotal;
         } else {
-            totalResults[i]["healPercent"] = 0;
+            totalResults[i]["buffPercent"] = 0;
         }
 
-        totalResults[i]["baseHeal"] *= (0.05);
-        totalResults[i]["rsHeal"] *= (0.05);
-        totalResults[i]["aoeHeal"] *= (0.05);
-        totalResults[i]["totalHeal"] *= (0.05);
+        totalResults[i]["baseBuff"] *= (0.05);
+        totalResults[i]["sbBuff"] *= (0.05);
+        totalResults[i]["aoeBuff"] *= (0.05);
+        totalResults[i]["totalBuff"] *= (0.05);
     }
 
-    totalResults["totalGridHeal"] = healTotal * 0.05;
+    totalResults["totalGridBuff"] = buffTotal * 0.05;
 
     return totalResults;
 }
@@ -586,14 +608,14 @@ function shinmaCalc(totalResults) {
                 shinmaMod = 1.3;
             }
 
-            weaponResults["baseHeal"] *= shinmaMod;
-            weaponResults["rsHeal"] *= shinmaMod;
-            weaponResults["aoeHeal"] *= shinmaMod;
-            weaponResults["totalHeal"] *= shinmaMod;
+            weaponResults["baseBuff"] *= shinmaMod;
+            weaponResults["sbBuff"] *= shinmaMod;
+            weaponResults["aoeBuff"] *= shinmaMod;
+            weaponResults["totalBuff"] *= shinmaMod;
         } 
 
         shinmaResults[i] = weaponResults;
-        totalDamage += weaponResults["totalHeal"];
+        totalDamage += weaponResults["totalBuff"];
     }
 
     shinmaCalcResults[0] = shinmaResults;
@@ -603,17 +625,17 @@ function shinmaCalc(totalResults) {
 }
 
 function compareRender(results) {
-    document.getElementById("resultsHeal").innerHTML = results[0]
+    document.getElementById("resultsBuff").innerHTML = results[0]
     document.getElementById("resultsText").innerHTML = results[1];
 }
 
 function calculateRender(results) {
     var gridWeaponName = document.getElementsByClassName("weaponName");
     var weaponName = document.getElementsByClassName("resultWeaponName");
-    var heal = document.getElementsByClassName("resultHeal");
-    var healRS = document.getElementsByClassName("resultHealRS");
-    var healAoE = document.getElementsByClassName("resultHealAoE");
-    var healTotal = document.getElementsByClassName("resultHealTotal");
+    var buff = document.getElementsByClassName("resultsBuff");
+    var buffSB = document.getElementsByClassName("resultsBuffSB");
+    var buffAoE = document.getElementsByClassName("resultsBuffAoE");
+    var buffTotal = document.getElementsByClassName("resultsBuffTotal");
     var percentTotal = document.getElementsByClassName("resultPercentTotal");
 
     for (var i = 0; i < 20; i++) {
@@ -625,18 +647,20 @@ function calculateRender(results) {
             weaponName[i].innerHTML = gridWeaponName[i].value;
         }
 
-        heal[i].innerHTML = Number((results[i]["baseHeal"]).toFixed(0)).toLocaleString();
-        healRS[i].innerHTML = Number((results[i]["rsHeal"]).toFixed(0)).toLocaleString();
-        healAoE[i].innerHTML = Number((results[i]["aoeHeal"]).toFixed(0)).toLocaleString();
-        healTotal[i].innerHTML = Number((results[i]["totalHeal"]).toFixed(0)).toLocaleString();
-        percentTotal[i].innerHTML = Number(((results[i]["healPercent"] * 100)).toFixed(2));
+        buff[i].innerHTML = Number((results[i]["baseBuff"]).toFixed(0)).toLocaleString();
+        buffSB[i].innerHTML = Number((results[i]["sbBuff"]).toFixed(0)).toLocaleString();
+        buffAoE[i].innerHTML = Number((results[i]["aoeBuff"]).toFixed(0)).toLocaleString();
+        buffTotal[i].innerHTML = Number((results[i]["totalBuff"]).toFixed(0)).toLocaleString();
+        percentTotal[i].innerHTML = Number(((results[i]["buffPercent"] * 100)).toFixed(2));
     }
 
-    document.getElementById("resultsHeal").innerHTML =  "Grid Heal: " + Number((results["totalGridHeal"]).toFixed(0)).toLocaleString();
+    document.getElementById("resultsBuff").innerHTML =  "Grid Heal: " + Number((results["totalGridBuff"]).toFixed(0)).toLocaleString();
 }
 
 function copyGrid(weaponGrid, copyNum) {
     document.getElementsByClassName("gridName")[copyNum].value = weaponGrid["gridName"];
+    document.getElementsByClassName("patkInput")[copyNum].value = weaponGrid["patk"];
+    document.getElementsByClassName("matkInput")[copyNum].value = weaponGrid["matk"];
     document.getElementsByClassName("pdefInput")[copyNum].value = weaponGrid["pdef"];
     document.getElementsByClassName("mdefInput")[copyNum].value = weaponGrid["mdef"];
 
@@ -645,6 +669,8 @@ function copyGrid(weaponGrid, copyNum) {
         weaponTypeSelect(document.getElementsByClassName("weaponType")[(copyNum * 20) + i].value, ((copyNum * 20) + i));
         document.getElementsByClassName("weaponTargets")[(copyNum * 20) + i].value = weaponGrid[i]["weaponTargets"];
         weaponTargetSelect(document.getElementsByClassName("weaponTargets")[(copyNum * 20) + i].value, ((copyNum * 20) + i));
+        document.getElementsByClassName("weaponBuffs")[(copyNum * 20) + i].value = weaponGrid[i]["weaponBuffs"];
+        weaponBuffSelect(document.getElementsByClassName("weaponBuffs")[(copyNum * 20) + i].value, ((copyNum * 20) + i));
         document.getElementsByClassName("weaponModifier")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSkillModifier"];
         document.getElementsByClassName("weaponSkillLevel")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSkillLevel"];
         document.getElementsByClassName("weaponSupSkill")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSupSkill"];
@@ -665,6 +691,8 @@ function clearGrid(gridNum) {
         weaponTypeSelect(0, ((gridNum * 20) + i));
         document.getElementsByClassName("weaponTargets")[(gridNum * 20) + i].value = 0;
         weaponTargetSelect(0, ((gridNum * 20) + i));
+        document.getElementsByClassName("weaponBuffs")[(gridNum * 20) + i].value = 0;
+        weaponBuffSelect(0, ((gridNum * 20) + i));
         document.getElementsByClassName("weaponSkillLevel")[(gridNum * 20) + i].value = '';
         document.getElementsByClassName("weaponSupSkill")[(gridNum * 20) + i].value = 0;
         document.getElementsByClassName("supportSkillLevel")[(gridNum * 20) + i].value = '';
@@ -676,18 +704,18 @@ function clearGrid(gridNum) {
 
 function clearCalcResults() {
     var weaponName = document.getElementsByClassName("resultWeaponName");
-    var damage = document.getElementsByClassName("resultHeal");
-    var damageRS = document.getElementsByClassName("resultHealRS");
-    var damageAoE = document.getElementsByClassName("resultHealAoE");
-    var healTotal = document.getElementsByClassName("resultHealTotal");
+    var damage = document.getElementsByClassName("resultsBuff");
+    var damageSB = document.getElementsByClassName("resultsBuffSB");
+    var damageAoE = document.getElementsByClassName("resultsBuffAoE");
+    var buffTotal = document.getElementsByClassName("resultsBuffTotal");
     var percentTotal = document.getElementsByClassName("resultPercentTotal");
 
     for (var i = 0; i < 20; i++) {
         weaponName[i].innerHTML = '';
         damage[i].innerHTML = '';
-        damageRS[i].innerHTML = '';
+        damageSB[i].innerHTML = '';
         damageAoE[i].innerHTML = '';
-        healTotal[i].innerHTML = '';
+        buffTotal[i].innerHTML = '';
         percentTotal[i].innerHTML = '';
     }
 }
@@ -718,11 +746,25 @@ function weaponTargetSelect(weaponTargets, index) {
     }
 }
 
+function weaponBuffSelect(weaponBuffs, index) {
+    var weaponSkill = document.getElementsByClassName("weaponModifier")[index];
+
+    if (weaponTargets == 1) {
+        weaponSkill.innerHTML = '<option value="3">3</option><option value="2.78">2.78</option><option value="2.25">2.25</option><option value="2.04">2.04</option><option value="1.8">1.8</option>';
+    } else if (weaponTargets == 1.5) {
+        weaponSkill.innerHTML = '<option value="2.34">2.34</option><option value="2.33">2.33</option><option value="2.25">2.25</option><option value="1.8">1.8</option><option value="1.35">1.35</option>';
+    } else if (weaponTargets == 2) {
+        weaponSkill.innerHTML = '<option value="2.25">2.25</option><option value="2.04">2.04</option><option value="1.5">1.5</option>';
+    } else {
+        weaponSkill.innerHTML = '<option value="0">None</option>';
+    }
+}
+
 function exportGrid(gridNum) {
     var weaponGrid = createGrid(gridNum);
     var filename = document.getElementsByClassName("gridName")[gridNum].value;
 
-    weaponGrid["role"] = "cleric";
+    weaponGrid["role"] = "minsorc";
 
     exportToJsonFile(weaponGrid, filename);
 }
@@ -748,7 +790,7 @@ function exportToJsonFile(jsonData, filename) {
 function importJsonFile(jsonData, gridNum) {
     var weaponGrid = jsonData;
 
-    if (weaponGrid["role"] != "cleric") {
+    if (weaponGrid["role"] != "minsorc") {
         window.alert("Incompatible import file");
         return false;
     }
@@ -756,18 +798,18 @@ function importJsonFile(jsonData, gridNum) {
     copyGrid(weaponGrid, gridNum);
 }
 
-function rsSelect(rsSelectValue) {
-    var checkboxes = document.getElementsByClassName("rsCheck");
-    var rsSkills = document.getElementsByClassName("weaponSupSkill");
+function sbSelect(sbSelectValue) {
+    var checkboxes = document.getElementsByClassName("sbCheck");
+    var sbSkills = document.getElementsByClassName("weaponSupSkill");
 
-    if (rsSelectValue == 0) {
+    if (sbSelectValue == 0) {
         for (var i = 0; i < 20; i++) {
             checkboxes[i].checked = false;
             checkboxes[i].disabled = true;
         }
-    } else if (rsSelectValue == 1) {
+    } else if (sbSelectValue == 1) {
         for (var i = 0; i < 20; i++) {
-            if (rsSkills[i].value > 0) {
+            if (sbSkills[i].value > 0) {
                 checkboxes[i].disabled = false;
             }
         }

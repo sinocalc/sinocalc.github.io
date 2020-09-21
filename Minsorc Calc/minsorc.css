@@ -197,29 +197,33 @@ a:active {
   cursor: pointer;
 }
 
-.atkValue {
+.statValue {
     margin: 5px 0px 10px 20px;
     display: inline-block;
 }
 
-.patkDiv {
+.pdefDiv, .patkDiv {
     margin: 0px 0px 0px 0px;
     font-weight: bold;
     display: inline-block;
 }
 
-.matkDiv {
+.mdefDiv, .matkDiv {
     margin: 0px 0px 0px 0px;
     font-weight: bold;
     display: inline-block;
 }
 
-.label {
+label {
     vertical-align: middle;
 }
 
-.patkInput, .matkInput {
-    width: 117px;
+label[for=pdefInput], label[for=mdefInput] {
+    margin-right: 2px;
+}
+
+.pdefInput, .mdefInput, .patkInput, .matkInput {
+    width: 113px;
 }
 
 .weaponGridTable {
@@ -254,7 +258,7 @@ td {
     text-align: center;
 }
 
-.weaponType, .weaponModifier, .weaponSupSkill, .job, .weaponSkillLevel, .supportSkillLevel, .weaponName {
+.weaponType, .weaponBuffs, .weaponModifier, .weaponSupSkill, .job, .weaponSkillLevel, .supportSkillLevel, .weaponName, .weaponTargets {
     width: 100%;
     box-sizing: border-box;
      -webkit-box-sizing:border-box;
@@ -272,8 +276,8 @@ input, select {
     text-align: left;
 }
 
-.resultWeaponName, .resultDamage, .resultDamageDC,
-.resultDamageAoE, .resultDamageTotal, .resultPercentTotal {
+.resultWeaponName, .resultsBuff, .resultsBuffSB,
+.resultsBuffAoE, .resultsBuffTotal, .resultPercentTotal {
     vertical-align: middle;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -379,8 +383,21 @@ p {
     margin-right: 0px;
 }
 
+#attenuationSelectDiv {
+    display: none;
+}
+
+#attenuationSelectText {
+    display: inline-block;
+}
+
+#attenuationSelectSelect {
+    display: inline-block;
+}
+
 #shinmaSelectDiv {
     display: none;
+    margin-left: 10px;
 }
 
 #shinmaSelectText {
@@ -391,157 +408,35 @@ p {
     display: inline-block;
 }
 
-#dcSelectDiv {
+#sbSelectDiv {
     display: none;
     margin-left: 10px;
 }
 
-#dcSelectText {
+#sbSelectText {
     display: inline-block;
 }
 
-#dcSelect {
+#sbSelect {
     display: inline-block;
 }
 
 #resultsDiv {
     margin: 10px 20px 0px 20px;
     height: 70px;
-    display: inline-block;
-}
-
-.sliderDiv {
-    display: inline-block;
-    text-align: right;
-    margin: 22px 20px 15px 20px;
-    font-weight: bold;
-}
-
-.slider {
-    -webkit-appearance: none;
-    width: 200px;
-    padding: 0;
-    display: block;
-}
-
-.sliderText {
-    width: 50px;
-    display: inline-block;
-}
-
-.defValueDiv {
-    display: inline-block;
-}
-
-input[type=range]:focus {
-    outline: none;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 5px;
-    cursor: pointer;
-    box-shadow: 0px 0px 0px #000000;
-    background: #E0E0E0;
-    border-radius: 10px;
-    border: 1px solid #D3D3D3;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    box-shadow: 0px 0px 0px #000000;
-    border: 1px solid #808080;
-    height: 15px;
-    width: 15px;
-    border-radius: 25px;
-    background: #D3D3D3;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -7.5px;
-}
-
-input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #E0E0E0;
-}
-
-input[type=range]::-moz-range-track {
-    width: 100%;
-    height: 5px;
-    cursor: pointer;
-    box-shadow: 0px 0px 0px #000000;
-    background: #E0E0E0;
-    border-radius: 10px;
-    border: 1px solid #D3D3D3;
-}
-
-input[type=range]::-moz-range-thumb {
-    box-shadow: 0px 0px 0px #000000;
-    border: 1px solid #808080;
-    height: 15px;
-    width: 15px;
-    border-radius: 25px;
-    background: #D3D3D3;
-    cursor: pointer;
-}
-
-input[type=range]::-ms-track {
-    width: 100%;
-    height: 5px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-}
-
-input[type=range]::-ms-fill-lower {
-    background: #E0E0E0;
-    border: 1px solid #D3D3D3;
-    border-radius: 20px;
-    box-shadow: 0px 0px 0px #000000;
-}
-
-input[type=range]::-ms-fill-upper {
-    background: #E0E0E0;
-    border: 1px solid #D3D3D3;
-    border-radius: 20px;
-    box-shadow: 0px 0px 0px #000000;
-}
-
-input[type=range]::-ms-thumb {
-    margin-top: 1px;
-    box-shadow: 0px 0px 0px #000000;
-    border: 1px solid #808080;
-    height: 15px;
-    width: 15px;
-    border-radius: 25px;
-    background: #D3D3D3;
-    cursor: pointer;
-}
-
-input[type=range]:focus::-ms-fill-lower {
-    background: #E0E0E0;
-}
-
-input[type=range]:focus::-ms-fill-upper {
-    background: #E0E0E0;
-}
-
-#comboSlider {
-    width: 125px;
-}
-
-#comboText {
-    margin-left: -125px;
+    display: table-cell;
+    vertical-align: bottom;
 }
 
 #resultsTextDiv {
     display: inline-block;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 60px;
+    margin-right: 60px;
     font-size: 150%;
     font-weight: bold;
 }
 
-#resultsDamage {
+#resultsBuff {
     display: inline-block;
     line-height: 1.2;
 }

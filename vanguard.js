@@ -70,7 +70,7 @@ document.getElementById("calcBtn").onclick = function() {
     }
 
     return false;
-}
+};
 
 document.getElementById("copyBtn").onclick = function() {
     var copyFrom = document.getElementById("copySelect1").value;

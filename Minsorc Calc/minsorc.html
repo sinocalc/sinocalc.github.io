@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="vanguard.css">
-    <title>Sinoalice - Vanguard Grid Analysis Tool</title>
+    <link rel="stylesheet" type="text/css" href="minsorc.css">
+    <title>Sinoalice - MinSorc Grid Analysis Tool</title>
 </head>
 <body>
     <div id="modal">
@@ -11,14 +11,16 @@
             <span id="close">&times;</span>
             <div id="instructionsText">
                 <div class="instructionsHeader">
-                    Damage Calculator
+                    Buff/Debuff Calculator
                 </div>
                 <div class="instructionsBody" id="howto">
                     <ol>
-                        <li>Fill in the P.Atk and M.Atk values.</li>
+                        <li>Fill in the P.Atk, M.Atk, P.Def, M.Def values.</li>
                         <li>Select the weapon type for each slot. If slot is empty, leave it on none.</li>
+                        <li>Select the number of weapon targets.</li>
+                        <li>Select the attributes the weapon buffs/debuffs.</li>
                         <li>Select the skill tier for each weapon and fill in the skill level.</li>
-                        <li>If the weapon has Dauntless Courage, select the tier and fill in the skill level.</li>
+                        <li>If the weapon has Support Boon, select the tier and fill in the skill level.</li>
                         <li>Grid and weapon names are optional, use them at your convinience.</li>
                         <li>Click the calculate button once completed.</li>
                     </ol>
@@ -38,13 +40,11 @@
                 </div>
                 <div class="instructionsBody" id="results">
                     <ul>
-                        <li>By default average weapon damage and damage from one grid rotation is calculated.</li>
-                        <li>DC average is calculated with proc rate and skill level.</li>
+                        <li>By default average weapon buffs and buffs from one grid rotation is calculated.</li>
+                        <li>SB average is calculated with proc rate and skill level.</li>
                         <li>AoE average is calculated with range of targets.</li>
-                        <li>Alternatively, specific DC procs can be selected, instead of average.</li>
-                        <li>The comparator will find the grid with greater total damage from one rotation. </li>
-                        <li>The damage differential may vary depending on enemy defense and combo.</li>
-                        <li>Try different defense and combo values to check damage output and comparison.</li>
+                        <li>Alternatively, specific SB procs can be selected, instead of average.</li>
+                        <li>The comparator will find the grid with greater total buffs from one rotation. </li>
                         <li>Use the information to refine your grid and determine the best setup.</li>
                     </ul>
                 </div>
@@ -60,7 +60,7 @@
     <div id="container">
         <div id="pageHeading">
             <div id="headingText">
-                Vanguard Grid Analysis Tool
+                MinSorc Grid Analysis Tool
             </div>
             <div id="helpLink">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/160px-Infobox_info_icon.svg.png" width="15" height="15">
@@ -79,7 +79,7 @@
                         <input type="text" class="gridName">
                         <span class="clearGrid" title="Clear Grid" id="clearGrid1">&times;</span>
                     </div>
-                    <div class="atkValue">
+                    <div class="statValue">
                         <div class="patkDiv">
                             <label for="patkInput">P.Atk</label>
                             <input type="text" name="patkInput" class="patkInput">
@@ -88,28 +88,42 @@
                             <label for="matkInput">M.Atk</label>
                             <input type="text" name="matkInput" class="matkInput">
                         </div>
+                        <div class="pdefDiv">
+                            <label for="pdefInput">P.Def</label>
+                            <input type="text" name="pdefInput" class="pdefInput">
+                        </div>
+                        <div class="mdefDiv">
+                            <label for="mdefInput">M.Def</label>
+                            <input type="text" name="mdefInput" class="mdefInput">
+                        </div>
                     </div>
                     <table class="weaponGridTable">
                         <tr>
-                            <th style="width: 12%;">
+                            <th style="width: 8%;">
                                 Type
                             </th>
-                            <th style="width: 22%;">
-                                Skill Modifier
+                            <th style="width: 8%;">
+                                Targets
                             </th>
-                            <th style="width: 10%;">
-                                Skill Level
+                            <th style="width:14%;">
+                                Buff
                             </th>
                             <th style="width: 9%;">
-                                DC Tier
+                                Skill Mod
                             </th>
                             <th style="width: 10%;">
                                 Skill Level
                             </th>
-                            <th style="width: 20%;">
-                                Weapon Name
+                            <th style="width: 8%;">
+                                SB Tier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
                             </th>
                             <th style="width: 17%;">
+                                Weapon Name
+                            </th>
+                            <th style="width: 15%;">
                                 Job
                             </th>
                         </tr>
@@ -117,10 +131,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -134,8 +156,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -146,14 +168,11 @@
                             </td>
                             <td>
                                 <select name="job" class="job">
-                                    <option value="0">Breaker</option>
-                                    <option value="1">Crusher</option>
-                                    <option value="2">Gunner</option>
-                                    <option value="3">Paladin</option>
-                                    <option value="4">HMN Breaker</option>
-                                    <option value="5">HMN Crusher</option>
-                                    <option value="6">HMN Gunner</option>
-                                    <option value="7">HMN Paladin</option>
+                                    <option value="0">Sorcerer</option>
+                                    <option value="1">Minstrel</option>
+                                    <option value="2">HNM Sorcerer</option>
+                                    <option value="2">HNM Minstrel</option>
+                                    <option value="2">Other</option>
                                 </select>
                             </td>
                         </tr>
@@ -161,10 +180,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -178,8 +205,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -193,10 +220,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -210,8 +245,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -225,10 +260,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -242,8 +285,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -257,10 +300,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -274,8 +325,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -289,10 +340,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -306,8 +365,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -321,10 +380,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -338,8 +405,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -353,10 +420,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -370,8 +445,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -385,10 +460,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -402,8 +485,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -417,10 +500,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -434,8 +525,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -449,10 +540,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -466,8 +565,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -481,10 +580,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -498,8 +605,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -513,10 +620,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -530,8 +645,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -545,10 +660,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -562,8 +685,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -577,10 +700,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -594,8 +725,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -609,10 +740,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -626,8 +765,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -641,10 +780,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -658,8 +805,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -673,10 +820,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -690,8 +845,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -705,10 +860,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -722,8 +885,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -737,10 +900,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -754,8 +925,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -766,7 +937,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="btntdleft">
+                            <td colspan="4" class="btntdleft">
                                 <div class="btnDiv" id="copyDiv">
                                     <select class="copySelect" id="copySelect1">
                                         <option value="0">1</option>
@@ -780,7 +951,7 @@
                                     <input type="button" value="Copy" class="btn" id="copyBtn">
                                 </div>
                             </td>
-                            <td colspan="3" class="btntdright">
+                            <td colspan="4" class="btntdright">
                                 <div class="btnDiv">
                                     <select class="exportSelect" id="exportSelect">
                                         <option value="0">1</option>
@@ -804,10 +975,10 @@
                                 Weapon
                             </th>
                             <th width="14%">
-                                Damage
+                                Buffs
                             </th>
                             <th width="14%">
-                                w/ DC
+                                w/ SB
                             </th>
                             <th width="14%">
                                 w/ AoE
@@ -819,467 +990,467 @@
                                 % 
                             </th>
                             <th width="10%">
-                                DC Proc
+                                SB Proc
                             </th>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
                             <td class="resultWeaponName">
 
                             </td>
-                            <td class="resultDamage">
+                            <td class="resultsBuff">
                                 
                             </td>
-                            <td class="resultDamageDC">
+                            <td class="resultsBuffSB">
                                 
                             </td>
-                            <td class="resultDamageAoE">
+                            <td class="resultsBuffAoE">
                                 
                             </td>
-                            <td class="resultDamageTotal">
+                            <td class="resultsBuffTotal">
                                 
                             </td>
                             <td class="resultPercentTotal">
                                 
                             </td>
-                            <td class="resultDCProc">
-                                <input type="checkbox" disabled="disabled" class="dcCheck">
+                            <td class="resultSBProc">
+                                <input type="checkbox" disabled="disabled" class="sbCheck">
                             </td>
                         </tr>
                         <tr>
@@ -1289,18 +1460,26 @@
                                     <input type="button" value="Compare Grid" class="btn" id="openCompareBtn">
                                 </div>
                             </td>
-                            <td colspan="4" class="btntdright">
+                            <td colspan="5" class="btntdright">
+                                <div id="attenuationSelectDiv">
+                                    <div id="attenuationSelectText">Attenuation: </div>
+                                    <select name="attenuationSelect" id="attenuationSelect">
+                                        <option value="1">100%</option>
+                                        <option value="0.5">50%</option>
+                                        <option value="0.1">10%</option>
+                                    </select>
+                                </div>
                                 <div id="shinmaSelectDiv">
                                     <div id="shinmaSelectText">Shinma: </div>
                                     <select name="shinmaSelect" id="shinmaSelect">
                                         <option value="0">None</option>
-                                        <option value="1">Sword/Spear</option>
-                                        <option value="2">Hammer/Bow</option>
+                                        <option value="1">Tome</option>
+                                        <option value="2">Instr.</option>
                                     </select>
                                 </div>
-                                <div id="dcSelectDiv">
-                                    <div id="dcSelectText">DC: </div>
-                                    <select name="dcSelect" id="dcSelect">
+                                <div id="sbSelectDiv">
+                                    <div id="sbSelectText">SB: </div>
+                                    <select name="sbSelect" id="sbSelect">
                                         <option value="0">Average</option>
                                         <option value="1">Select</option>
                                     </select>
@@ -1317,7 +1496,7 @@
                         <input type="text" class="gridName">
                         <span class="clearGrid" title="Clear Grid" id="clearGrid2">&times;</span>
                     </div>
-                    <div class="atkValue">
+                    <div class="statValue">
                         <div class="patkDiv">
                             <label for="patkInput">P.Atk</label>
                             <input type="text" name="patkInput" class="patkInput">
@@ -1326,28 +1505,42 @@
                             <label for="matkInput">M.Atk</label>
                             <input type="text" name="matkInput" class="matkInput">
                         </div>
+                        <div class="pdefDiv">
+                            <label for="pdefInput">P.Def</label>
+                            <input type="text" name="pdefInput" class="pdefInput">
+                        </div>
+                        <div class="mdefDiv">
+                            <label for="mdefInput">M.Def</label>
+                            <input type="text" name="mdefInput" class="mdefInput">
+                        </div>
                     </div>
                     <table class="weaponGridTable">
                         <tr>
-                            <th style="width: 12%;">
+                            <th style="width: 8%;">
                                 Type
                             </th>
-                            <th style="width: 22%;">
-                                Skill Modifier
+                            <th style="width: 8%;">
+                                Targets
                             </th>
-                            <th style="width: 10%;">
-                                Skill Level
+                            <th style="width:14%;">
+                                Buff
                             </th>
                             <th style="width: 9%;">
-                                DC Tier
+                                Skill Mod
                             </th>
                             <th style="width: 10%;">
                                 Skill Level
                             </th>
-                            <th style="width: 20%;">
-                                Weapon Name
+                            <th style="width: 8%;">
+                                SB Tier
+                            </th>
+                            <th style="width: 10%;">
+                                Skill Level
                             </th>
                             <th style="width: 17%;">
+                                Weapon Name
+                            </th>
+                            <th style="width: 15%;">
                                 Job
                             </th>
                         </tr>
@@ -1355,10 +1548,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1372,8 +1573,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1384,14 +1585,11 @@
                             </td>
                             <td>
                                 <select name="job" class="job">
-                                    <option value="0">Breaker</option>
-                                    <option value="1">Crusher</option>
-                                    <option value="2">Gunner</option>
-                                    <option value="3">Paladin</option>
-                                    <option value="4">HMN Breaker</option>
-                                    <option value="5">HMN Crusher</option>
-                                    <option value="6">HMN Gunner</option>
-                                    <option value="7">HMN Paladin</option>
+                                    <option value="0">Sorcerer</option>
+                                    <option value="1">Minstrel</option>
+                                    <option value="2">HNM Sorcerer</option>
+                                    <option value="2">HNM Minstrel</option>
+                                    <option value="2">Other</option>
                                 </select>
                             </td>
                         </tr>
@@ -1399,10 +1597,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1416,8 +1622,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1431,10 +1637,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1448,8 +1662,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1463,10 +1677,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1480,8 +1702,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1495,10 +1717,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1512,8 +1742,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1527,10 +1757,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1544,8 +1782,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1559,10 +1797,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1576,8 +1822,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1591,10 +1837,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1608,8 +1862,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1623,10 +1877,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1640,8 +1902,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1655,10 +1917,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1672,8 +1942,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1687,10 +1957,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1704,8 +1982,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1719,10 +1997,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1736,8 +2022,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1751,10 +2037,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1768,8 +2062,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1783,10 +2077,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1800,8 +2102,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1815,10 +2117,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1832,8 +2142,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1847,10 +2157,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1864,8 +2182,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1879,10 +2197,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1896,8 +2222,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1911,10 +2237,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1928,8 +2262,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1943,10 +2277,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1960,8 +2302,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -1975,10 +2317,18 @@
                             <td>
                                 <select name="weaponType" class="weaponType">
                                     <option value="0">None</option>
-                                    <option value="1">Sword</option>
-                                    <option value="2">Hammer</option>
-                                    <option value="3">Bow</option>
-                                    <option value="4">Spear</option>
+                                    <option value="1">Tome</option>
+                                    <option value="2">Instr.</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponTargets" class="weaponTargets">
+                                    <option value="0">None</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="weaponBuffs" class="weaponBuffs">
+                                    <option value="0">None</option>
                                 </select>
                             </td>
                             <td>
@@ -1992,8 +2342,8 @@
                             <td>
                                 <select name="weaponSupSkill" class="weaponSupSkill">
                                     <option value="0">None</option>
-                                    <option value="1">DC I</option>
-                                    <option value="2">DC II</option>
+                                    <option value="1">SB I</option>
+                                    <option value="2">SB II</option>
                                 </select>
                             </td>
                             <td>
@@ -2004,7 +2354,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="btntdleft">
+                            <td colspan="7" class="btntdleft">
                                 <div class="btnDiv">
                                     <input type="submit" value="Compare" class="btn" id="submitBtn">
                                     <input type="button" value="Close Comparison" class="btn" id="closeBtn">
@@ -2019,6 +2369,6 @@
         </div>
         <div id="resultsDiv"></div>
     </div>
-    <script src="vanguard.js"></script>
+    <script src="minsorc.js"></script>
 </body>
 </html>

@@ -197,7 +197,7 @@ a:active {
   cursor: pointer;
 }
 
-.atkValue {
+.defValue {
     margin: 5px 0px 10px 20px;
     display: inline-block;
 }
