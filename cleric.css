@@ -218,6 +218,10 @@ a:active {
     vertical-align: middle;
 }
 
+label[for=pdefInput], label[for=mdefInput] {
+    margin-right: 2px;
+}
+
 .pdefInput, .mdefInput {
     width: 117px;
 }

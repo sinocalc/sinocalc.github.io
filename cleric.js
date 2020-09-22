@@ -183,12 +183,6 @@ for (let i = 0; i < 40; i++) {
         return false;
     };
 
-    document.getElementsByClassName("weaponTargets")[i].onchange = function() {
-        weaponTargetSelect(document.getElementsByClassName("weaponTargets")[i].value, i);
-
-        return false;
-    }
-
     if (i < 20) {
         document.getElementsByClassName("rsCheck")[i].onchange = function() {
             calculateUpdate();
@@ -271,7 +265,6 @@ function createGrid(gridNum) {
         weapon["weaponType"] = document.getElementsByClassName("weaponType")[(gridNum * 20) + i].value;
         weapon["weaponSkillModifier"] = document.getElementsByClassName("weaponModifier")[(gridNum * 20) + i].value;
         weapon["weaponSkillLevel"] = document.getElementsByClassName("weaponSkillLevel")[(gridNum * 20) + i].value;
-        weapon["weaponTargets"] = document.getElementsByClassName("weaponTargets")[(gridNum * 20) + i].value;
         weapon["weaponSupSkill"] = document.getElementsByClassName("weaponSupSkill")[(gridNum * 20) + i].value;
         weapon["supportSkillLevel"] = document.getElementsByClassName("supportSkillLevel")[(gridNum * 20) + i].value;
         weapon["weaponName"] = document.getElementsByClassName("weaponName")[(gridNum * 20) + i].value;
@@ -297,7 +290,7 @@ function calculateMods(weaponGrids, numGrids) {
         for (var j = 0; j < 20; j++) {
             var weapon = weaponGrid[j];
             var weaponType = weapon["weaponType"];
-            var skillMod = weapon["weaponSkillModifier"];
+            var skillMod = weaponSkills[weapon["weaponSkillModifier"]];
             var skillLevel = weapon["weaponSkillLevel"];
             var skillLevelMod;
             var jobMod;
@@ -305,6 +298,8 @@ function calculateMods(weaponGrids, numGrids) {
             var weaponMod = {};
 
             weaponMod["weaponType"] = weaponType;
+            weaponMod["targets"] = skillMod["targets"];
+            weaponMod["tier"] = skillMod["tier"];
 
             if (weaponType > 0) {
                 if (weaponType == 1) {
@@ -327,7 +322,7 @@ function calculateMods(weaponGrids, numGrids) {
                     skillLevelMod += 0.05;
                 }
 
-                totalMods = skillMod * skillLevelMod * rsMod * jobMod;
+                totalMods = skillMod["mod"] * skillLevelMod * rsMod * jobMod;
                 
                 weaponMod["modValue"] = totalMods;
             } else {
@@ -482,7 +477,7 @@ function compareResults(mods) {
         var mdef = mdefValues[i].value;
 
         for (var j = 0; j < 20; j++) {
-            var weaponTargets = document.getElementsByClassName("weaponTargets")[(i * 20) + j].value;
+            var weaponTargets = weaponMods[j]["targets"];
 
             if (weaponMods[j]["weaponType"] == 1) {
                 healTotal += (Number(pdef) + Number(mdef)) * weaponMods[j]["modValue"] * weaponTargets;
@@ -523,19 +518,21 @@ function calculateResults(mods) {
 
     for (var j = 0; j < 20; j++) {
         var weaponResults = {};
-        var weaponTargets = document.getElementsByClassName("weaponTargets")[j].value;
+        var weaponTargets = weaponMods[j]["targets"];
 
         if (weaponMods[j]["weaponType"] == 1) {
             weaponResults["baseHeal"] = (Number(pdef) + Number(mdef)) * weaponMods[j]["modValue"] / weaponMods["rsMod"];
             weaponResults["rsHeal"] = weaponResults["baseHeal"] * weaponMods["rsMod"];
             weaponResults["aoeHeal"] = weaponResults["baseHeal"] * weaponTargets;
             weaponResults["totalHeal"] = weaponResults["rsHeal"] * weaponTargets;
+            weaponResults["tier"] = weaponMods[j]["tier"];
             healTotal += weaponResults["totalHeal"];
         } else {
             weaponResults["baseHeal"] = 0;
             weaponResults["rsHeal"] = 0;
             weaponResults["aoeHeal"] = 0;
             weaponResults["totalHeal"] = 0;
+            weaponResults["tier"] = 0;
             healTotal += 0;
         }
 
@@ -576,14 +573,17 @@ function shinmaCalc(totalResults) {
 
     for (var i = 0; i < 20; i++) {
         var weaponResults = totalResults[i];
+        var tier = weaponResults["tier"]
 
         if (shinmaSelectValue == 1) {
-            if (weaponSkillModifiers[i].value == 3 || weaponSkillModifiers[i].value == 2.78 || weaponSkillModifiers[i].value == 2.34 || weaponSkillModifiers[i].value == 2.33 || weaponSkillModifiers[i].value == 2.25) {
+            if (tier == 3 || tier == 4) {
                 shinmaMod = 2.9;
-            } else if (weaponSkillModifiers[i].value == 2.04 || weaponSkillModifiers[i].value == 1.8) {
+            } else if (tier == 2) {
                 shinmaMod = 1.6;
-            } else if (weaponSkillModifiers[i].value == 1.5 || weaponSkillModifiers[i].value == 1.35) {
+            } else if (tier == 1) {
                 shinmaMod = 1.3;
+            } else {
+                shinmaMod = 0;
             }
 
             weaponResults["baseHeal"] *= shinmaMod;
@@ -643,8 +643,6 @@ function copyGrid(weaponGrid, copyNum) {
     for (var i = 0; i < 20; i++) {
         document.getElementsByClassName("weaponType")[(copyNum * 20) + i].value = weaponGrid[i]["weaponType"];
         weaponTypeSelect(document.getElementsByClassName("weaponType")[(copyNum * 20) + i].value, ((copyNum * 20) + i));
-        document.getElementsByClassName("weaponTargets")[(copyNum * 20) + i].value = weaponGrid[i]["weaponTargets"];
-        weaponTargetSelect(document.getElementsByClassName("weaponTargets")[(copyNum * 20) + i].value, ((copyNum * 20) + i));
         document.getElementsByClassName("weaponModifier")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSkillModifier"];
         document.getElementsByClassName("weaponSkillLevel")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSkillLevel"];
         document.getElementsByClassName("weaponSupSkill")[(copyNum * 20) + i].value = weaponGrid[i]["weaponSupSkill"];
@@ -663,8 +661,6 @@ function clearGrid(gridNum) {
     for (var i = 0; i < 20; i++) {
         document.getElementsByClassName("weaponType")[(gridNum * 20) + i].value = 0;
         weaponTypeSelect(0, ((gridNum * 20) + i));
-        document.getElementsByClassName("weaponTargets")[(gridNum * 20) + i].value = 0;
-        weaponTargetSelect(0, ((gridNum * 20) + i));
         document.getElementsByClassName("weaponSkillLevel")[(gridNum * 20) + i].value = '';
         document.getElementsByClassName("weaponSupSkill")[(gridNum * 20) + i].value = 0;
         document.getElementsByClassName("supportSkillLevel")[(gridNum * 20) + i].value = '';
@@ -693,28 +689,12 @@ function clearCalcResults() {
 }
 
 function weaponTypeSelect(weaponType, index) {
-    var weaponTargets = document.getElementsByClassName("weaponTargets")[index];
+    var weaponModifier = document.getElementsByClassName("weaponModifier")[index];
 
     if (weaponType == 1) {
-        weaponTargets.innerHTML = '<option value="1">1</option><option value="1.5">1-2</option><option value="2">2</option>';
-        weaponTargetSelect(1, index);
+        weaponModifier.innerHTML = '<option value="0">Staff of Protection III</option><option value="1">Prayer of Protection III</option><option value="2">Breath of Protection IV</option><option value="3">Healing Light IV</option><option value="4">Healing Light III</option><option value="5">Healing Light II</option><option value="6">Staff of Assault III</option><option value="7">Staff of Assault II</option><option value="8">Prayer of Assault III</option><option value="9">Prayer of Assault II</option><option value="10">Blessed Gospel III (2.25 mod)</option><option value="11">Blessed Gospel III (2.33 mod)</option><option value="12">Blessed Gospel III (2 targets)</option><option value="13">Blessed Gospel II</option><option value="14">Blessed Gospel I (2 targets)</option><option value="15">Blessed Gospel I (1-2 targets)</option>';
     } else {
-        weaponTargets.innerHTML = '<option value="0">None</option>';
-        weaponTargetSelect(0, index);
-    }
-}
-
-function weaponTargetSelect(weaponTargets, index) {
-    var weaponSkill = document.getElementsByClassName("weaponModifier")[index];
-
-    if (weaponTargets == 1) {
-        weaponSkill.innerHTML = '<option value="3">3</option><option value="2.78">2.78</option><option value="2.25">2.25</option><option value="2.04">2.04</option><option value="1.8">1.8</option>';
-    } else if (weaponTargets == 1.5) {
-        weaponSkill.innerHTML = '<option value="2.34">2.34</option><option value="2.33">2.33</option><option value="2.25">2.25</option><option value="1.8">1.8</option><option value="1.35">1.35</option>';
-    } else if (weaponTargets == 2) {
-        weaponSkill.innerHTML = '<option value="2.25">2.25</option><option value="2.04">2.04</option><option value="1.5">1.5</option>';
-    } else {
-        weaponSkill.innerHTML = '<option value="0">None</option>';
+        weaponModifier.innerHTML = '<option value="0">None</option>';
     }
 }
 
@@ -771,5 +751,88 @@ function rsSelect(rsSelectValue) {
                 checkboxes[i].disabled = false;
             }
         }
+    }
+}
+
+var weaponSkills = { 
+    0: {
+        mod: 2.34,
+        targets: 1.5,
+        tier: 3
+    },
+    1: {
+        mod: 2.78,
+        targets: 1,
+        tier: 3
+    },
+    2: {
+        mod: 3,
+        targets: 1,
+        tier: 4
+    },
+    3: {
+        mod: 3,
+        targets: 1,
+        tier: 4
+    },
+    4: {
+        mod: 2.25,
+        targets: 1,
+        tier: 3
+    },
+    5: {
+        mod: 1.8,
+        targets: 1,
+        tier: 2
+    },
+    6: {
+        mod: 2.34,
+        targets: 1.5,
+        tier: 3
+    },
+    7: {
+        mod: 2.04,
+        targets: 2,
+        tier: 2
+    },
+    8: {
+        mod: 2.78,
+        targets: 1,
+        tier: 3
+    },
+    9: {
+        mod: 2.04,
+        targets: 1,
+        tier: 2
+    },
+    10: {
+        mod: 2.25,
+        targets: 1.5,
+        tier: 3
+    },
+    11: {
+        mod: 2.33,
+        targets: 1.5,
+        tier: 3
+    },
+    12: {
+        mod: 2.25,
+        targets: 2,
+        tier: 3
+    },
+    13: {
+        mod: 1.8,
+        targets: 1.5,
+        tier: 2
+    },
+    14: {
+        mod: 1.5,
+        targets: 2,
+        tier: 1
+    },
+    15: {
+        mod: 1.35,
+        targets: 1.5,
+        tier: 1
     }
 }
