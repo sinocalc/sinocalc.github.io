@@ -290,18 +290,19 @@ function calculateMods(weaponGrids, numGrids) {
         for (var j = 0; j < 20; j++) {
             var weapon = weaponGrid[j];
             var weaponType = weapon["weaponType"];
-            var skillMod = weaponSkills[weapon["weaponSkillModifier"]];
+            var weaponSkill = weaponSkills[weapon["weaponSkillModifier"]]
+            var skillMod = weaponSkill["mod"];
             var skillLevel = weapon["weaponSkillLevel"];
             var skillLevelMod;
             var jobMod;
-            var totalMods;
             var weaponMod = {};
 
             weaponMod["weaponType"] = weaponType;
-            weaponMod["targets"] = skillMod["targets"];
-            weaponMod["tier"] = skillMod["tier"];
 
             if (weaponType > 0) {
+                weaponMod["targets"] = weaponSkill["targets"];
+                weaponMod["tier"] = weaponSkill["tier"];
+                
                 if (weaponType == 1) {
                     if (weaponGrid["job"] == 0) {
                         jobMod = 1.1;
@@ -322,9 +323,7 @@ function calculateMods(weaponGrids, numGrids) {
                     skillLevelMod += 0.05;
                 }
 
-                totalMods = skillMod["mod"] * skillLevelMod * rsMod * jobMod;
-                
-                weaponMod["modValue"] = totalMods;
+                weaponMod["modValue"] = skillMod * skillLevelMod * rsMod * jobMod;
             } else {
                 weaponMod["modValue"] = 0;
             }
@@ -466,8 +465,6 @@ function calculateUpdate() {
 function compareResults(mods) {
     var pdefValues = document.getElementsByClassName("pdefInput");
     var mdefValues = document.getElementsByClassName("mdefInput");
-    var total = [];
-    var strengthRatio;
     var results = [];
 
     for (var i = 0; i < 2; i++) {
@@ -486,20 +483,7 @@ function compareResults(mods) {
             }
         }
 
-        total[i] = healTotal * 0.05;
-    }
-
-    if (total[0] > total[1]) {
-        strengthRatio = ((total[0] / total[1]) * 100);
-        results[0] = "Grid 1 Heals: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Heals: " + Number((total[1]).toFixed(0)).toLocaleString();
-        results[1] = "Grid 1 healing is " + Number((strengthRatio).toFixed(2)) + "% of Grid 2";
-    } else if (total[1] > total[0]) {
-        strengthRatio = ((total[1] / total[0]) * 100);
-        results[0] = "Grid 1 Heals: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Heals: " + Number((total[1]).toFixed(0)).toLocaleString();
-        results[1] = "Grid 2 healing is " + Number((strengthRatio).toFixed(2)) + "% of Grid 1";
-    } else {
-        results[0] = "Grid 1 Heals: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Heals: " + Number((total[1]).toFixed(0)).toLocaleString();
-        results[1] = "The grids are equal in strength";
+        results[i] = healTotal * 0.05;
     }
 
     return results;
@@ -536,6 +520,7 @@ function calculateResults(mods) {
             healTotal += 0;
         }
 
+        weaponResults["weaponType"] = weaponMods[j]["weaponType"];
         totalResults[j] = weaponResults;
     }
 
@@ -564,7 +549,6 @@ function calculateResults(mods) {
 }
 
 function shinmaCalc(totalResults) {
-    var weaponSkillModifiers = document.getElementsByClassName("weaponModifier");
     var shinmaSelectValue = document.getElementById("shinmaSelect").value;
     var shinmaMod;
     var shinmaResults = [];
@@ -603,8 +587,24 @@ function shinmaCalc(totalResults) {
 }
 
 function compareRender(results) {
-    document.getElementById("resultsHeal").innerHTML = results[0]
-    document.getElementById("resultsText").innerHTML = results[1];
+    var strengthRatio;
+    var resultString = [];
+    
+    if (results[0] > results[1]) {
+        strengthRatio = ((results[0] / results[1]) * 100);
+        resultString[0] = "Grid 1 Heals: " + Number((results[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Heals: " + Number((results[1]).toFixed(0)).toLocaleString();
+        resultString[1] = "Grid 1 healing is " + Number((strengthRatio).toFixed(2)) + "% of Grid 2";
+    } else if (results[1] > results[0]) {
+        strengthRatio = ((results[1] / results[0]) * 100);
+        resultString[0] = "Grid 1 Heals: " + Number((results[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Heals: " + Number((results[1]).toFixed(0)).toLocaleString();
+        resultString[1] = "Grid 2 healing is " + Number((strengthRatio).toFixed(2)) + "% of Grid 1";
+    } else {
+        resultString[0] = "Grid 1 Heals: " + Number((results[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Heals: " + Number((results[1]).toFixed(0)).toLocaleString();
+        resultString[1] = "The grids are equal in strength";
+    }
+
+    document.getElementById("resultsHeal").innerHTML = resultString[0]
+    document.getElementById("resultsText").innerHTML = resultString[1];
 }
 
 function calculateRender(results) {
@@ -692,7 +692,7 @@ function weaponTypeSelect(weaponType, index) {
     var weaponModifier = document.getElementsByClassName("weaponModifier")[index];
 
     if (weaponType == 1) {
-        weaponModifier.innerHTML = '<option value="0">Staff of Protection III</option><option value="1">Prayer of Protection III</option><option value="2">Breath of Protection IV</option><option value="3">Healing Light IV</option><option value="4">Healing Light III</option><option value="5">Healing Light II</option><option value="6">Staff of Assault III</option><option value="7">Staff of Assault II</option><option value="8">Prayer of Assault III</option><option value="9">Prayer of Assault II</option><option value="10">Blessed Gospel III (2.25 mod)</option><option value="11">Blessed Gospel III (2.33 mod)</option><option value="12">Blessed Gospel III (2 targets)</option><option value="13">Blessed Gospel II</option><option value="14">Blessed Gospel I (2 targets)</option><option value="15">Blessed Gospel I (1-2 targets)</option>';
+        weaponModifier.innerHTML = '<option value="0">Staff of Protection III</option><option value="1">Prayer of Protection III</option><option value="2">Breath of Protection IV</option><option value="3">Healing Light IV</option><option value="4">Healing Light III</option><option value="5">Healing Light II</option><option value="6">Staff of Assault III</option><option value="7">Staff of Assault II</option><option value="8">Prayer of Assault III</option><option value="9">Prayer of Assault II</option><option value="10">Blessed Gospel III 2.25 mod</option><option value="11">Blessed Gospel III 2.33 mod</option><option value="12">Blessed Gospel III 2 targets</option><option value="13">Blessed Gospel II</option><option value="14">Blessed Gospel I 2 targets</option><option value="15">Blessed Gospel I 1-2 targets</option>';
     } else {
         weaponModifier.innerHTML = '<option value="0">None</option>';
     }

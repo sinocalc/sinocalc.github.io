@@ -294,7 +294,6 @@ function calculateMods(weaponGrids, numGrids) {
             var skillLevel = weapon["weaponSkillLevel"];
             var skillLevelMod;
             var jobMod;
-            var totalMods;
             var weaponMod = {};
 
             weaponMod["weaponType"] = weaponType;
@@ -352,9 +351,7 @@ function calculateMods(weaponGrids, numGrids) {
                     skillLevelMod += 0.025;
                 }
 
-                totalMods = skillMod * skillLevelMod * dcMod * jobMod;
-                
-                weaponMod["modValue"] = totalMods;
+                weaponMod["modValue"] = skillMod * skillLevelMod * dcMod * jobMod;
             } else {
                 weaponMod["modValue"] = 0;
             }
@@ -548,81 +545,81 @@ function createResultsRegion(numGrids) {
     if (numGrids == 1) {
         pdefSlider.oninput = function() {
             pdefText.value = pdefSlider.value;
-        }
+        };
 
         pdefSlider.onchange = function() {
             calculateUpdate();
-        }
+        };
 
         mdefSlider.oninput = function() {
             mdefText.value = mdefSlider.value;
-        }
+        };
 
         mdefSlider.onchange = function() {
             calculateUpdate();
-        }
+        };
 
         comboSlider.oninput = function() {
             comboText.value = comboSlider.value;
-        }
+        };
 
         comboSlider.onchange = function() {
             calculateUpdate();
-        }
+        };
 
         pdefText.onchange = function() {
             calculateUpdate();
             pdefSlider.value = pdefText.value;
-        }
+        };
 
         mdefText.onchange = function() {
             calculateUpdate();
             mdefSlider.value = mdefText.value;
-        }
+        };
 
         comboText.onchange = function() {
             calculateUpdate();
             comboSlider.value = comboText.value;
-        }
+        };
     } else {
         pdefSlider.oninput = function() {
             pdefText.value = pdefSlider.value;
-        }
+        };
 
         pdefSlider.onchange = function() {
             compareUpdate();
-        }
+        };
 
         mdefSlider.oninput = function() {
             mdefText.value = mdefSlider.value;
-        }
+        };
 
         mdefSlider.onchange = function() {
             compareUpdate();
-        }
+        };
 
         comboSlider.oninput = function() {
             comboText.value = comboSlider.value;
-        }
+        };
 
         comboSlider.onchange = function() {
             compareUpdate();
-        }
+        };
 
         pdefText.onchange = function() {
             compareUpdate();
             pdefSlider.value = pdefText.value;
-        }
+        };
 
         mdefText.onchange = function() {
             compareUpdate();
             mdefSlider.value = mdefText.value;
-        }
+        };
 
         comboText.onchange = function() {
             compareUpdate();
             comboSlider.value = comboText.value;
-        }
+        };
     }
 }
 
@@ -658,8 +655,6 @@ function compareResults(mods) {
     var mdefSlider = document.getElementById("mdefSlider"); 
     var pdef = pdefSlider.value;
     var mdef = mdefSlider.value; 
-    var total = [];
-    var strengthRatio;
     var results = [];
     var combo = document.getElementById("comboSlider").value;
     var comboMod = 1;
@@ -699,30 +694,7 @@ function compareResults(mods) {
             }
         }
 
-        total[i] = damageTotal * 0.05 * 0.95;
-    }
-
-    if (total[0] > total[1]) {
-        if (total[1] > 0) {
-            strengthRatio = ((total[0] / total[1]) * 100);
-            results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
-            results[1] = "Grid 1 damage is " + Number((strengthRatio).toFixed(2)) + "% of Grid 2";
-        } else {
-            results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
-            results[1] = "Grid 2 will only do 20 damage past this point";
-        }
-    } else if (total[1] > total[0]) {
-        if (total[0] > 0) {
-            strengthRatio = ((total[1] / total[0]) * 100);
-            results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
-            results[1] = "Grid 2 damage is " + Number((strengthRatio).toFixed(2)) + "% of Grid 1";
-        } else {
-            results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
-            results[1] = "Grid 1 will only do 20 damage past this point";
-        }
-    } else {
-        results[0] = "Grid 1 Damage: " + Number((total[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((total[1]).toFixed(0)).toLocaleString();
-        results[1] = "The grids are equal in strength";
+        results[i] = damageTotal * 0.05 * 0.95;
     }
 
     return results;
@@ -894,8 +866,34 @@ function shinmaCalc(totalResults) {
 }
 
 function compareRender(results) {
-    document.getElementById("resultsDamage").innerHTML = results[0]
-    document.getElementById("resultsText").innerHTML = results[1];
+    var strengthRatio;
+    var resultString = [];
+
+    if (results[0] > results[1]) {
+        if (results[1] > 0) {
+            strengthRatio = ((results[0] / results[1]) * 100);
+            resultString[0] = "Grid 1 Damage: " + Number((results[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((results[1]).toFixed(0)).toLocaleString();
+            resultString[1] = "Grid 1 damage is " + Number((strengthRatio).toFixed(2)) + "% of Grid 2";
+        } else {
+            resultString[0] = "Grid 1 Damage: " + Number((results[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((results[1]).toFixed(0)).toLocaleString();
+            resultString[1] = "Grid 2 will only do 20 damage past this point";
+        }
+    } else if (results[1] > results[0]) {
+        if (results[0] > 0) {
+            strengthRatio = ((results[1] / results[0]) * 100);
+            resultString[0] = "Grid 1 Damage: " + Number((results[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((results[1]).toFixed(0)).toLocaleString();
+            resultString[1] = "Grid 2 damage is " + Number((strengthRatio).toFixed(2)) + "% of Grid 1";
+        } else {
+            resultString[0] = "Grid 1 Damage: " + Number((results[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((results[1]).toFixed(0)).toLocaleString();
+            resultString[1] = "Grid 1 will only do 20 damage past this point";
+        }
+    } else {
+        resultString[0] = "Grid 1 Damage: " + Number((results[0]).toFixed(0)).toLocaleString() + "<br>Grid 2 Damage: " + Number((results[1]).toFixed(0)).toLocaleString();
+        resultString[1] = "The grids are equal in strength";
+    }
+
+    document.getElementById("resultsDamage").innerHTML = resultString[0]
+    document.getElementById("resultsText").innerHTML = resultString[1];
 }
 
 function calculateRender(results) {

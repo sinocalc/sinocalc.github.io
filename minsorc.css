@@ -276,8 +276,8 @@ input, select {
     text-align: left;
 }
 
-.resultWeaponName, .resultsBuff, .resultsBuffSB,
-.resultsBuffAoE, .resultsBuffTotal, .resultPercentTotal {
+.resultWeaponName, .resultBuff, .resultBuffSB,
+.resultBuffAoE, .resultBuffTotal, .resultPercentTotal {
     vertical-align: middle;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -428,20 +428,42 @@ p {
     vertical-align: bottom;
 }
 
-#resultsTextDiv {
+#resultsSelectDiv {
     display: inline-block;
     margin-left: 60px;
-    margin-right: 60px;
+    vertical-align: bottom;
+    height: 100%;
+}
+
+#resultsSelectText {
     font-size: 150%;
     font-weight: bold;
 }
 
-#resultsBuff {
+#resultsSelectInput {
+    margin-top: 30px;
+    font-size: 150%;
+    margin-left: 10px;
+}
+
+#resultsTextDiv {
+    display: inline-block;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+#resultsBuff1, #resultsBuff2 {
     display: inline-block;
     line-height: 1.2;
 }
 
-#resultsText {
+#resultsBuff2 {
+    margin-left: 40px;
+}
+
+#resultsText1,  #resultsText2 {
     display: inline-block;
     margin-left: 40px;
 }
