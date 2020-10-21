@@ -1549,8 +1549,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../state/weapon-grid.actions */ "UTpe");
 /* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngxs/store */ "AcyG");
 /* harmony import */ var _weapon_weapon_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../weapon/weapon.component */ "q3Z6");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "ofXK");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "ofXK");
 
 
 
@@ -1601,11 +1601,12 @@ function GridWeaponDisplayComponent_select_28_option_2_Template(rf, ctx) { if (r
 function GridWeaponDisplayComponent_select_28_Template(rf, ctx) { if (rf & 1) {
     const _r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "select", 5, 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridWeaponDisplayComponent_select_28_Template_select_change_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r17); const _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](1); const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r16.updateSupportSkillLevel(_r13.value); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridWeaponDisplayComponent_select_28_Template_select_change_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r17); const _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](1); const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r16.updateSupportSkillLevel(_r13.value); })("ngModelChange", function GridWeaponDisplayComponent_select_28_Template_select_ngModelChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r17); const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r18.weapon.supportSkillLevel = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, GridWeaponDisplayComponent_select_28_option_2_Template, 2, 2, "option", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx_r6.weapon.supportSkillLevel);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r6.skillLevel);
 } }
@@ -1655,9 +1656,9 @@ function GridWeaponDisplayComponent_label_43_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r10.className == "minsorc");
 } }
 function GridWeaponDisplayComponent_input_45_Template(rf, ctx) { if (rf & 1) {
-    const _r22 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    const _r23 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "input", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function GridWeaponDisplayComponent_input_45_Template_input_ngModelChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r22); const ctx_r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r21.isChecked = $event; })("change", function GridWeaponDisplayComponent_input_45_Template_input_change_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r22); const ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r23.updateSupProc(ctx_r23.isChecked ? 1 : 0); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function GridWeaponDisplayComponent_input_45_Template_input_ngModelChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r23); const ctx_r22 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r22.isChecked = $event; })("change", function GridWeaponDisplayComponent_input_45_Template_input_change_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r23); const ctx_r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r24.updateSupProc(ctx_r24.isChecked ? 1 : 0); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -1701,8 +1702,8 @@ class GridWeaponDisplayComponent {
     }
 }
 GridWeaponDisplayComponent.ɵfac = function GridWeaponDisplayComponent_Factory(t) { return new (t || GridWeaponDisplayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngxs_store__WEBPACK_IMPORTED_MODULE_2__["Store"])); };
-GridWeaponDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GridWeaponDisplayComponent, selectors: [["app-grid-weapon-display"]], inputs: { weapon: "weapon", supProc: "supProc", className: "className" }, outputs: { clickWeaponEmit: "clickWeaponEmit", changeWeaponSkillLevel: "changeWeaponSkillLevel", changeSupportSkillLevel: "changeSupportSkillLevel", changeSupProc: "changeSupProc" }, decls: 51, vars: 19, consts: [["id", "weaponInfoContainer"], ["id", "weaponContainer"], [3, "weapon", "rarity", "isOnGrid", "clickWeaponEmit"], ["id", "weaponInfoTable"], [1, "weaponInput"], [3, "change"], ["weaponSkillSelect", ""], [3, "value", 4, "ngFor", "ngForOf"], [1, "resultStat"], [4, "ngIf"], [1, "resultText"], [3, "change", 4, "ngIf"], ["class", "supCheckbox", "type", "checkbox", 3, "ngModel", "disabled", "ngModelChange", "change", 4, "ngIf"], [3, "value"], ["supportSkillSelect", ""], ["type", "checkbox", 1, "supCheckbox", 3, "ngModel", "disabled", "ngModelChange", "change"]], template: function GridWeaponDisplayComponent_Template(rf, ctx) { if (rf & 1) {
-        const _r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+GridWeaponDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GridWeaponDisplayComponent, selectors: [["app-grid-weapon-display"]], inputs: { weapon: "weapon", supProc: "supProc", className: "className" }, outputs: { clickWeaponEmit: "clickWeaponEmit", changeWeaponSkillLevel: "changeWeaponSkillLevel", changeSupportSkillLevel: "changeSupportSkillLevel", changeSupProc: "changeSupProc" }, decls: 51, vars: 20, consts: [["id", "weaponInfoContainer"], ["id", "weaponContainer"], [3, "weapon", "rarity", "isOnGrid", "clickWeaponEmit"], ["id", "weaponInfoTable"], [1, "weaponInput"], [3, "ngModel", "change", "ngModelChange"], ["weaponSkillSelect", ""], [3, "value", 4, "ngFor", "ngForOf"], [1, "resultStat"], [4, "ngIf"], [1, "resultText"], [3, "ngModel", "change", "ngModelChange", 4, "ngIf"], ["class", "supCheckbox", "type", "checkbox", 3, "ngModel", "disabled", "ngModelChange", "change", 4, "ngIf"], [3, "value"], ["supportSkillSelect", ""], ["type", "checkbox", 1, "supCheckbox", 3, "ngModel", "disabled", "ngModelChange", "change"]], template: function GridWeaponDisplayComponent_Template(rf, ctx) { if (rf & 1) {
+        const _r25 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "app-weapon", 2);
@@ -1718,7 +1719,7 @@ GridWeaponDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "td", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "select", 5, 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridWeaponDisplayComponent_Template_select_change_9_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r24); const _r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](10); return ctx.updateWeaponSkillLevel(_r0.value); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridWeaponDisplayComponent_Template_select_change_9_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r25); const _r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](10); return ctx.updateWeaponSkillLevel(_r0.value); })("ngModelChange", function GridWeaponDisplayComponent_Template_select_ngModelChange_9_listener($event) { return ctx.weapon.weaponSkillLevel = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, GridWeaponDisplayComponent_option_11_Template, 2, 2, "option", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -1746,7 +1747,7 @@ GridWeaponDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](26, GridWeaponDisplayComponent_label_26_Template, 2, 0, "label", 9);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "td", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](28, GridWeaponDisplayComponent_select_28_Template, 3, 1, "select", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](28, GridWeaponDisplayComponent_select_28_Template, 3, 2, "select", 11);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "td");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "div", 8);
@@ -1788,7 +1789,9 @@ GridWeaponDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("weapon", ctx.weapon.weaponInfo)("rarity", ctx.weapon.selectedRarity)("isOnGrid", true);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.weapon.weaponSkillLevel);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.skillLevel);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.className == "vanguard");
@@ -1820,7 +1823,7 @@ GridWeaponDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.weapon.weaponInfo.supportSkill > 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx.weapon.results.aoe.toLocaleString(), " ");
-    } }, directives: [_weapon_weapon_component__WEBPACK_IMPORTED_MODULE_3__["WeaponComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgModel"]], styles: ["#weaponInfoContainer[_ngcontent-%COMP%] {\r\n  display: flex;\r\n}\r\n\r\n#weaponContainer[_ngcontent-%COMP%] {\r\n  display: block;\r\n  vertical-align: bottom;\r\n}\r\n\r\n#weaponInfoTable[_ngcontent-%COMP%] {\r\n  display: inline-block;\r\n  font-weight: bold;\r\n  border-spacing: 0px;\r\n}\r\n\r\n.weaponInput[_ngcontent-%COMP%] {\r\n  text-align: center;\r\n}\r\n\r\n.resultStat[_ngcontent-%COMP%] {\r\n  width: 90px;\r\n  margin-left: 1px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.resultText[_ngcontent-%COMP%] {\r\n  display: inline-block;\r\n  margin-left: 2px;\r\n  margin-right: 5px;\r\n  font-weight: normal;\r\n}\r\n\r\n.supCheckbox[_ngcontent-%COMP%] {\r\n  margin: 0px;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdyaWQtd2VhcG9uLWRpc3BsYXkuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGNBQWM7RUFDZCxzQkFBc0I7QUFDeEI7O0FBRUE7RUFDRSxxQkFBcUI7RUFDckIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLFdBQVc7RUFDWCxnQkFBZ0I7RUFDaEIsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLHFCQUFxQjtFQUNyQixnQkFBZ0I7RUFDaEIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJncmlkLXdlYXBvbi1kaXNwbGF5LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjd2VhcG9uSW5mb0NvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxufVxyXG5cclxuI3dlYXBvbkNvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgdmVydGljYWwtYWxpZ246IGJvdHRvbTtcclxufVxyXG5cclxuI3dlYXBvbkluZm9UYWJsZSB7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGJvcmRlci1zcGFjaW5nOiAwcHg7XHJcbn1cclxuXHJcbi53ZWFwb25JbnB1dCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4ucmVzdWx0U3RhdCB7XHJcbiAgd2lkdGg6IDkwcHg7XHJcbiAgbWFyZ2luLWxlZnQ6IDFweDtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxufVxyXG5cclxuLnJlc3VsdFRleHQge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBtYXJnaW4tbGVmdDogMnB4O1xyXG4gIG1hcmdpbi1yaWdodDogNXB4O1xyXG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XHJcbn1cclxuXHJcbi5zdXBDaGVja2JveCB7XHJcbiAgbWFyZ2luOiAwcHg7XHJcbn1cclxuXHJcblxyXG4iXX0= */"] });
+    } }, directives: [_weapon_weapon_component__WEBPACK_IMPORTED_MODULE_3__["WeaponComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["CheckboxControlValueAccessor"]], styles: ["#weaponInfoContainer[_ngcontent-%COMP%] {\r\n  display: flex;\r\n}\r\n\r\n#weaponContainer[_ngcontent-%COMP%] {\r\n  display: block;\r\n  vertical-align: bottom;\r\n}\r\n\r\n#weaponInfoTable[_ngcontent-%COMP%] {\r\n  display: inline-block;\r\n  font-weight: bold;\r\n  border-spacing: 0px;\r\n}\r\n\r\n.weaponInput[_ngcontent-%COMP%] {\r\n  text-align: center;\r\n}\r\n\r\n.resultStat[_ngcontent-%COMP%] {\r\n  width: 90px;\r\n  margin-left: 1px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.resultText[_ngcontent-%COMP%] {\r\n  display: inline-block;\r\n  margin-left: 2px;\r\n  margin-right: 5px;\r\n  font-weight: normal;\r\n}\r\n\r\n.supCheckbox[_ngcontent-%COMP%] {\r\n  margin: 0px;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdyaWQtd2VhcG9uLWRpc3BsYXkuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7QUFDZjs7QUFFQTtFQUNFLGNBQWM7RUFDZCxzQkFBc0I7QUFDeEI7O0FBRUE7RUFDRSxxQkFBcUI7RUFDckIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLFdBQVc7RUFDWCxnQkFBZ0I7RUFDaEIsYUFBYTtFQUNiLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLHFCQUFxQjtFQUNyQixnQkFBZ0I7RUFDaEIsaUJBQWlCO0VBQ2pCLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJncmlkLXdlYXBvbi1kaXNwbGF5LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjd2VhcG9uSW5mb0NvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxufVxyXG5cclxuI3dlYXBvbkNvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgdmVydGljYWwtYWxpZ246IGJvdHRvbTtcclxufVxyXG5cclxuI3dlYXBvbkluZm9UYWJsZSB7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGJvcmRlci1zcGFjaW5nOiAwcHg7XHJcbn1cclxuXHJcbi53ZWFwb25JbnB1dCB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4ucmVzdWx0U3RhdCB7XHJcbiAgd2lkdGg6IDkwcHg7XHJcbiAgbWFyZ2luLWxlZnQ6IDFweDtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxufVxyXG5cclxuLnJlc3VsdFRleHQge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBtYXJnaW4tbGVmdDogMnB4O1xyXG4gIG1hcmdpbi1yaWdodDogNXB4O1xyXG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XHJcbn1cclxuXHJcbi5zdXBDaGVja2JveCB7XHJcbiAgbWFyZ2luOiAwcHg7XHJcbn1cclxuXHJcblxyXG4iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](GridWeaponDisplayComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -2071,98 +2074,114 @@ __webpack_require__.r(__webpack_exports__);
 
 function GridDisplayComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     const _r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 24);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 24);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 25);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " P.Atk ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "input", 25, 26);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("focusout", function GridDisplayComponent_div_2_Template_input_focusout_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r15); const _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4); const ctx_r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r14.updatePAtk(_r13.value); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "input", 26, 27);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("focusout", function GridDisplayComponent_div_2_Template_input_focusout_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r15); const _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4); const ctx_r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r14.updatePAtk(_r13.value); })("ngModelChange", function GridDisplayComponent_div_2_Template_input_ngModelChange_3_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r15); const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r16.grid.stats.patk = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx_r0.grid.stats.patk);
 } }
 function GridDisplayComponent_div_3_Template(rf, ctx) { if (rf & 1) {
-    const _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 27);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 24);
+    const _r19 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 25);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " M.Atk ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "input", 25, 28);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("focusout", function GridDisplayComponent_div_3_Template_input_focusout_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18); const _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4); const ctx_r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r17.updateMAtk(_r16.value); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "input", 26, 29);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("focusout", function GridDisplayComponent_div_3_Template_input_focusout_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r19); const _r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4); const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r18.updateMAtk(_r17.value); })("ngModelChange", function GridDisplayComponent_div_3_Template_input_ngModelChange_3_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r19); const ctx_r20 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r20.grid.stats.matk = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx_r1.grid.stats.matk);
 } }
 function GridDisplayComponent_div_4_Template(rf, ctx) { if (rf & 1) {
-    const _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 29);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 24);
+    const _r23 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 30);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 25);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " P.Def ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "input", 25, 30);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("focusout", function GridDisplayComponent_div_4_Template_input_focusout_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r21); const _r19 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4); const ctx_r20 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r20.updatePDef(_r19.value); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "input", 26, 31);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("focusout", function GridDisplayComponent_div_4_Template_input_focusout_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r23); const _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4); const ctx_r22 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r22.updatePDef(_r21.value); })("ngModelChange", function GridDisplayComponent_div_4_Template_input_ngModelChange_3_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r23); const ctx_r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r24.grid.stats.pdef = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx_r2.grid.stats.pdef);
 } }
 function GridDisplayComponent_div_5_Template(rf, ctx) { if (rf & 1) {
-    const _r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 31);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 24);
+    const _r27 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 32);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 25);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " M.Def ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "input", 25, 32);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("focusout", function GridDisplayComponent_div_5_Template_input_focusout_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r24); const _r22 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4); const ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r23.updateMDef(_r22.value); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "input", 26, 33);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("focusout", function GridDisplayComponent_div_5_Template_input_focusout_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r27); const _r25 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4); const ctx_r26 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r26.updateMDef(_r25.value); })("ngModelChange", function GridDisplayComponent_div_5_Template_input_ngModelChange_3_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r27); const ctx_r28 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r28.grid.stats.mdef = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx_r3.grid.stats.mdef);
 } }
 function GridDisplayComponent_div_7_Template(rf, ctx) { if (rf & 1) {
-    const _r27 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 33);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "app-grid-weapon-display", 34);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("clickWeaponEmit", function GridDisplayComponent_div_7_Template_app_grid_weapon_display_clickWeaponEmit_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r27); const ctx_r26 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r26.changeGrid(); })("changeWeaponSkillLevel", function GridDisplayComponent_div_7_Template_app_grid_weapon_display_changeWeaponSkillLevel_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r27); const ctx_r28 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r28.updateWeaponSkillLevel($event); })("changeSupportSkillLevel", function GridDisplayComponent_div_7_Template_app_grid_weapon_display_changeSupportSkillLevel_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r27); const ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r29.updateSupportSkillLevel($event); })("changeSupProc", function GridDisplayComponent_div_7_Template_app_grid_weapon_display_changeSupProc_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r27); const ctx_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r30.updateSupProc($event); });
+    const _r31 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 34);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "app-grid-weapon-display", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("clickWeaponEmit", function GridDisplayComponent_div_7_Template_app_grid_weapon_display_clickWeaponEmit_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r31); const ctx_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r30.changeGrid(); })("changeWeaponSkillLevel", function GridDisplayComponent_div_7_Template_app_grid_weapon_display_changeWeaponSkillLevel_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r31); const ctx_r32 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r32.updateWeaponSkillLevel($event); })("changeSupportSkillLevel", function GridDisplayComponent_div_7_Template_app_grid_weapon_display_changeSupportSkillLevel_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r31); const ctx_r33 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r33.updateSupportSkillLevel($event); })("changeSupProc", function GridDisplayComponent_div_7_Template_app_grid_weapon_display_changeSupProc_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r31); const ctx_r34 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r34.updateSupProc($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const weapon_r25 = ctx.$implicit;
+    const weapon_r29 = ctx.$implicit;
     const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("weapon", weapon_r25)("supProc", ctx_r4.grid.supProc)("className", ctx_r4.className);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("weapon", weapon_r29)("supProc", ctx_r4.grid.supProc)("className", ctx_r4.className);
 } }
 function GridDisplayComponent_option_19_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "option", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "option", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const type_r31 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("value", type_r31);
+    const type_r35 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("value", type_r35);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", type_r31, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", type_r35, " ");
 } }
 function GridDisplayComponent_option_32_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "option", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "option", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const job_r32 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("value", job_r32);
+    const job_r36 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("value", job_r36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", job_r32, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", job_r36, " ");
 } }
 function GridDisplayComponent_ng_container_35_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 37);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Damage: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
 } }
 function GridDisplayComponent_ng_container_36_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 37);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Healing: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
 } }
 function GridDisplayComponent_ng_container_37_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label", 37);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Buffs: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
@@ -2176,6 +2195,7 @@ class GridDisplayComponent {
         this.shinma = this.classType.shinma;
         this.className = this.classType.name;
         this.jobs = this.classType.jobs;
+        this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_2__["WeaponGridActions"].UpdateJob(this.gridNum, this.jobs[0]));
     }
     changeGrid() {
         this.store.dispatch(new _state_weapon_list_actions__WEBPACK_IMPORTED_MODULE_3__["WeaponListActions"].SelectWeapons(this.grid));
@@ -2241,7 +2261,12 @@ class GridDisplayComponent {
     createExportObject() {
         const grid = this.grid;
         const content = {
-            weapons: []
+            weapons: [],
+            patk: grid.stats.patk,
+            matk: grid.stats.matk,
+            pdef: grid.stats.pdef,
+            mdef: grid.stats.mdef,
+            job: grid.job
         };
         for (const weapon of grid.weapons) {
             let payload = {
@@ -2258,14 +2283,14 @@ class GridDisplayComponent {
     }
 }
 GridDisplayComponent.ɵfac = function GridDisplayComponent_Factory(t) { return new (t || GridDisplayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngxs_store__WEBPACK_IMPORTED_MODULE_5__["Store"])); };
-GridDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GridDisplayComponent, selectors: [["app-grid-display"]], inputs: { grid: "grid", gridNum: "gridNum", classType: "classType" }, decls: 39, vars: 11, consts: [["id", "gridDisplayContainer"], ["id", "gridStatsInputContainer"], ["id", "patkInputContainer", 4, "ngIf"], ["id", "matkInputContainer", 4, "ngIf"], ["id", "pdefInputContainer", 4, "ngIf"], ["id", "mdefInputContainer", 4, "ngIf"], ["id", "gridWeaponsContainer"], ["class", "gridWeaponContainer", 4, "ngFor", "ngForOf"], ["id", "gridOptionsContainer"], ["id", "gridOptionButton"], [3, "click"], ["id", "gridOptionSelect"], [1, "selectLabel"], [3, "change"], ["shinmaSelect", ""], [3, "value", 4, "ngFor", "ngForOf"], ["supProcSelect", ""], ["value", "0"], ["value", "1"], ["jobSelect", ""], ["id", "gridFooterContainer"], ["id", "gridResults"], [4, "ngIf"], ["id", "patkInputContainer"], [1, "statsInputLabel"], ["type", "number", "min", "0", 1, "statsInput", 3, "focusout"], ["patkInput", ""], ["id", "matkInputContainer"], ["matkInput", ""], ["id", "pdefInputContainer"], ["pdefInput", ""], ["id", "mdefInputContainer"], ["mdefInput", ""], [1, "gridWeaponContainer"], [3, "weapon", "supProc", "className", "clickWeaponEmit", "changeWeaponSkillLevel", "changeSupportSkillLevel", "changeSupProc"], [3, "value"], [1, "resultsLabel"]], template: function GridDisplayComponent_Template(rf, ctx) { if (rf & 1) {
-        const _r33 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+GridDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GridDisplayComponent, selectors: [["app-grid-display"]], inputs: { grid: "grid", gridNum: "gridNum", classType: "classType" }, decls: 39, vars: 12, consts: [["id", "gridDisplayContainer"], ["id", "gridStatsInputContainer"], ["id", "patkInputContainer", 4, "ngIf"], ["id", "matkInputContainer", 4, "ngIf"], ["id", "pdefInputContainer", 4, "ngIf"], ["id", "mdefInputContainer", 4, "ngIf"], ["id", "gridWeaponsContainer"], ["class", "gridWeaponContainer", 4, "ngFor", "ngForOf"], ["id", "gridOptionsContainer"], ["id", "gridOptionButton"], [3, "click"], ["id", "gridOptionSelect"], [1, "selectLabel"], [3, "change"], ["shinmaSelect", ""], [3, "value", 4, "ngFor", "ngForOf"], ["supProcSelect", ""], ["value", "0"], ["value", "1"], [3, "ngModel", "change", "ngModelChange"], ["jobSelect", ""], ["id", "gridFooterContainer"], ["id", "gridResults"], [4, "ngIf"], ["id", "patkInputContainer"], [1, "statsInputLabel"], ["type", "number", "min", "0", 1, "statsInput", 3, "ngModel", "focusout", "ngModelChange"], ["patkInput", ""], ["id", "matkInputContainer"], ["matkInput", ""], ["id", "pdefInputContainer"], ["pdefInput", ""], ["id", "mdefInputContainer"], ["mdefInput", ""], [1, "gridWeaponContainer"], [3, "weapon", "supProc", "className", "clickWeaponEmit", "changeWeaponSkillLevel", "changeSupportSkillLevel", "changeSupProc"], [3, "value"], [1, "resultsLabel"]], template: function GridDisplayComponent_Template(rf, ctx) { if (rf & 1) {
+        const _r37 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, GridDisplayComponent_div_2_Template, 5, 0, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, GridDisplayComponent_div_3_Template, 5, 0, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, GridDisplayComponent_div_4_Template, 5, 0, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, GridDisplayComponent_div_5_Template, 5, 0, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, GridDisplayComponent_div_2_Template, 5, 1, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, GridDisplayComponent_div_3_Template, 5, 1, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, GridDisplayComponent_div_4_Template, 5, 1, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, GridDisplayComponent_div_5_Template, 5, 1, "div", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, GridDisplayComponent_div_7_Template, 2, 3, "div", 7);
@@ -2286,14 +2311,14 @@ GridDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16, " Shinma ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "select", 13, 14);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridDisplayComponent_Template_select_change_17_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r33); const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](18); return ctx.updateShinma(_r5.value); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridDisplayComponent_Template_select_change_17_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r37); const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](18); return ctx.updateShinma(_r5.value); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](19, GridDisplayComponent_option_19_Template, 2, 2, "option", 15);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "label", 12);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](21, " Support Skill ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "select", 13, 16);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridDisplayComponent_Template_select_change_22_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r33); const _r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](23); return ctx.updateGridSupProc(_r7.value); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridDisplayComponent_Template_select_change_22_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r37); const _r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](23); return ctx.updateGridSupProc(_r7.value); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "option", 17);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, "Average");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2304,17 +2329,17 @@ GridDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "label", 12);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](29, " Job ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "select", 13, 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridDisplayComponent_Template_select_change_30_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r33); const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](31); return ctx.updateJob(_r8.value); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "select", 19, 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function GridDisplayComponent_Template_select_change_30_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r37); const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](31); return ctx.updateJob(_r8.value); })("ngModelChange", function GridDisplayComponent_Template_select_ngModelChange_30_listener($event) { return ctx.grid.job = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](32, GridDisplayComponent_option_32_Template, 2, 2, "option", 15);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "div", 20);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "div", 21);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](35, GridDisplayComponent_ng_container_35_Template, 3, 0, "ng-container", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](36, GridDisplayComponent_ng_container_36_Template, 3, 0, "ng-container", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](37, GridDisplayComponent_ng_container_37_Template, 3, 0, "ng-container", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "div", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "div", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](35, GridDisplayComponent_ng_container_35_Template, 3, 0, "ng-container", 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](36, GridDisplayComponent_ng_container_36_Template, 3, 0, "ng-container", 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](37, GridDisplayComponent_ng_container_37_Template, 3, 0, "ng-container", 23);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](38);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2332,7 +2357,9 @@ GridDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.grid.weapons);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](12);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.shinma);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.grid.job);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.jobs);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.className == "vanguard");
@@ -2342,7 +2369,7 @@ GridDisplayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.className == "minsorc");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx.grid.results.total.toLocaleString(), " ");
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵangular_packages_forms_forms_x"], _grid_weapon_display_grid_weapon_display_component__WEBPACK_IMPORTED_MODULE_8__["GridWeaponDisplayComponent"]], styles: ["#gridDisplayContainer[_ngcontent-%COMP%] {\r\n  display: inline-block;\r\n  background-color: rgb(240, 240, 240);\r\n  border-radius: 10px;\r\n  padding: 30px;\r\n  margin: 25px 0px 0px 50px;\r\n}\r\n\r\n#gridStatsInputContainer[_ngcontent-%COMP%] {\r\n  display: flex;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.statsInputLabel[_ngcontent-%COMP%] {\r\n  margin-right: 5px;\r\n  margin-left: 10px;\r\n  font-weight: bold;\r\n}\r\n\r\n.statsInput[_ngcontent-%COMP%] {\r\n  width: 100px;\r\n}\r\n\r\n.gridWeaponContainer[_ngcontent-%COMP%] {\r\n  display: block;\r\n  margin: 0px 2px;\r\n}\r\n\r\n#gridWeaponsContainer[_ngcontent-%COMP%] {\r\n  width: 658px;\r\n  height: 670px;\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  align-content: flex-start;\r\n}\r\n\r\n#gridOptionsContainer[_ngcontent-%COMP%] {\r\n  margin-top: 10px;\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n}\r\n\r\n.selectLabel[_ngcontent-%COMP%] {\r\n  margin-left: 10px;\r\n  margin-right: 5px;\r\n  font-weight: bold;\r\n}\r\n\r\n#gridResults[_ngcontent-%COMP%] {\r\n  margin-top: 15px;\r\n  font-size: 150%;\r\n}\r\n\r\nbutton[_ngcontent-%COMP%] {\r\n  margin-right: 10px;\r\n}\r\n\r\n.resultsLabel[_ngcontent-%COMP%] {\r\n  font-weight: bold;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdyaWQtZGlzcGxheS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UscUJBQXFCO0VBQ3JCLG9DQUFvQztFQUNwQyxtQkFBbUI7RUFDbkIsYUFBYTtFQUNiLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLGFBQWE7RUFDYixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxpQkFBaUI7RUFDakIsaUJBQWlCO0VBQ2pCLGlCQUFpQjtBQUNuQjs7QUFFQTtFQUNFLFlBQVk7QUFDZDs7QUFFQTtFQUNFLGNBQWM7RUFDZCxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYixhQUFhO0VBQ2IsZUFBZTtFQUNmLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLGdCQUFnQjtFQUNoQixhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7RUFDakIsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGVBQWU7QUFDakI7O0FBRUE7RUFDRSxrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSxpQkFBaUI7QUFDbkIiLCJmaWxlIjoiZ3JpZC1kaXNwbGF5LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjZ3JpZERpc3BsYXlDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQwLCAyNDAsIDI0MCk7XHJcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcclxuICBwYWRkaW5nOiAzMHB4O1xyXG4gIG1hcmdpbjogMjVweCAwcHggMHB4IDUwcHg7XHJcbn1cclxuXHJcbiNncmlkU3RhdHNJbnB1dENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBtYXJnaW4tYm90dG9tOiAyMHB4O1xyXG59XHJcblxyXG4uc3RhdHNJbnB1dExhYmVsIHtcclxuICBtYXJnaW4tcmlnaHQ6IDVweDtcclxuICBtYXJnaW4tbGVmdDogMTBweDtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuLnN0YXRzSW5wdXQge1xyXG4gIHdpZHRoOiAxMDBweDtcclxufVxyXG5cclxuLmdyaWRXZWFwb25Db250YWluZXIge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIG1hcmdpbjogMHB4IDJweDtcclxufVxyXG5cclxuI2dyaWRXZWFwb25zQ29udGFpbmVyIHtcclxuICB3aWR0aDogNjU4cHg7XHJcbiAgaGVpZ2h0OiA2NzBweDtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtd3JhcDogd3JhcDtcclxuICBhbGlnbi1jb250ZW50OiBmbGV4LXN0YXJ0O1xyXG59XHJcblxyXG4jZ3JpZE9wdGlvbnNDb250YWluZXIge1xyXG4gIG1hcmdpbi10b3A6IDEwcHg7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxufVxyXG5cclxuLnNlbGVjdExhYmVsIHtcclxuICBtYXJnaW4tbGVmdDogMTBweDtcclxuICBtYXJnaW4tcmlnaHQ6IDVweDtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuI2dyaWRSZXN1bHRzIHtcclxuICBtYXJnaW4tdG9wOiAxNXB4O1xyXG4gIGZvbnQtc2l6ZTogMTUwJTtcclxufVxyXG5cclxuYnV0dG9uIHtcclxuICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbn1cclxuXHJcbi5yZXN1bHRzTGFiZWwge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcbiJdfQ== */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["DefaultValueAccessor"], _grid_weapon_display_grid_weapon_display_component__WEBPACK_IMPORTED_MODULE_8__["GridWeaponDisplayComponent"]], styles: ["#gridDisplayContainer[_ngcontent-%COMP%] {\r\n  display: inline-block;\r\n  background-color: rgb(240, 240, 240);\r\n  border-radius: 10px;\r\n  padding: 30px;\r\n  margin: 25px 0px 0px 50px;\r\n}\r\n\r\n#gridStatsInputContainer[_ngcontent-%COMP%] {\r\n  display: flex;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.statsInputLabel[_ngcontent-%COMP%] {\r\n  margin-right: 5px;\r\n  margin-left: 10px;\r\n  font-weight: bold;\r\n}\r\n\r\n.statsInput[_ngcontent-%COMP%] {\r\n  width: 100px;\r\n}\r\n\r\n.gridWeaponContainer[_ngcontent-%COMP%] {\r\n  display: block;\r\n  margin: 0px 2px;\r\n}\r\n\r\n#gridWeaponsContainer[_ngcontent-%COMP%] {\r\n  width: 658px;\r\n  height: 670px;\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  align-content: flex-start;\r\n}\r\n\r\n#gridOptionsContainer[_ngcontent-%COMP%] {\r\n  margin-top: 10px;\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n}\r\n\r\n.selectLabel[_ngcontent-%COMP%] {\r\n  margin-left: 10px;\r\n  margin-right: 5px;\r\n  font-weight: bold;\r\n}\r\n\r\n#gridResults[_ngcontent-%COMP%] {\r\n  margin-top: 15px;\r\n  font-size: 150%;\r\n}\r\n\r\nbutton[_ngcontent-%COMP%] {\r\n  margin-right: 10px;\r\n}\r\n\r\n.resultsLabel[_ngcontent-%COMP%] {\r\n  font-weight: bold;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdyaWQtZGlzcGxheS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UscUJBQXFCO0VBQ3JCLG9DQUFvQztFQUNwQyxtQkFBbUI7RUFDbkIsYUFBYTtFQUNiLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLGFBQWE7RUFDYixtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxpQkFBaUI7RUFDakIsaUJBQWlCO0VBQ2pCLGlCQUFpQjtBQUNuQjs7QUFFQTtFQUNFLFlBQVk7QUFDZDs7QUFFQTtFQUNFLGNBQWM7RUFDZCxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYixhQUFhO0VBQ2IsZUFBZTtFQUNmLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLGdCQUFnQjtFQUNoQixhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLDhCQUE4QjtBQUNoQzs7QUFFQTtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7RUFDakIsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGVBQWU7QUFDakI7O0FBRUE7RUFDRSxrQkFBa0I7QUFDcEI7O0FBRUE7RUFDRSxpQkFBaUI7QUFDbkIiLCJmaWxlIjoiZ3JpZC1kaXNwbGF5LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjZ3JpZERpc3BsYXlDb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQwLCAyNDAsIDI0MCk7XHJcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcclxuICBwYWRkaW5nOiAzMHB4O1xyXG4gIG1hcmdpbjogMjVweCAwcHggMHB4IDUwcHg7XHJcbn1cclxuXHJcbiNncmlkU3RhdHNJbnB1dENvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBtYXJnaW4tYm90dG9tOiAyMHB4O1xyXG59XHJcblxyXG4uc3RhdHNJbnB1dExhYmVsIHtcclxuICBtYXJnaW4tcmlnaHQ6IDVweDtcclxuICBtYXJnaW4tbGVmdDogMTBweDtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuLnN0YXRzSW5wdXQge1xyXG4gIHdpZHRoOiAxMDBweDtcclxufVxyXG5cclxuLmdyaWRXZWFwb25Db250YWluZXIge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIG1hcmdpbjogMHB4IDJweDtcclxufVxyXG5cclxuI2dyaWRXZWFwb25zQ29udGFpbmVyIHtcclxuICB3aWR0aDogNjU4cHg7XHJcbiAgaGVpZ2h0OiA2NzBweDtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtd3JhcDogd3JhcDtcclxuICBhbGlnbi1jb250ZW50OiBmbGV4LXN0YXJ0O1xyXG59XHJcblxyXG4jZ3JpZE9wdGlvbnNDb250YWluZXIge1xyXG4gIG1hcmdpbi10b3A6IDEwcHg7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxufVxyXG5cclxuLnNlbGVjdExhYmVsIHtcclxuICBtYXJnaW4tbGVmdDogMTBweDtcclxuICBtYXJnaW4tcmlnaHQ6IDVweDtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuI2dyaWRSZXN1bHRzIHtcclxuICBtYXJnaW4tdG9wOiAxNXB4O1xyXG4gIGZvbnQtc2l6ZTogMTUwJTtcclxufVxyXG5cclxuYnV0dG9uIHtcclxuICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbn1cclxuXHJcbi5yZXN1bHRzTGFiZWwge1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcbiJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](GridDisplayComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -2738,12 +2765,24 @@ class WeaponSelectComponent {
             this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].DeleteGrid(this.gridNum));
             this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].AddGrid());
             this.store.dispatch(new _state_weapon_list_actions__WEBPACK_IMPORTED_MODULE_2__["WeaponListActions"].SelectWeapons(grid));
+            this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].UpdatePAtk(this.gridNum, grid.patk));
+            this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].UpdateMAtk(this.gridNum, grid.matk));
+            this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].UpdatePDef(this.gridNum, grid.pdef));
+            this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].UpdateMDef(this.gridNum, grid.mdef));
+            this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].UpdateJob(this.gridNum, grid.job));
             this.numSelected = 0;
             for (const listWeapon of this.weapons) {
                 if (listWeapon.selected) {
-                    this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].AddToGrid(listWeapon, weapons[this.numSelected].selectedRarity, this.gridNum));
-                    this.grid.weapons[this.numSelected - 1].weaponSkillLevel = weapons[this.numSelected - 1].weaponSkillLevel;
-                    this.grid.weapons[this.numSelected - 1].supportSkillLevel = weapons[this.numSelected - 1].supportSkillLevel;
+                    let selectedIndex = 0;
+                    for (const weapon of weapons) {
+                        if (listWeapon.weaponName === weapon.weaponInfo.weaponName) {
+                            break;
+                        }
+                        selectedIndex++;
+                    }
+                    this.store.dispatch(new _state_weapon_grid_actions__WEBPACK_IMPORTED_MODULE_4__["WeaponGridActions"].AddToGrid(listWeapon, weapons[selectedIndex].selectedRarity, this.gridNum));
+                    this.grid.weapons[this.numSelected - 1].weaponSkillLevel = weapons[selectedIndex].weaponSkillLevel;
+                    this.grid.weapons[this.numSelected - 1].supportSkillLevel = weapons[selectedIndex].supportSkillLevel;
                 }
             }
         };
